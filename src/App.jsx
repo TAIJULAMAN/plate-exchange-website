@@ -5,6 +5,8 @@ import Hero from './components/Home/Hero/Hero';
 import Review from './components/Home/Review/Review';
 import HowItWorks from './components/Home/HowItWorks/HowItWorks';
 import Banner from './components/Home/Banner/Banner';
+import NewlyListedPlates from './components/Home/NewlyListedPlates/NewlyListedPlates';
+import PricingPlans from './components/Home/PricingPlans/PricingPlans';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
       <Banner />
       <HowItWorks />
       <Review />
+      <NewlyListedPlates />
+      <PricingPlans />
     </div>
   );
 }
