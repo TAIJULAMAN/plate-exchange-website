@@ -18,10 +18,8 @@ export default function Navbar() {
                     {/* Logo */}
                     <div className="flex-shrink-0">
                         <div className="flex items-center">
-                            <h1 className="text-2xl font-bold text-white">
-                                PlateExchange
-                            </h1>
-                            <div className="ml-1 w-16 h-1 bg-yellow-400 rounded-full"></div>
+                            <img src="/logo.png" alt="website logo" className="w-full h-full" />
+                            {/* <div className="ml-1 w-16 h-1 bg-yellow-400 rounded-full"></div> */}
                         </div>
                     </div>
 
