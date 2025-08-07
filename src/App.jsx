@@ -7,6 +7,8 @@ import HowItWorks from './components/Home/HowItWorks/HowItWorks';
 import Banner from './components/Home/Banner/Banner';
 import NewlyListedPlates from './components/Home/NewlyListedPlates/NewlyListedPlates';
 import PricingPlans from './components/Home/PricingPlans/PricingPlans';
+import HelpfulGuides from './components/Home/HelpfulGuides/HelpfulGuides';
+import FAQSection from './components/Home/FAQSection/FAQSection';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
       <Review />
       <NewlyListedPlates />
       <PricingPlans />
+      <HelpfulGuides />
+      <FAQSection />
     </div>
   );
 }
