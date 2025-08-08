@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('./assets/fonts/CharlesWright-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
