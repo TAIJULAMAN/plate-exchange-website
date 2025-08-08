@@ -26,7 +26,7 @@ export default function Footer() {
     return (
         <footer className="bg-[#3C3D37] text-white">
             {/* Header Section */}
-            <div className="max-w-7xl mx-auto px-4 py-8">
+            <div className="container mx-auto px-4 py-8">
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8">
                     <h2 className="text-2xl md:text-3xl font-bold">
                         The private numberplate marketplace
