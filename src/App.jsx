@@ -9,6 +9,9 @@ import NewlyListedPlates from './components/Home/NewlyListedPlates/NewlyListedPl
 import PricingPlans from './components/Home/PricingPlans/PricingPlans';
 import HelpfulGuides from './components/Home/HelpfulGuides/HelpfulGuides';
 import FAQSection from './components/Home/FAQSection/FAQSection';
+import Footer from './shared/Footer/Footer';
+import SellNumberPlate from './components/SellNumberPlate/SellNumberPlate';
+import BuyNumberPlates from './components/BuyNumberPlates/BuyNumberPlates';
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
       <PricingPlans />
       <HelpfulGuides />
       <FAQSection />
+      <Footer />
+      <SellNumberPlate />
+      <BuyNumberPlates />
     </div>
   );
 }
