@@ -12,6 +12,7 @@ import FAQSection from './components/Home/FAQSection/FAQSection';
 import Footer from './shared/Footer/Footer';
 import SellNumberPlate from './components/SellNumberPlate/SellNumberPlate';
 import BuyNumberPlates from './components/BuyNumberPlates/BuyNumberPlates';
+import PlateView from './pages/PlateView/PlateView';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Footer />
       <SellNumberPlate />
       <BuyNumberPlates />
+      <PlateView />
     </div>
   );
 }
