@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Search, Star, PoundSterling, Users, RefreshCw } from "lucide-react";
 import { IoIosStar } from "react-icons/io";
+import LikeIconAndText from "../../../shared/Hero/LikeIconandtext";
 
 export default function Hero() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,8 +12,26 @@ export default function Hero() {
     console.log("Searching for:", searchTerm);
   };
 
+
+  const features = [
+    {
+      imgSrc: "https://i.ibb.co.com/WvbNG4wC/image.png",
+      text: "We charge only £10",
+    },
+    {
+      imgSrc: "https://i.ibb.co.com/C5rdz3s8/image.png",
+      text: "No middleman (save up to 30%)",
+    },
+    {
+      imgSrc: "https://i.ibb.co.com/C32DzLYz/image.png",
+      text: "Buyer and seller deal directly with each other",
+    },
+  ];
+
+
+
   return (
-    <div className="max-w-5xl mx-auto px-4 py-16 font-manrope">
+    <div className="max-w-6xl mx-auto px-4 py-16 font-manrope">
       {/* Main Content */}
       {/* Header Section */}
       <div className="text-center mb-16 text-4xl md:text-6xl font-normal">
@@ -66,37 +85,11 @@ export default function Hero() {
       </div>
 
       {/* Features Section */}
-      <div className="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
-        {/* Feature 1 */}
-        <div className="text-center">
-          <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-md">
-            <PoundSterling className="w-8 h-8 text-gray-700" />
-          </div>
-          <h3 className="font-semibold text-gray-800 text-lg mb-2">
-            We charge only £10
-          </h3>
-        </div>
-
-        {/* Feature 2 */}
-        <div className="text-center">
-          <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-md">
-            <Users className="w-8 h-8 text-gray-700" />
-          </div>
-          <h3 className="font-semibold text-gray-800 text-lg mb-2">
-            No middleman (save up to 30%)
-          </h3>
-        </div>
-
-        {/* Feature 3 */}
-        <div className="text-center">
-          <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-md">
-            <RefreshCw className="w-8 h-8 text-gray-700" />
-          </div>
-          <h3 className="font-semibold text-gray-800 text-lg mb-2">
-            Buyer and seller deal directly with each other
-          </h3>
-        </div>
-      </div>
+ <div className="grid md:grid-cols-3 gap-8 max-w-8xl mx-auto mt-12">
+      {features.map((feature, index) => (
+        <LikeIconAndText key={index} imgSrc={feature.imgSrc} text={feature.text} />
+      ))}
+    </div>
 
       {/* Bottom spacing */}
       <div className="h-16"></div>
