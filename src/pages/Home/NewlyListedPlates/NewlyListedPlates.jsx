@@ -7,7 +7,7 @@ export default function NewlyListedPlates() {
     })
 
     return (
-        <div className="px-4 py-12">
+        <div className="px-4 py-12 ">
             {/* Header Section */}
             <div className="text-center mb-12">
                 <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -24,9 +24,9 @@ export default function NewlyListedPlates() {
                     <div key={index} className="p-6 bg-white shadow-md hover:shadow-lg transition-shadow duration-200 rounded-lg">
                         <div className="flex items-center justify-between">
                             {/* License Plate */}
-                            <div className="bg-yellow-400 px-4 py-2 rounded border-2 border-black">
-                                <span className="text-black font-bold text-xl tracking-wider">
-                                    {plate.plateNumber}
+                            <div className="bg-yellow-400 px-4 py-2 rounded border-2 border-black ">
+                                <span className="text-black font-bold text-xl tracking-wider font-mycustom">
+                                    {plate.plateNumber}J
                                 </span>
                             </div>
 

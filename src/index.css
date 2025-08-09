@@ -1,1 +1,16 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+/* Local font */
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('./assets/fonts/CharlesWright-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme {
+  --font-mycustom: MyCustomFont, sans-serif;
+  --font-manrope: Manrope, sans-serif;
+  --color-custom-yellow: #FFCD0F;
+}
