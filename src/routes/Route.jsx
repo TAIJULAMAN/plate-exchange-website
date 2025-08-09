@@ -16,6 +16,10 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
+        path: "sell-a-plate",
+        element: <>asdf</>,
+      },
+      {
         path: "plate-view",
         element: <PlateView></PlateView>,
       }

@@ -13,18 +13,16 @@ function App() {
     <>
       <div className="container mx-auto">
         <Hero />
+      </div>
         <Banner />
         <HowItWorks />
+      <div className="container mx-auto">
         <Review />
         <NewlyListedPlates />
         <PricingPlans />
         <HelpfulGuides />
         <FAQSection />
-      
-        {/* <SellNumberPlate />
-        <BuyNumberPlates />
-        <PlateView /> */}
-      </div>
+        </div>
     </>
   );
 }
