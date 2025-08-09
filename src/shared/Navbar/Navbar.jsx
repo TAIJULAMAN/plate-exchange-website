@@ -31,7 +31,7 @@ export default function Navbar() {
 
     return (
         <nav className="bg-[#3c3d37] text-white shadow-lg">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-4">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
                     <div className="flex-shrink-0">

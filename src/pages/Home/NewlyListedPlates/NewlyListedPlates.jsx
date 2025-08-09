@@ -25,7 +25,7 @@ export default function NewlyListedPlates() {
                         <div className="flex items-center justify-between">
                             {/* License Plate */}
                             <div className="bg-yellow-400 px-4 py-2 rounded border-2 border-black ">
-                                <span className="text-black font-bold text-xl tracking-wider"   style={{ fontFamily: 'MyCustomFont' }}  >
+                                <span className="text-black font-bold text-xl tracking-wider font-mycustom">
                                     {plate.plateNumber}J
                                 </span>
                             </div>
