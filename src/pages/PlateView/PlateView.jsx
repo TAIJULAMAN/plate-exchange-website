@@ -2,11 +2,9 @@ import React from 'react'
 import { useState } from 'react'
 import { Upload, Download, RotateCcw } from 'lucide-react'
 
-
 export default function PlateView() {
     const [selectedView, setSelectedView] = useState('rear')
-    // const [hideControlPoints, setHideControlPoints] = useState(false)
-    // const [paymentsByPlate, setPaymentsByPlate] = useState(false)
+    const [hideControlPoints, setHideControlPoints] = useState(false)
 
     const carImages = [
         { id: 'upload', type: 'upload', src: null },
@@ -30,90 +28,126 @@ export default function PlateView() {
     }
 
     return (
-        <div className="container mx-auto p-6 bg-white">
+        <div className="container mx-auto p-6 min-h-screen font-manrope my-12">
             {/* Header */}
-            <div className="text-center mb-6">
-                <h1 className="text-2xl font-bold text-gray-900 mb-2">Plate View</h1>
-                <p className="text-sm text-gray-600">
-                    Preview your customized vehicle plate views using AI for free & fast
+            <div className="text-center mb-8">
+                <h1 className="text-3xl md:text-6xl font-medium text-gray-900 mb-6">Plate View</h1>
+                <p className="text-gray-900">
+                    Preview your customised number plate before listing it for sale & buy
                 </p>
             </div>
 
-            {/* Main Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Main Image Section */}
+            {/* Main Content Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Main Image Section - Takes 2/3 of the width */}
                 <div className="lg:col-span-2">
-                    <div className="relative bg-gray-100 rounded-lg overflow-hidden mb-4">
+                    <div className="relative bg-white rounded-lg overflow-hidden shadow-sm mb-6">
                         <img
                             src="/black-mclaren-p1-oov.png"
                             alt="Car with number plate preview"
-                            className="w-full h-64 md:h-80 object-cover"
+                            className="w-full h-96 object-cover"
                         />
                     </div>
+                </div>
+
+                {/* Controls Section - Takes 1/3 of the width */}
+                <div className="space-y-6">
+                    {/* License Plate Display */}
+         
+
+                    <div className="bg-[#fad549] px-6 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] text-center">
+  <span className="text-black font-bold text-5xl tracking-wider font-mycustom">
+     P1J00V
+  </span>
+</div>
 
                     {/* View Toggle Buttons */}
-                    <div className="flex gap-2 mb-4">
+                    <div className="flex gap-3">
                         <button
                             onClick={() => setSelectedView('rear')}
-                            className={`px-6 py-2 rounded-full font-medium ${selectedView === 'rear'
-                                ? 'bg-yellow-500 text-black hover:bg-yellow-600'
-                                : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                            className={`flex-1 px-4 py-2 rounded-full font-semibold text-2xl ${selectedView === 'rear'
+                                ? 'bg-yellow-400 text-black'
+                                : 'bg-white text-gray-700 border border-gray-300'
                                 }`}
                         >
                             Rear
                         </button>
                         <button
                             onClick={() => setSelectedView('front')}
-                            className={`px-6 py-2 rounded-full font-medium ${selectedView === 'front'
-                                ? 'bg-yellow-500 text-black hover:bg-yellow-600'
-                                : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                            className={`flex-1 px-4 py-2 rounded-full font-semibold text-2xl ${selectedView === 'front'
+                                ? 'bg-yellow-400 text-black'
+                                : 'bg-white text-gray-700 border border-gray-300'
                                 }`}
                         >
                             Front
                         </button>
                     </div>
-                </div>
 
-                {/* Controls Section */}
-                <div className="space-y-4">
+                    {/* Hide Control Points Checkbox */}
+                    <div className="flex items-center space-x-3">
+                        <input
+                            type="checkbox"
+                            id="hideControlPoints"
+                            checked={hideControlPoints}
+                            onChange={(e) => setHideControlPoints(e.target.checked)}
+                            className="size-5 text-blue-600 rounded"
+                        />
+                        <label htmlFor="hideControlPoints" className="text-xl font-medium text-gray-700">
+                            Hide corner control points
+                        </label>
+                    </div>
+
+                    {/* Brightness Slider */}
+                    <div className="space-y-2">
+                        <label className="text-xl text-gray-700 font-medium">
+                            Brightness for plate
+                        </label>
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            defaultValue="50"
+                            className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer slider"
+                        />
+                    </div>
 
                     {/* Action Buttons */}
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                         <button
                             onClick={handleResetPlate}
-                            className="w-full bg-yellow-500 text-black font-medium"
+                            className="w-full font-bold text-3xl bg-yellow-400 hover:bg-yellow-500 text-black py-3 px-4 rounded-md flex items-center justify-center space-x-2 transition-colors"
                         >
-                            <RotateCcw className="w-4 h-4 mr-2" />
-                            Reset Plate
+                           
+                            <span>Reset Plate</span>
                         </button>
                         <button
                             onClick={handleDownloadImage}
-                            className="w-full bg-green-600 text-white font-medium"
+                            className="w-full font-bold text-3xl bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-md flex items-center justify-center space-x-2 transition-colors"
                         >
-                            <Download className="w-4 h-4 mr-2" />
-                            Download Image
+                           
+                            <span>Download Image</span>
                         </button>
                     </div>
                 </div>
             </div>
 
             {/* Car Images Grid */}
-            <div className="mt-8">
+            <div className="mt-12">
                 <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
                     {carImages.map((car) => (
-                        <div key={car.id} className="aspect-square">
+                        <div key={car.id} className="aspect-[4/3]">
                             {car.type === 'upload' ? (
                                 <button
                                     onClick={handleImageUpload}
-                                    className="w-full h-full border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center hover:border-gray-400 hover:bg-gray-50 transition-colors"
+                                    className="w-full h-full border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center hover:border-gray-400 hover:bg-gray-50 transition-colors bg-white"
                                 >
-                                    <Upload className="w-8 h-8 text-gray-400 mb-2" />
-                                    <span className="text-xs text-gray-600 text-center px-2">
+                                    <Upload className="size-12 text-gray-900 mb-1" />
+                                    <span className="text-xl text-gray-900 text-center px-2">
                                         Upload your car image
                                     </span>
                                 </button>
                             ) : (
-                                <button className="w-full h-full rounded-lg overflow-hidden hover:ring-2 hover:ring-blue-500 transition-all">
+                                <button className="w-full h-full rounded-lg overflow-hidden hover:ring-2 hover:ring-blue-400 transition-all bg-white shadow-sm">
                                     <img
                                         src={car.src || "/placeholder.svg"}
                                         alt={`Car view ${car.id}`}
