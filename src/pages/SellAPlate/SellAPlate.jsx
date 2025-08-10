@@ -5,10 +5,14 @@ import HelpfulGuides from '../Home/HelpfulGuides/HelpfulGuides'
 import FAQSection from '../Home/FAQSection/FAQSection'
 import Review from '../Home/Review/Review'
 import SellAPlateHero from './SellAPlateHero'
+import SellsHowItWorks from './SellsHowItWorks'
+import CustomBanner from '../../shared/CustomBanner/CustomBanner'
 export default function SellAPlate() {
   return (
-    <div>
+    <div className="bg-[#f6f6f6] px-5 sm:px-6 lg:px-0 py-16">
       <SellAPlateHero />
+      <CustomBanner title="Trusted by more than ten thousands clients!" />
+      <SellsHowItWorks />
       <Review />
       <NewlyListedPlates />
       <PricingPlans />

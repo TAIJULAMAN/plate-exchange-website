@@ -4,6 +4,7 @@ import Layout from "../layout/Layout";
 import Home from "../pages/Home/Home";
 import PlateView from "../pages/PlateView/PlateView";
 import SellAPlate from "../pages/SellAPlate/SellAPlate";
+import BuyAPlate from "../pages/BuyAPlate/BuyAPlate";
 
 
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "plate-view",
         element: <PlateView></PlateView>,
+      },
+      {
+        path: "/buy-a-plate",
+        element: <BuyAPlate />,
       }
     ],
   },
