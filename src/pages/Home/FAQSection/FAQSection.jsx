@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { Plus, Minus } from 'lucide-react'
 
-export default function FAQSection() {
+export default function FAQSection( { headingShow = true  } ) {
   const [openItems, setOpenItems] = useState([0]) // First item open by default
 
   const faqs = [
@@ -42,14 +42,20 @@ export default function FAQSection() {
 
   return (
     <div 
-      className="bg-[#5587A7] px-4 py-16"
+      className="bg-[#5587A7] px-4 py-16 rounded-2xl shadow-lg"
     >
       <div className="">
         {/* Header */}
         <div className="text-center mb-12">
+
+          {headingShow && (
+          <>
+            
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
             Frequently Asked Questions
           </h1>
+          </>
+          )}
           <div className="w-full h-px bg-white/30 mt-8"></div>
         </div>
 

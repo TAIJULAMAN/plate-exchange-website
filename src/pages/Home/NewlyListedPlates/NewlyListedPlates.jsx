@@ -6,6 +6,7 @@ export default function NewlyListedPlates() {
     plateNumber: "P1JOOV",
     originalPrice: "£643",
     currentPrice: "£643",
+    id: 123
   });
 
   return (
@@ -25,6 +26,7 @@ export default function NewlyListedPlates() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {plates.map((plate, index) => (
           <PlateCard
+          plateId={plate.id}
             key={index}
             plateNumber={plate.plateNumber}
             originalPrice={plate.originalPrice}
