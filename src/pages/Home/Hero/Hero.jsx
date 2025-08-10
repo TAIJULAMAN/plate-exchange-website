@@ -1,19 +1,10 @@
 import React, { useState } from "react";
-import { Search, Star, PoundSterling, Users, RefreshCw } from "lucide-react";
 import { IoIosStar } from "react-icons/io";
 import LikeIconAndText from "../../../shared/Hero/LikeIconandtext";
 import Input from "../../../shared/Input/Input";
 
 export default function Hero() {
   const [searchTerm, setSearchTerm] = useState("");
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    // Handle search functionality here
-    console.log("Searching for:", searchTerm);
-  };
-
-
   const features = [
     {
       imgSrc: "https://i.ibb.co.com/WvbNG4wC/image.png",
@@ -33,7 +24,6 @@ export default function Hero() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-16 font-manrope">
-      {/* Main Content */}
       {/* Header Section */}
       <div className="text-center mb-16 text-4xl md:text-6xl font-normal">
         <h1 className="  text-gray-800 mb-2 leading-tight">

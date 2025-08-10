@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layout/Layout";
 import Home from "../pages/Home/Home";
 import PlateView from "../pages/PlateView/PlateView";
-
+import SellAPlate from "../pages/SellAPlate/SellAPlate";
 
 
 const router = createBrowserRouter([
@@ -16,8 +16,8 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "sell-a-plate",
-        element: <>asdf</>,
+        path: "/sell-a-plate",
+        element: <SellAPlate />,
       },
       {
         path: "plate-view",
