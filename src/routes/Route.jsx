@@ -15,6 +15,7 @@ import AllPlates from "../pages/RecentlySold/AllPlates";
 import GuideAndBlog from "../pages/Guide&Blog/GuideAndBlog";
 import FaqPage from "../pages/Faq/FaqPage";
 import Reviewsandtestimonials from "../pages/Reviewsandtestimonials/Reviewsandtestimonials";
+import BlogDetails from "../pages/Guide&Blog/BlogDetails";
 
 
 
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "guide-and-blog",
         element: <GuideAndBlog></GuideAndBlog>,
+      },
+      {
+        path: "blog/details/:id",
+        element: <BlogDetails></BlogDetails>,
       },
             {
         path: "faq",

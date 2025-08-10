@@ -4,46 +4,47 @@ import BlogCard from "../../shared/BlogCard/BlogCard";
 export default function GuideAndBlog() {
   const [activeTab, setActiveTab] = useState("guides");
 
-  const guides = [
-    {
-      image: "/man.png",
-      title: "How to Buy a Private Number Plate",
-      description:
-        "Learn the essential steps to purchasing your first private number plate, from choosing the right plate to completing the legal process.",
-      link: "/blog/how-to-buy"
-    },
-    {
-      image: "/man.png",
-      title: "Number Plate Formats Explained",
-      description:
-        "Understand the UK number plate formats, including current style, suffix, prefix, and dateless registrations.",
-      link: "/blog/formats-explained"
-    },
-        {
-      image: "/man.png",
-      title: "Number Plate Formats Explained",
-      description:
-        "Understand the UK number plate formats, including current style, suffix, prefix, and dateless registrations.",
-      link: "/blog/formats-explained"
-    }
-  ];
+const guides = [
+  {
+    id: "123",
+    image: "/man.png",
+    title: "How to Buy a Private Number Plate",
+    description: "Learn the essential steps to purchasing your first private number plate, from choosing the right plate to completing the legal process.",
+    link: "/blog/how-to-buy"
+  },
+  {
+    id: "124",
+    image: "/man.png",
+    title: "Number Plate Formats Explained",
+    description: "Understand the UK number plate formats, including current style, suffix, prefix, and dateless registrations.",
+    link: "/blog/formats-explained"
+  },
+  {
+    id: "125",
+    image: "/man.png",
+    title: "Number Plate History & Styles",
+    description: "A short history of UK plates and how styles have changed over time.",
+    link: "/blog/history"
+  }
+];
 
-  const blogs = [
-    {
-      image: "/man.png",
-      title: "Selling Your Number Plate: A Complete Guide",
-      description:
-        "Maximise your plate's value with our selling tips — from valuation to marketing, and the final transfer process.",
-      link: "/blog/selling-guide"
-    },
-    {
-      image: "/man.png",
-      title: "Top 10 Most Expensive Number Plates Sold",
-      description:
-        "A look at the rarest and most expensive number plates ever sold, and what makes them so valuable.",
-      link: "/blog/top-plates"
-    }
-  ];
+const blogs = [
+  {
+    id: "201",
+    image: "/man.png",
+    title: "Selling Your Number Plate: A Complete Guide",
+    description: "Maximise your plate's value with our selling tips — from valuation to marketing, and the final transfer process.",
+    link: "/blog/selling-guide"
+  },
+  {
+    id: "202",
+    image: "/man.png",
+    title: "Top 10 Most Expensive Number Plates Sold",
+    description: "A look at the rarest and most expensive number plates ever sold, and what makes them so valuable.",
+    link: "/blog/top-plates"
+  }
+];
+
 
   const getActiveData = () => {
     if (activeTab === "guides") return guides;
@@ -93,7 +94,7 @@ export default function GuideAndBlog() {
       {/* Blog Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {getActiveData().map((article, index) => (
-          <BlogCard key={index} article={article} />
+          <BlogCard key={index} article={article}  />
         ))}
       </div>
     </div>
