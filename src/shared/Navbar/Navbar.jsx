@@ -23,7 +23,8 @@ export default function Navbar() {
         { path: "/about", name: "About Us" },
         { path: "/contact", name: "Contact" },
         { path: "/faq", name: "FAQ" },
-        { path: "/terms", name: "Terms & Conditions" },
+        { path: "/privacy-policy", name: "Privacy Policy" },
+        { path: "/terms-conditions", name: "Terms & Conditions" },
     ];
 
     // Combined items for mobile menu
