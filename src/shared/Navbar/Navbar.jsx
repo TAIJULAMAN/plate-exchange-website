@@ -13,7 +13,7 @@ export default function Navbar() {
     const mainMenuItems = [
         { path: "/", name: "Home", end: true },
         { path: "/sell-a-plate", name: "Sell a Plate" },
-        { path: "/buy", name: "Buy a Plate" },
+        { path: "/buy-a-plate", name: "Buy a Plate" },
         { path: "/plate-view", name: "Plate View" },
         { path: "/recently-sold", name: "Recently Sold" },
     ];
