@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function PlateCard({ plateNumber,  currentPrice }) {
+export default function PlateCard({ plateNumber,  currentPrice, plateId }) {
+  const navigate = useNavigate();
   return (
 <div className="p-6 bg-white rounded-lg shadow-[2px_2px_8px_rgba(0,0,0,0.20)] hover:shadow-[6px_6px_14px_rgba(0,0,0,0.2)] transition-shadow duration-200">
       <div className="flex items-center justify-center gap-6">
@@ -22,7 +24,9 @@ export default function PlateCard({ plateNumber,  currentPrice }) {
               {currentPrice}
             </span>
           </div>
-          <button className="bg-[#00823A] hover:bg-green-700 text-white px-6 py-2 rounded-md text-md cursor-pointer transition-colors">
+          <button
+          onClick={() => navigate(`/plate-details/${plateId}`)}
+          className="bg-[#00823A] hover:bg-green-700 text-white px-6 py-2 rounded-md text-md cursor-pointer transition-colors">
             View
           </button>
         </div>
