@@ -15,6 +15,7 @@ import AllPlates from "../pages/RecentlySold/AllPlates";
 import GuideAndBlog from "../pages/Guide&Blog/GuideAndBlog";
 import FaqPage from "../pages/Faq/FaqPage";
 import Reviewsandtestimonials from "../pages/Reviewsandtestimonials/Reviewsandtestimonials";
+import BlogDetails from "../pages/Guide&Blog/BlogDetails";
 
 import Login from "../pages/Auth/Login";
 import ForgetPassword from "../pages/Auth/ForgetPassword";
@@ -78,6 +79,11 @@ const router = createBrowserRouter([
         element: <GuideAndBlog></GuideAndBlog>,
       },
       {
+
+        path: "blog/details/:id",
+        element: <BlogDetails></BlogDetails>,
+      },
+            {
         path: "faq",
         element: <FaqPage></FaqPage>
       },

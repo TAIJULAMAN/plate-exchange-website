@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import React from 'react'
 import { MdOutlineArrowOutward } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 export default function BlogCard({ article }) {
     return (
         <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
@@ -24,13 +25,13 @@ export default function BlogCard({ article }) {
                 </p>
 
                 {/* Read Article Link */}
-                <a
-                    href={article.link}
-                    className="inline-flex items-center gap-2 text-gray-900 font-semibold hover:text-gray-700 transition-colors duration-200 group"
-                >
-                    Read Article
-                    <MdOutlineArrowOutward className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-                </a>
+                  <Link
+          to={`/blog/details/${article.id}`}
+          className="inline-flex items-center gap-2 text-gray-900 font-semibold hover:text-gray-700 transition-colors duration-200 group"
+        >
+          Read Article
+          <MdOutlineArrowOutward className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+        </Link>
             </div>
         </div>
     );
