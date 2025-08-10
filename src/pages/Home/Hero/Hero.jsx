@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Search, Star, PoundSterling, Users, RefreshCw } from "lucide-react";
 import { IoIosStar } from "react-icons/io";
 import LikeIconAndText from "../../../shared/Hero/LikeIconandtext";
+import Input from "../../../shared/Input/Input";
 
 export default function Hero() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -53,22 +54,13 @@ export default function Hero() {
 
       {/* Search Section */}
       <div className="bg-[#ecedef] rounded-lg shadow-sm py-12 px-4 mb-6 max-w-[600px] mx-auto">
-        <form onSubmit={handleSearch} className="flex">
-          <input
-            type="text"
-            placeholder="SEARCH PLATE"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 px-4 py-3 border border-x-0 border-l-1 border-gray-600 rounded-l-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-center font-medium text-gray-700"
-          />
-          <button
-            type="submit"
-            className="bg-[#00823A] hover:bg-green-700 text-white px-6 py-3 rounded-r-md transition-colors duration-200 flex items-center justify-center"
-          >
-            <Search className="w-5 h-5" />
-          </button>
-        </form>
-
+        {/* input */}
+        <Input
+          type="text"
+          placeholder="SEARCH PLATE"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
         {/* Trustpilot Reviews */}
         <div className="mt-6 flex items-center justify-center">
           <IoIosStar className="size-10 text-[#00823a] fill-current" />
@@ -85,11 +77,11 @@ export default function Hero() {
       </div>
 
       {/* Features Section */}
- <div className="grid md:grid-cols-3 gap-8 max-w-8xl mx-auto mt-12">
-      {features.map((feature, index) => (
-        <LikeIconAndText key={index} imgSrc={feature.imgSrc} text={feature.text} />
-      ))}
-    </div>
+      <div className="grid md:grid-cols-3 gap-10 max-w-9xl mx-auto mt-10">
+        {features.map((feature, index) => (
+          <LikeIconAndText key={index} imgSrc={feature.imgSrc} text={feature.text} />
+        ))}
+      </div>
 
       {/* Bottom spacing */}
       <div className="h-16"></div>

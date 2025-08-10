@@ -3,11 +3,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        mycustom: ['MyCustomFont', 'sans-serif'], // your local font
-        manrope: ['Manrope', 'sans-serif'], // Google font
-      },
+        mycustom: ['MyCustomFont', 'sans-serif'], 
+        manrope: ['Manrope', 'sans-serif'],
+            },
       colors: {
-        customYellow: '#FFCD0F', // your custom color
+        customYellow: '#FFCD0F', 
       },
     },
   },
