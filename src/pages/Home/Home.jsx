@@ -16,9 +16,9 @@ function App() {
       </div>
         <Banner />
         <HowItWorks />
-      <div className="container mx-auto">
         <Review />
         <NewlyListedPlates />
+      <div className="container mx-auto">
         <PricingPlans />
         <HelpfulGuides />
         <FAQSection />

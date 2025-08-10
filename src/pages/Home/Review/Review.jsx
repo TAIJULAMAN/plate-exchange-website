@@ -82,10 +82,10 @@ export default function Review() {
     ));
   };
 
-  const getCurrentSlideTestimonials = () => {
-    const startIndex = currentSlide * itemsPerSlide;
-    return testimonials.slice(startIndex, startIndex + itemsPerSlide);
-  };
+  // const getCurrentSlideTestimonials = () => {
+  //   const startIndex = currentSlide * itemsPerSlide;
+  //   return testimonials.slice(startIndex, startIndex + itemsPerSlide);
+  // };
 
   return (
     <section className="bg-white py-16">

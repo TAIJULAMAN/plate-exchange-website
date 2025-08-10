@@ -8,7 +8,7 @@ export default function Banner() {
                     <p className="text-xl font-semibold">
                         Why pay more? Save up to 30% with direct plate deals.
                     </p>
-                </div>
+                </div> 
             </div>
         </div>
     );
