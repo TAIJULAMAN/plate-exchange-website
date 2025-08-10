@@ -39,14 +39,14 @@ export default function HowItWorks() {
     <section className="bg-[#f6f6f6] py-16 font-manrope">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-7xl font-medium text-gray-800 mb-4">
+        <div className="text-center mb-10">
+          <h2 className="text-xl md:text-7xl font-[500] text-[#1B1B1B] mb-5">
             How It Works
           </h2>
         </div>
 
         {/* Steps Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {steps.map((step, index) => (
             <HowItWorksCard
               key={index}

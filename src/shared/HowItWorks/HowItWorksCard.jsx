@@ -11,7 +11,7 @@ const HowItWorksCard = ({ title, description, buttonText }) => {
 
       {/* Button Section */}
       <div className="bg-[#F7F7F7] p-4 flex justify-center">
-        <button className="bg-[#00823A] hover:bg-[#006B2E] text-white font-bold py-3 px-6 rounded transition-colors">
+        <button className="bg-[#00823A] text-white font-dmsans py-3 px-6 rounded transition-colors">
           {buttonText}
         </button>
       </div>
