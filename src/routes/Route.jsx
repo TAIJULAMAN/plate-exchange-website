@@ -17,6 +17,11 @@ import FaqPage from "../pages/Faq/FaqPage";
 import Reviewsandtestimonials from "../pages/Reviewsandtestimonials/Reviewsandtestimonials";
 import BlogDetails from "../pages/Guide&Blog/BlogDetails";
 
+import Login from "../pages/Auth/Login";
+import ForgetPassword from "../pages/Auth/ForgetPassword";
+import Otp from "../pages/Auth/Otp";
+import ResetPassword from "../pages/Auth/ResetPassword";
+import SignUp from "../pages/Auth/SignUp";
 
 
 const router = createBrowserRouter([
@@ -56,16 +61,16 @@ const router = createBrowserRouter([
         path: "/terms-conditions",
         element: <TermsConditions />,
       },
-      
-            {
+
+      {
         path: "plate-details/:id",
         element: <PlateDetails></PlateDetails>,
       },
-                  {
+      {
         path: "recently-sold",
         element: <RecentlySold></RecentlySold>,
       },
-                        {
+      {
         path: "load-all-plates",
         element: <AllPlates></AllPlates>,
       },
@@ -74,6 +79,7 @@ const router = createBrowserRouter([
         element: <GuideAndBlog></GuideAndBlog>,
       },
       {
+
         path: "blog/details/:id",
         element: <BlogDetails></BlogDetails>,
       },
@@ -85,9 +91,26 @@ const router = createBrowserRouter([
         path: "Reviewsandtestimonials",
         element: <Reviewsandtestimonials></Reviewsandtestimonials>
       },
-    
-      
-
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/forget-password",
+        element: <ForgetPassword />,
+      },
+      {
+        path: "/verify-mail",
+        element: <Otp />,
+      },
+      {
+        path: "/reset-password",
+        element: <ResetPassword />,
+      },
+      {
+        path: "/sign-up",
+        element: <SignUp />,
+      },
     ],
   },
 ]);
