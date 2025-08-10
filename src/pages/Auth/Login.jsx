@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({ email, password });
+        navigate("/");
     };
 
     return (
@@ -17,7 +18,7 @@ export default function Login() {
                     <h1 className="text-5xl font-bold text-gray-900 text-center">
                         Log in to your account
                     </h1>
-                    <p>Don't have an account? <a href="#" className="font-medium text-gray-600 underline">Register here</a></p>
+                    <p>Don't have an account? <Link to="/sign-up" className="font-medium text-gray-600 underline">Register here</Link></p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="mt-5 space-y-5 max-w-xl mx-auto">
@@ -34,7 +35,7 @@ export default function Login() {
                             required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm"
+                            className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none"
                         />
                     </div>
 
@@ -51,22 +52,23 @@ export default function Login() {
                             required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="mt-1 w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm"
+                            className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none"
                         />
                     </div>
 
                     {/* Submit */}
                     <button
+                        onClick={handleSubmit}
                         type="submit"
                         className="w-full flex justify-center py-2 px-4 border border-transparent
-                       rounded-md shadow-sm text-sm font-medium text-white
+                       rounded-md font-medium text-white
                        bg-[#00823A]
                        focus:outline-none"
                     >
-                        Log in
+                        Log In
                     </button>
 
-                    <div className="flex items-center justify-between w-full max-w-md mx-auto p-4">
+                    <div className="flex items-center justify-between w-full">
                         <div className="flex items-center space-x-2">
                             <input
                                 type="checkbox"
@@ -79,7 +81,7 @@ export default function Login() {
                             </label>
                         </div>
 
-                        <Link to="/" className="text-sm text-gray-600 hover:text-gray-800 underline">
+                        <Link to="/forget-password" className="text-sm text-gray-600 hover:text-gray-800 underline">
                             Forgot password?
                         </Link>
                     </div>
