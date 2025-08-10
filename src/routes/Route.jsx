@@ -5,6 +5,8 @@ import Home from "../pages/Home/Home";
 import PlateView from "../pages/PlateView/PlateView";
 import SellAPlate from "../pages/SellAPlate/SellAPlate";
 import BuyAPlate from "../pages/BuyAPlate/BuyAPlate";
+import ContactUs from "../pages/ContactUs/ContactUs";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 
 const router = createBrowserRouter([
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
       {
         path: "/buy-a-plate",
         element: <BuyAPlate />,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs />,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs />,
       }
     ],
   },

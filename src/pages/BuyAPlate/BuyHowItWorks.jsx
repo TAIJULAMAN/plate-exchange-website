@@ -3,18 +3,18 @@ import HowItWorksCard from "../../shared/HowItWorks/HowItWorksCard";
 export default function BuyHowItWorks() {
     const steps = [
         {
-            title: "Create Your Advert",
-            description: "Your ad will include a built-in contact form, so interested buyers can reach out to you directly.",
+            title: "Find Your Perfect Plate",
+            description: "Browse thousands of private number plates listed directly by owners. No middlemen, no inflated prices — just the plate you want, at the price it deserves.",
             buttonText: "Start your search",
         },
         {
-            title: "Get Direct Enquiries",
-            description: "Unlike traditional dealers, you’ll receive offers along with full contact details of potential buyers—no filters, no gatekeepers.",
+            title: "Contact the Seller Directly",
+            description: "Send enquiries straight to the seller — no dealers involved. Negotiate, ask questions, and make offers with full transparency.",
             buttonText: "Enquire now",
         },
         {
-            title: "Sell Privately, Keep Everything",
-            description: "You handle the sale on your terms and keep 100% of the sale price. No middlemen. No commission. Just pure profit.",
+            title: "Buy Privately and Save",
+            description: "Skip the dealer markups. Pay only the seller’s asking price and complete your purchase directly — simple, secure, and commission-free.",
             buttonText: "Buy a plate",
         }
     ];
