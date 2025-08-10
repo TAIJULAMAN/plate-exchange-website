@@ -3,6 +3,12 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layout/Layout";
 import Home from "../pages/Home/Home";
 import PlateView from "../pages/PlateView/PlateView";
+import SellAPlate from "../pages/SellAPlate/SellAPlate";
+import BuyAPlate from "../pages/BuyAPlate/BuyAPlate";
+import ContactUs from "../pages/ContactUs/ContactUs";
+import AboutUs from "../pages/AboutUs/AboutUs";
+import PrivacyPolicy from "../pages/PrivacyPolicy/PrivacyPolicy";
+import TermsConditions from "../pages/TermsConditions/TermsConditions";
 import PlateDetails from "../pages/PlateDetails/PlateDetails";
 import RecentlySold from "../pages/RecentlySold/RecentlySold";
 import AllPlates from "../pages/RecentlySold/AllPlates";
@@ -22,13 +28,34 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "sell-a-plate",
-        element: <>asdf</>,
+        path: "/sell-a-plate",
+        element: <SellAPlate />,
       },
       {
         path: "plate-view",
         element: <PlateView></PlateView>,
       },
+      {
+        path: "/buy-a-plate",
+        element: <BuyAPlate />,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs />,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "/terms-conditions",
+        element: <TermsConditions />,
+      },
+      
             {
         path: "plate-details/:id",
         element: <PlateDetails></PlateDetails>,

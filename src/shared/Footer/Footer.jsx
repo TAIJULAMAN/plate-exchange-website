@@ -7,8 +7,8 @@ export default function Footer() {
             { name: "Get a number plate valuation", href: "#" }
         ],
         company: [
-            { name: "About", href: "#" },
-            { name: "Contact US", href: "#" }
+            { name: "About", href: "/about-us" },
+            { name: "Contact Us", href: "/contact-us" }
         ],
         socialMedia: [
             { name: "Facebook", href: "#" },
