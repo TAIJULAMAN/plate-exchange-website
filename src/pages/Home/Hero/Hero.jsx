@@ -7,11 +7,11 @@ import Input from "../../../shared/Input/Input";
 export default function Hero() {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    // Handle search functionality here
-    console.log("Searching for:", searchTerm);
-  };
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   // Handle search functionality here
+  //   console.log("Searching for:", searchTerm);
+  // };
 
 
   const features = [

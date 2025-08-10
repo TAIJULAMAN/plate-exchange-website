@@ -20,9 +20,10 @@ export default function Navbar() {
 
     // More dropdown items
     const moreMenuItems = [
-        { path: "/about", name: "About Us" },
-        { path: "/contact", name: "Contact" },
+        { path: "/guide-and-blog", name: "Guide & Blog" },
         { path: "/faq", name: "FAQ" },
+        { path: "/Reviewsandtestimonials", name: "Reviews & Testimonials" },
+        { path: "/contact", name: "Contact" },
         { path: "/terms", name: "Terms & Conditions" },
     ];
 
