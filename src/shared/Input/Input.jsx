@@ -15,7 +15,7 @@ const Input = ({
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
-                className={`flex-1 px-4 py-3 border border-2 border-gray-600 rounded-l-md text-center font-medium text-gray-700 ${className}`}
+                className={`flex-1 px-5 py-3 border border-t-2 border-b-2 border-l-2 focus:border-r-0 border-gray-600 rounded-l-md text-center font-medium text-gray-700 focus:outline-none placeholder:text-gray-700 placeholder:font-bold ${className}`}
                 {...props}
             />
             <button

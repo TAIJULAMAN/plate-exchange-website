@@ -77,7 +77,7 @@ export default function Hero() {
       </div>
 
       {/* Features Section */}
-      <div className="grid md:grid-cols-3 gap-8 max-w-8xl mx-auto mt-12">
+      <div className="grid md:grid-cols-3 gap-10 max-w-9xl mx-auto mt-10">
         {features.map((feature, index) => (
           <LikeIconAndText key={index} imgSrc={feature.imgSrc} text={feature.text} />
         ))}
