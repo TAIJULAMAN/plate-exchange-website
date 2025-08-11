@@ -22,6 +22,15 @@ import ForgetPassword from "../pages/Auth/ForgetPassword";
 import Otp from "../pages/Auth/Otp";
 import ResetPassword from "../pages/Auth/ResetPassword";
 import SignUp from "../pages/Auth/SignUp";
+import UserDashboardLayout from "../layout/UserDashboardLayout";
+import { List } from "lucide-react";
+import ListPlateForSale from "../pages/Dashboards/UserDashboard/ListPlateForSale";
+import MyProfile from "../pages/Dashboards/UserDashboard/MyProfile";
+import AccountSecurity from "../pages/Dashboards/UserDashboard/AccountSecurity";
+import CommunicationPreferences from "../pages/Dashboards/UserDashboard/CommunicationPreferences";
+import MyAdverts from "../pages/Dashboards/UserDashboard/MyAdverts";
+import SavedAdverts from "../pages/Dashboards/UserDashboard/SavedAdverts";
+import SecurePayments from "../pages/Dashboards/UserDashboard/SecurePayments";
 
 
 const router = createBrowserRouter([
@@ -113,5 +122,51 @@ const router = createBrowserRouter([
       },
     ],
   },
+ {
+    path: "userdashboard",
+    element: <UserDashboardLayout />, // layout with sidebar
+    children: [
+      {
+        path: "list-plate",
+        element: <ListPlateForSale />,
+      },
+      {
+        path: "get-plate-valued",
+        element: <>Get Plate Valued Page</>
+      },
+      {
+        path: "profile",
+        element: <MyProfile />,
+      },
+      {
+        path: "account-security",
+        element: <AccountSecurity />,
+      },
+      {
+        path: "communications",
+        element: <CommunicationPreferences />,
+      },
+      {
+        path: "my-adverts",
+        element: <MyAdverts />,
+      },
+      {
+        path: "saved-adverts",
+        element: <SavedAdverts />,
+      },
+      {
+        path: "message-centre",
+        element: <>Message Centre Page</>
+      },
+      {
+        path: "secure-payments",
+        element: <SecurePayments />,
+      },
+      {
+        path: "logout",
+        element: <>Logging out...</>
+      }
+    ]
+  }
 ]);
 export default router;
