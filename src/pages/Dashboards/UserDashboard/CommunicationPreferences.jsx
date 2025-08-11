@@ -48,7 +48,7 @@ export default function CommunicationPreferences() {
               onChange={handleCheckboxChange}
               className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
-            <label htmlFor="emailEnquiry" className="text-sm text-gray-700 leading-relaxed">
+            <label htmlFor="emailEnquiry" className="text-xl font-semibold text-gray-700 leading-relaxed">
               Send me an email when I receive a new enquiry or message
             </label>
           </div>
@@ -63,7 +63,7 @@ export default function CommunicationPreferences() {
               onChange={handleCheckboxChange}
               className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
-            <label htmlFor="smsEnquiry" className="text-sm text-gray-700 leading-relaxed">
+            <label htmlFor="smsEnquiry" className="text-xl font-semibold text-gray-700 leading-relaxed">
               Send me an SMS when I receive a new enquiry, or when there are unread messages after 3 days
             </label>
           </div>
@@ -78,7 +78,7 @@ export default function CommunicationPreferences() {
               onChange={handleCheckboxChange}
               className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
-            <label htmlFor="emailMarketing" className="text-sm text-gray-700 leading-relaxed">
+            <label htmlFor="emailMarketing" className="text-xl font-semibold text-gray-700 leading-relaxed">
               Enable marketing messages I send and receive
             </label>
           </div>
@@ -93,7 +93,7 @@ export default function CommunicationPreferences() {
               onChange={handleCheckboxChange}
               className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
-            <label htmlFor="allowBuyersToSee" className="text-sm text-gray-700 leading-relaxed">
+            <label htmlFor="allowBuyersToSee" className="text-xl font-semibold text-gray-700 leading-relaxed">
               Allow potential buyers to see how long ago I last logged in
             </label>
           </div>
@@ -108,7 +108,7 @@ export default function CommunicationPreferences() {
               onChange={handleCheckboxChange}
               className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
             />
-            <label htmlFor="emailNews" className="text-sm text-gray-700 leading-relaxed">
+            <label htmlFor="emailNews" className="text-xl font-semibold text-gray-700 leading-relaxed">
               Email me occasional news and offers from Plate Trader
             </label>
           </div>
