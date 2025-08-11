@@ -8,7 +8,8 @@ import {
   LogOut,
   List,
   Pin,
-  Mail
+  Mail,
+  User // replaced Font Awesome with Lucide User icon
 } from "lucide-react";
 
 export default function UserSidebar() {
@@ -47,7 +48,7 @@ export default function UserSidebar() {
       >
         <SidebarButton
           to="/userdashboard/profile"
-          icon={<i className="fas fa-user" />}
+          icon={<User size={18} />} // Changed here
           text="My Profile"
         />
         <SidebarButton
@@ -124,7 +125,7 @@ function Section({ title, children, isActive }) {
     <div className="mb-6">
       <h3
         className={`flex items-center gap-2 font-semibold mb-2 ${
-          isActive ?  "text-blue-600" : "text-black"
+          isActive ? "text-blue-600" : "text-black" 
         }`}
       >
         🔵 {title}:

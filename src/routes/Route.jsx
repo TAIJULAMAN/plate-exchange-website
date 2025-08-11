@@ -23,6 +23,9 @@ import Otp from "../pages/Auth/Otp";
 import ResetPassword from "../pages/Auth/ResetPassword";
 import SignUp from "../pages/Auth/SignUp";
 import UserDashboardLayout from "../layout/UserDashboardLayout";
+import { List } from "lucide-react";
+import ListPlateForSale from "../pages/Dashboards/UserDashboard/ListPlateForSale";
+import MyProfile from "../pages/Dashboards/UserDashboard/MyProfile";
 
 
 const router = createBrowserRouter([
@@ -120,7 +123,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "list-plate",
-        element: <>List a Plate for Sale Page</>
+        element: <ListPlateForSale />,
       },
       {
         path: "get-plate-valued",
@@ -128,7 +131,7 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <>My Profile Page</>
+        element: <MyProfile />,
       },
       {
         path: "account-security",
