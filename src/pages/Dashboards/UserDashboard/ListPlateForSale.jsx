@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { HiOutlineUpload } from 'react-icons/hi';
 
 export default function ListPlateForSale() {
   const [formData, setFormData] = useState({
@@ -68,7 +69,7 @@ export default function ListPlateForSale() {
                 name="registration"
                 value={formData.registration}
                 onChange={handleInputChange}
-                className="w-full p-4 border-2 border-gray-200 rounded-xl text-base transition-all duration-300 bg-yellow-400 font-bold focus:outline-none focus:border-blue-500 focus:bg-white focus:-translate-y-1 focus:shadow-lg"
+                className="w-full p-4 py-4 border-2 border-gray-700 rounded-md text-base transition-all duration-300 bg-yellow-400 font-bold focus:outline-none focus:border-blue-500 focus:bg-white focus:-translate-y-1 focus:shadow-lg"
               /> */}
 
 
@@ -153,7 +154,7 @@ export default function ListPlateForSale() {
                 value={formData.description}
                 onChange={handleInputChange}
                 placeholder="Add this to sell your vehicle to help it sell more quickly, but it is not compulsory on autotrader"
-                className="w-full p-4 border-2 border-gray-200 rounded-xl text-base transition-all duration-300 bg-gray-50 min-h-[100px] resize-y focus:outline-none focus:border-blue-500 focus:bg-white focus:-translate-y-1 focus:shadow-lg"
+                className="w-full p-4      py-4 border-2 border-gray-700 rounded-md text-base transition-all duration-300 bg-gray-50 min-h-[100px] resize-y focus:outline-none focus:border-blue-500 focus:bg-white focus:-translate-y-1 focus:shadow-lg"
                 rows={4}
               />
             </div>
@@ -169,43 +170,50 @@ export default function ListPlateForSale() {
                 value={formData.keywords}
                 onChange={handleInputChange}
                 placeholder="Enter keywords to help buyers find your advert e.g. Performance, leather, climate control, one owner, warranty"
-                className="w-full p-4 border-2 border-gray-200 rounded-xl text-base transition-all duration-300 bg-gray-50 min-h-[100px] resize-y focus:outline-none focus:border-blue-500 focus:bg-white focus:-translate-y-1 focus:shadow-lg"
+                className="w-full p-4 py-4 border-2 border-gray-700 rounded-md text-base transition-all duration-300 bg-gray-50 min-h-[100px] resize-y focus:outline-none focus:border-blue-500 focus:bg-white focus:-translate-y-1 focus:shadow-lg"
                 rows={4}
               />
             </div>
 
             {/* Photo Upload */}
-            <div className="form-group">
-              <label className="block mb-2 font-bold text-[#1B1B1B] text-lg">
-                Upload a photo <span className="text-gray-500 font-normal text-sm">(optional)</span>
-              </label>
-              <div 
-                className={`border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 cursor-pointer ${
-                  uploadedFiles.length > 0 
-                    ? 'border-green-500 bg-green-50' 
-                    : 'border-gray-300 bg-gray-50 hover:border-blue-500 hover:bg-blue-50'
-                }`}
-                onClick={() => document.getElementById('photoInput').click()}
-              >
-                <div className="text-5xl mb-4">
-                  {uploadedFiles.length > 0 ? '✓' : '📷'}
-                </div>
-                <p className="text-gray-600">
-                  {uploadedFiles.length > 0 
-                    ? `${uploadedFiles.length} photo(s) selected` 
-                    : 'Click to upload additional photos'
-                  }
-                </p>
-                <input
-                  type="file"
-                  id="photoInput"
-                  accept="image/*"
-                  multiple
-                  onChange={handleFileUpload}
-                  className="hidden"
-                />
-              </div>
-            </div>
+ <div className="mb-4">
+
+        {/* Preview */}
+      {uploadedFiles.length > 0 && (
+        <div className="mt-4 p-4 rounded-2xl bg-white shadow-md border flex justify-center items-center">
+          <img
+            src={URL.createObjectURL(uploadedFiles[0])}
+            alt="Preview"
+            className=" max-h-60 rounded-md object-contain"
+          />
+        </div>
+      )}
+
+
+      <label className="block mb-1 font-medium text-[#1B1B1B]">
+        Upload a photo <span className="text-gray-500 font-normal text-sm">(optional)</span>
+      </label>
+      <div className="relative">
+        <input
+          type="file"
+          id="photoInput"
+          accept="image/*"
+          onChange={handleFileUpload}
+          className="block w-full bg-white text-gray-700 placeholder-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 pl-3 pr-10 py-4 cursor-pointer border-2 border-gray-700 rounded-md"
+          placeholder="Add photo"
+        />
+        <span className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-400">
+          <HiOutlineUpload size={20} />
+        </span>
+      </div>
+
+
+
+    </div>
+
+
+
+
 
             {/* Email */}
             <div className="form-group">
@@ -219,7 +227,7 @@ export default function ListPlateForSale() {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="w-full p-4 border-2 border-gray-200 rounded-xl text-base transition-all duration-300 bg-gray-50 focus:outline-none focus:border-blue-500 focus:bg-white focus:-translate-y-1 focus:shadow-lg"
+                className="w-full p-4 py-4 border-2 border-gray-700 rounded-md text-base transition-all duration-300 bg-gray-50 focus:outline-none focus:border-blue-500 focus:bg-white focus:-translate-y-1 focus:shadow-lg"
               />
             </div>
 

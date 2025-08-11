@@ -30,6 +30,7 @@ import AccountSecurity from "../pages/Dashboards/UserDashboard/AccountSecurity";
 import CommunicationPreferences from "../pages/Dashboards/UserDashboard/CommunicationPreferences";
 import MyAdverts from "../pages/Dashboards/UserDashboard/MyAdverts";
 import SavedAdverts from "../pages/Dashboards/UserDashboard/SavedAdverts";
+import SecurePayments from "../pages/Dashboards/UserDashboard/SecurePayments";
 
 
 const router = createBrowserRouter([
@@ -159,7 +160,7 @@ const router = createBrowserRouter([
       },
       {
         path: "secure-payments",
-        element: <>Secure Payments Page</>
+        element: <SecurePayments />,
       },
       {
         path: "logout",
