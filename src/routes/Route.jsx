@@ -22,6 +22,7 @@ import ForgetPassword from "../pages/Auth/ForgetPassword";
 import Otp from "../pages/Auth/Otp";
 import ResetPassword from "../pages/Auth/ResetPassword";
 import SignUp from "../pages/Auth/SignUp";
+import UserDashboardLayout from "../layout/UserDashboardLayout";
 
 
 const router = createBrowserRouter([
@@ -113,5 +114,51 @@ const router = createBrowserRouter([
       },
     ],
   },
+ {
+    path: "userdashboard",
+    element: <UserDashboardLayout />, // layout with sidebar
+    children: [
+      {
+        path: "list-plate",
+        element: <>List a Plate for Sale Page</>
+      },
+      {
+        path: "get-plate-valued",
+        element: <>Get Plate Valued Page</>
+      },
+      {
+        path: "profile",
+        element: <>My Profile Page</>
+      },
+      {
+        path: "account-security",
+        element: <>Account Security Page</>
+      },
+      {
+        path: "communications",
+        element: <>Communications Page</>
+      },
+      {
+        path: "my-adverts",
+        element: <>My Adverts Page</>
+      },
+      {
+        path: "saved-adverts",
+        element: <>Saved Adverts Page</>
+      },
+      {
+        path: "message-centre",
+        element: <>Message Centre Page</>
+      },
+      {
+        path: "secure-payments",
+        element: <>Secure Payments Page</>
+      },
+      {
+        path: "logout",
+        element: <>Logging out...</>
+      }
+    ]
+  }
 ]);
 export default router;
