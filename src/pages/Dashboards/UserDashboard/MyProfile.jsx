@@ -50,7 +50,7 @@ export default function MyProfile() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* First Name */}
       <div className="form-group">
-        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="firstName" className="block mb-2 font-bold text-[#1B1B1B] text-lg">
           First Name
         </label>
         <input
@@ -66,7 +66,7 @@ export default function MyProfile() {
 
       {/* Last Name */}
       <div className="form-group">
-        <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="lastName" className="block mb-2 font-bold text-[#1B1B1B] text-lg">
           Last Name
         </label>
         <input
@@ -82,7 +82,7 @@ export default function MyProfile() {
 
       {/* Gender */}
       <div className="form-group">
-        <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="gender" className="block mb-2 font-bold text-[#1B1B1B] text-lg">
           Gender
         </label>
         <select
@@ -102,7 +102,7 @@ export default function MyProfile() {
 
       {/* Phone Number */}
       <div className="form-group">
-        <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="phoneNumber" className="block mb-2 font-bold text-[#1B1B1B] text-lg">
           Phone Number
         </label>
         <input
@@ -119,7 +119,7 @@ export default function MyProfile() {
 
     {/* Email Address - Full Width */}
     <div className="form-group mt-6">
-      <label htmlFor="emailAddress" className="block text-sm font-medium text-gray-700 mb-2">
+      <label htmlFor="emailAddress" className="block mb-2 font-bold text-[#1B1B1B] text-lg">
         Email Address
       </label>
       <input
