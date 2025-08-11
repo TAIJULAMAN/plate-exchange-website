@@ -39,7 +39,7 @@ export default function AccountSecurity() {
       <div className="max-w-4xl mx-auto  rounded-lg  p-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-7xl font-semibold mb-3">
+          <h1 className="text-6xl font-semibold mb-3">
             Account Security
           </h1>
           <p className="opacity-90 text-lg">

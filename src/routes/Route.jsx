@@ -27,6 +27,7 @@ import { List } from "lucide-react";
 import ListPlateForSale from "../pages/Dashboards/UserDashboard/ListPlateForSale";
 import MyProfile from "../pages/Dashboards/UserDashboard/MyProfile";
 import AccountSecurity from "../pages/Dashboards/UserDashboard/AccountSecurity";
+import CommunicationPreferences from "../pages/Dashboards/UserDashboard/CommunicationPreferences";
 
 
 const router = createBrowserRouter([
@@ -140,7 +141,7 @@ const router = createBrowserRouter([
       },
       {
         path: "communications",
-        element: <>Communications Page</>
+        element: <CommunicationPreferences />,
       },
       {
         path: "my-adverts",

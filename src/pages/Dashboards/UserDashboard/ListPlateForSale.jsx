@@ -36,7 +36,7 @@ export default function ListPlateForSale() {
       <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
         {/* Header */}
         <div className="  p-8 text-center">
-          <h1 className="text-7xl font-semibold mb-3">Create Your Advert</h1>
+          <h1 className="text-6xl font-semibold mb-3">Create Your Advert</h1>
           <p className="opacity-90 text-lg">
             Please complete your advert details below. You'll be able to edit your advert at any time once it is live.
           </p>
