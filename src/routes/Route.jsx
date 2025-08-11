@@ -29,6 +29,7 @@ import MyProfile from "../pages/Dashboards/UserDashboard/MyProfile";
 import AccountSecurity from "../pages/Dashboards/UserDashboard/AccountSecurity";
 import CommunicationPreferences from "../pages/Dashboards/UserDashboard/CommunicationPreferences";
 import MyAdverts from "../pages/Dashboards/UserDashboard/MyAdverts";
+import SavedAdverts from "../pages/Dashboards/UserDashboard/SavedAdverts";
 
 
 const router = createBrowserRouter([
@@ -150,7 +151,7 @@ const router = createBrowserRouter([
       },
       {
         path: "saved-adverts",
-        element: <>Saved Adverts Page</>
+        element: <SavedAdverts />,
       },
       {
         path: "message-centre",
