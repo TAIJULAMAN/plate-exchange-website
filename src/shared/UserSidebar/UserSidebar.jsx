@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   FileText,
@@ -9,114 +9,182 @@ import {
   List,
   Pin,
   Mail,
-  User // replaced Font Awesome with Lucide User icon
+  User,
+  Menu,
+  X
 } from "lucide-react";
+import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 
 export default function UserSidebar() {
   const location = useLocation();
+  const [isMobile, setIsMobile] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize(); // Check on initial render
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
 
   return (
-    <div className="w-64 bg-gray-50 p-4">
-      {/* Quick Actions */}
-      <Section
-        title="Quick Actions"
-        isActive={isSectionActive(location.pathname, [
-          "/userdashboard/list-plate",
-          "/userdashboard/get-plate-valued"
-        ])}
-      >
-        <SidebarButton
-          to="/userdashboard/list-plate"
-          icon={<FileText size={18} />}
-          text="List a Plate for Sale"
-        />
-        <SidebarButton
-          to="/userdashboard/get-plate-valued"
-          icon={<FileText size={18} />}
-          text="Get Plate Valued"
-        />
-      </Section>
+    <>
+      {/* Mobile toggle button */}
+      {isMobile && (
+        <button
+          onClick={toggleSidebar}
+          className="fixed top-[84px] left-0 z-50 p-2 rounded-md bg-[#3c3d37] text-white cursor-pointer transform transition-transform duration-300 ease-in-out"
+        >
+          {sidebarOpen ? <SlArrowLeft size={24} /> : <SlArrowRight size={24} />}
+        </button>
+      )}
 
-      {/* Account Management */}
-      <Section
-        title="Account Management"
-        isActive={isSectionActive(location.pathname, [
-          "/userdashboard/profile",
-          "/userdashboard/account-security",
-          "/userdashboard/communications"
-        ])}
+      {/* Sidebar */}
+      <div
+        className={`w-70 bg-gray-50 p-4 ${
+          isMobile
+            ? `fixed top-0 w-80 pl-10 left-0 h-full z-40 transform ${
+                sidebarOpen ? "translate-x-0" : "-translate-x-full"
+              } transition-transform duration-300 ease-in-out`
+            : ""
+        }`}
       >
-        <SidebarButton
-          to="/userdashboard/profile"
-          icon={<User size={18} />} // Changed here
-          text="My Profile"
-        />
-        <SidebarButton
-          to="/userdashboard/account-security"
-          icon={<Lock size={18} />}
-          text="Account Security"
-        />
-        <SidebarButton
-          to="/userdashboard/communications"
-          icon={<MessageSquare size={18} />}
-          text="Communications"
-        />
-      </Section>
+        {/* Close button for mobile */}
+        {isMobile && (
+          <button
+            onClick={toggleSidebar}
+            className="absolute top-4 right-4 p-1 rounded-full hover:bg-gray-200"
+          >
+            <X size={20} />
+          </button>
+        )}
 
-      {/* Marketplace Tools */}
-      <Section
-        title="Marketplace Tools"
-        isActive={isSectionActive(location.pathname, [
-          "/userdashboard/my-adverts",
-          "/userdashboard/saved-adverts",
-          "/userdashboard/message-centre"
-        ])}
-      >
-        <SidebarButton
-          to="/userdashboard/my-adverts"
-          icon={<List size={18} />}
-          text="My Adverts"
-        />
-        <SidebarButton
-          to="/userdashboard/saved-adverts"
-          icon={<Pin size={18} />}
-          text="Saved Adverts"
-        />
-        <SidebarButton
-          to="/userdashboard/message-centre"
-          icon={<Mail size={18} />}
-          text="Message Centre"
-        />
-      </Section>
+        {/* Quick Actions */}
+        <Section
+          title="Quick Actions"
+          isActive={isSectionActive(location.pathname, [
+            "/userdashboard/list-plate",
+            "/userdashboard/get-plate-valued"
+          ])}
+        >
+          <SidebarButton
+            to="/userdashboard/list-plate"
+            icon={<FileText size={18} />}
+            text="List a Plate for Sale"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
+          <SidebarButton
+            to="/userdashboard/get-plate-valued"
+            icon={<FileText size={18} />}
+            text="Get Plate Valued"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
+        </Section>
 
-      {/* Billing */}
-      <Section
-        title="Billing"
-        isActive={isSectionActive(location.pathname, [
-          "/userdashboard/secure-payments"
-        ])}
-      >
-        <SidebarButton
-          to="/userdashboard/secure-payments"
-          icon={<CreditCard size={18} />}
-          text="Secure Payments"
-        />
-      </Section>
+        {/* Account Management */}
+        <Section
+          title="Account Management"
+          isActive={isSectionActive(location.pathname, [
+            "/userdashboard/profile",
+            "/userdashboard/account-security",
+            "/userdashboard/communications"
+          ])}
+        >
+          <SidebarButton
+            to="/userdashboard/profile"
+            icon={<User size={18} />}
+            text="My Profile"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
+          <SidebarButton
+            to="/userdashboard/account-security"
+            icon={<Lock size={18} />}
+            text="Account Security"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
+          <SidebarButton
+            to="/userdashboard/communications"
+            icon={<MessageSquare size={18} />}
+            text="Communications"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
+        </Section>
 
-      {/* Exit */}
-      <Section
-        title="Exit"
-        isActive={isSectionActive(location.pathname, [
-          "/userdashboard/logout"
-        ])}
-      >
-        <SidebarButton
-          to="/userdashboard/logout"
-          icon={<LogOut size={18} />}
-          text="Logout"
+        {/* Marketplace Tools */}
+        <Section
+          title="Marketplace Tools"
+          isActive={isSectionActive(location.pathname, [
+            "/userdashboard/my-adverts",
+            "/userdashboard/saved-adverts",
+            "/userdashboard/message-centre"
+          ])}
+        >
+          <SidebarButton
+            to="/userdashboard/my-adverts"
+            icon={<List size={18} />}
+            text="My Adverts"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
+          <SidebarButton
+            to="/userdashboard/saved-adverts"
+            icon={<Pin size={18} />}
+            text="Saved Adverts"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
+          <SidebarButton
+            to="/userdashboard/message-centre"
+            icon={<Mail size={18} />}
+            text="Message Centre"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
+        </Section>
+
+        {/* Billing */}
+        <Section
+          title="Billing"
+          isActive={isSectionActive(location.pathname, [
+            "/userdashboard/secure-payments"
+          ])}
+        >
+          <SidebarButton
+            to="/userdashboard/secure-payments"
+            icon={<CreditCard size={18} />}
+            text="Secure Payments"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
+        </Section>
+
+        {/* Exit */}
+        <Section
+          title="Exit"
+          isActive={isSectionActive(location.pathname, [
+            "/userdashboard/logout"
+          ])}
+        >
+          <SidebarButton
+            to="/userdashboard/logout"
+            icon={<LogOut size={18} />}
+            text="Logout"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
+        </Section>
+      </div>
+
+      {/* Overlay for mobile */}
+      {isMobile && sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-30"
+          onClick={toggleSidebar}
         />
-      </Section>
-    </div>
+      )}
+    </>
   );
 }
 
@@ -135,10 +203,11 @@ function Section({ title, children, isActive }) {
   );
 }
 
-function SidebarButton({ to, icon, text }) {
+function SidebarButton({ to, icon, text, onClick }) {
   return (
     <NavLink
       to={to}
+      onClick={onClick}
       className={({ isActive }) =>
         `flex items-center gap-2 px-3 py-2 rounded-md bg-white transition
         ${

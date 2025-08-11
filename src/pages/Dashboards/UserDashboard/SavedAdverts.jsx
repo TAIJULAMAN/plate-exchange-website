@@ -71,76 +71,78 @@ export default function SavedAdverts() {
           </h1>
         </div>
 
-        {/* Table Container */}
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-          {/* Table Header */}
-          <div className="grid grid-cols-5 gap-4 p-4 bg-gray-50 border-b border-gray-200">
-            <div className="text-sm font-medium text-gray-700">Number Plate</div>
-            <div className="text-sm font-medium text-gray-700">Price</div>
-            <div className="text-sm font-medium text-gray-700">Status</div>
-            <div className="text-sm font-medium text-gray-700">Contact Seller</div>
-            <div className="text-sm font-medium text-gray-700"></div>
-          </div>
+        
+{/* Table Container */}
+<div className="bg-white rounded-lg shadow-sm overflow-hidden">
+  {/* Table Header (Hidden on Mobile) */}
+  <div className="hidden sm:grid grid-cols-5 gap-4 p-4 bg-gray-50 border-b border-gray-200">
+    <div className="text-sm font-medium text-gray-700">Number Plate</div>
+    <div className="text-sm font-medium text-gray-700">Price</div>
+    <div className="text-sm font-medium text-gray-700">Status</div>
+    <div className="text-sm font-medium text-gray-700">Contact Seller</div>
+    <div className="text-sm font-medium text-gray-700"></div>
+  </div>
 
-          {/* Table Rows */}
-          <div className="divide-y divide-gray-200">
-            {savedAdverts.map((advert) => (
-              <div 
-                key={advert.id}
-                className="grid grid-cols-5 gap-4 p-4 items-center hover:bg-gray-50 transition-colors"
-              >
-                {/* License Plate */}
-                <div className="bg-[#fad549] px-4 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] w-fit">
-                  <span className="text-black font-bold text-lg tracking-wider font-mycustom">
-                    {advert.plateNumber}
-                  </span>
-                </div>
-
-                {/* Price */}
-                <div className="text-gray-900 font-medium">
-                  {advert.price}
-                </div>
-
-                {/* Status */}
-                <div className={`text-sm font-medium ${
-                  advert.status === 'Available' 
-                    ? 'text-green-600' 
-                    : 'text-red-600'
-                }`}>
-                  {advert.status}
-                </div>
-
-                {/* Contact Seller Button */}
-                <div>
-                  <button
-                    onClick={() => handleContact(advert.id)}
-                    className="flex items-center gap-2 px-4 py-2 border border-blue-300 rounded-full text-blue-600 hover:bg-blue-50 transition-colors text-sm"
-                    disabled={advert.status === 'Sold'}
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    {advert.status === 'Sold' ? 'Sold' : 'Chat'}
-                  </button>
-                </div>
-
-                {/* Favorite Heart */}
-                <div className="flex justify-center">
-                  <button
-                    onClick={() => toggleFavorite(advert.id)}
-                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                  >
-                    <Heart 
-                      className={`w-5 h-5 ${
-                        advert.isFavorited 
-                          ? 'fill-red-500 text-red-500' 
-                          : 'text-gray-400'
-                      }`}
-                    />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+  {/* Table Rows */}
+  <div className="divide-y divide-gray-200">
+    {savedAdverts.map((advert) => (
+      <div
+        key={advert.id}
+        className="flex flex-col sm:grid sm:grid-cols-5 gap-4 p-4 items-center hover:bg-gray-50 transition-colors"
+      >
+        {/* Number Plate */}
+        <div className="bg-[#fad549] px-4 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] w-fit">
+          <span className="text-black font-bold text-lg tracking-wider font-mycustom">
+            {advert.plateNumber}
+          </span>
         </div>
+
+        {/* Price */}
+        <div className="text-gray-900 font-medium">
+          {advert.price}
+        </div>
+
+        {/* Status */}
+        <div
+          className={`text-sm font-medium ${
+            advert.status === "Available" ? "text-green-600" : "text-red-600"
+          }`}
+        >
+          {advert.status}
+        </div>
+
+        {/* Contact Seller */}
+        <div className="w-full sm:w-auto">
+          <button
+            onClick={() => handleContact(advert.id)}
+            className="flex items-center justify-center gap-2 px-4 py-2 border border-blue-300 rounded-full text-blue-600 hover:bg-blue-50 transition-colors text-sm w-full sm:w-auto"
+            disabled={advert.status === "Sold"}
+          >
+            <MessageCircle className="w-4 h-4" />
+            {advert.status === "Sold" ? "Sold" : "Chat"}
+          </button>
+        </div>
+
+        {/* Favorite */}
+        <div className="flex justify-center w-full sm:w-auto">
+          <button
+            onClick={() => toggleFavorite(advert.id)}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          >
+            <Heart
+              className={`w-5 h-5 ${
+                advert.isFavorited
+                  ? "fill-red-500 text-red-500"
+                  : "text-gray-400"
+              }`}
+            />
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
 
         {/* Empty State (if no saved adverts) */}
         {savedAdverts.length === 0 && (
