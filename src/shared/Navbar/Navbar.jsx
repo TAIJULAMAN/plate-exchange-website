@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { ChevronDown, Menu, X } from 'lucide-react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { ChevronDown, Menu, X, User } from 'lucide-react';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
+    const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const toggleMoreDropdown = () => setIsMoreDropdownOpen(!isMoreDropdownOpen);
+    const toggleAvatarDropdown = () => setIsAvatarDropdownOpen(!isAvatarDropdownOpen);
 
     // Main menu items
     const mainMenuItems = [
@@ -30,6 +32,7 @@ export default function Navbar() {
 
     // Combined items for mobile menu
     const mobileMenuItems = [...mainMenuItems, ...moreMenuItems];
+    const navigate = useNavigate();
 
     return (
         <nav className="bg-[#3c3d37] text-white shadow-lg">
@@ -50,9 +53,8 @@ export default function Navbar() {
                                     key={item.path}
                                     to={item.path}
                                     end={item.end}
-                                    className={({ isActive }) => 
-                                        `px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                                            isActive ? "text-yellow-400" : "text-white hover:text-yellow-400"
+                                    className={({ isActive }) =>
+                                        `px-3 py-2 text-sm font-medium transition-colors duration-200 ${isActive ? "text-yellow-400" : "text-white hover:text-yellow-400"
                                         }`
                                     }
                                 >
@@ -77,10 +79,9 @@ export default function Navbar() {
                                                 key={item.path}
                                                 to={item.path}
                                                 className={({ isActive }) =>
-                                                    `block px-4 py-2 text-sm ${
-                                                        isActive 
-                                                            ? "bg-gray-100 font-medium text-gray-900" 
-                                                            : "text-gray-700 hover:bg-gray-100"
+                                                    `block px-4 py-2 text-sm ${isActive
+                                                        ? "bg-gray-100 font-medium text-gray-900"
+                                                        : "text-gray-700 hover:bg-gray-100"
                                                     }`
                                                 }
                                                 onClick={toggleMoreDropdown}
@@ -94,20 +95,44 @@ export default function Navbar() {
                         </div>
                     </div>
 
-                    {/* Login Button */}
-                    <div className="hidden md:block">
-                        <NavLink
-                            to="/login"
-                            className={({ isActive }) =>
-                                `px-6 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                                    isActive 
-                                        ? "bg-yellow-500 text-gray-900" 
-                                        : "bg-yellow-400 hover:bg-yellow-500 text-gray-900"
-                                }`
-                            }
+                    {/* Avatar Dropdown */}
+                    <div className="hidden md:block relative">
+                        <button
+                            onClick={toggleAvatarDropdown}
+                            className="flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-200 overflow-hidden border-2 border-yellow-400 hover:border-yellow-500"
+                            aria-label="User menu"
                         >
-                            Login
-                        </NavLink>
+                            <img
+                                src="https://avatar.iran.liara.run/public/39"
+                                alt="User Avatar"
+                                className="w-full h-full object-cover"
+                            />
+                        </button>
+
+                        {isAvatarDropdownOpen && (
+                            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                                <NavLink
+                                    to="userdashboard"
+                                    className={({ isActive }) =>
+                                        `block px-4 py-2 text-sm ${isActive
+                                            ? "bg-gray-300 font-medium text-gray-900"
+                                            : "text-gray-600 hover:bg-gray-100"
+                                        }`
+                                    }
+                                    onClick={toggleAvatarDropdown}
+                                >
+                                    Dashboard
+                                </NavLink>
+                                <button
+                                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    onClick={() => {
+                                       navigate('/login')
+                                    }}
+                                >
+                                    Logout
+                                </button>
+                            </div>
+                        )}
                     </div>
 
                     {/* Mobile menu button */}
@@ -125,8 +150,6 @@ export default function Navbar() {
                         </button>
                     </div>
                 </div>
-
-                {/* Mobile Navigation */}
                 {isMenuOpen && (
                     <div className="md:hidden">
                         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-700 rounded-lg mt-2">
@@ -136,10 +159,9 @@ export default function Navbar() {
                                     to={item.path}
                                     end={item.end}
                                     className={({ isActive }) =>
-                                        `block px-3 py-2 text-base font-medium ${
-                                            isActive 
-                                                ? "text-yellow-400" 
-                                                : "text-white hover:text-yellow-400"
+                                        `block px-3 py-2 text-base font-medium ${isActive
+                                            ? "text-yellow-400"
+                                            : "text-white hover:text-yellow-400"
                                         }`
                                     }
                                     onClick={toggleMenu}
@@ -148,19 +170,19 @@ export default function Navbar() {
                                 </NavLink>
                             ))}
                             <div className="pt-2">
-                                <NavLink
+
+                                <Link
                                     to="/login"
                                     className={({ isActive }) =>
-                                        `w-full block px-4 py-2 rounded-md text-sm font-medium text-center ${
-                                            isActive
-                                                ? "bg-yellow-500 text-gray-900"
-                                                : "bg-yellow-400 hover:bg-yellow-500 text-gray-900"
+                                        `block px-3 py-2 text-base font-medium ${isActive
+                                            ? "text-yellow-400"
+                                            : "text-white hover:text-yellow-400"
                                         }`
                                     }
                                     onClick={toggleMenu}
                                 >
                                     Login
-                                </NavLink>
+                                </Link>
                             </div>
                         </div>
                     </div>
