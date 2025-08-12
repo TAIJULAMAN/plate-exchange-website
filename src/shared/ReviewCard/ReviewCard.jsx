@@ -4,10 +4,10 @@ import { IoIosStar } from "react-icons/io";
 
 export default function ReviewCard({ name, review, image, rating = 5 }) {
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 text-center max-w-sm mx-auto hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between h-full">
+    <div className="bg-[#f6f6f6] rounded-xl shadow-md p-6 py-12 text-center max-w-sm mx-auto hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between h-full">
       {/* Rating Stars */}
       <div className="flex justify-center mb-3">
-        {[...Array(5)].map((_, i) => (
+        {[...Array(rating)].map((_, i) => (
           <div key={i} className="bg-[#00823A] mx-1 p-0.5 rounded-xs">
             <IoIosStar className="text-white fill-current" />
           </div>
