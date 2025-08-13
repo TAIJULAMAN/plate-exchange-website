@@ -36,16 +36,16 @@ export default function HowItWorks() {
   ];
 
   return (
-    <main className="container mx-auto px-5 md:px-0 py-16">
+    <main className="container mx-auto px-5 md:px-0 py-5 md:py-16">
       {/* Section Header */}
       <div className="text-center mb-10">
-        <h2 className="text-xl md:text-7xl font-[500] text-[#1B1B1B] mb-5">
+        <h2 className="text-5xl md:text-7xl font-semibold text-[#1B1B1B] mb-5">
           How It Works
         </h2>
       </div>
 
       {/* Steps Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-10">
         {steps.map((step, index) => (
           <HowItWorksCard
             key={index}

@@ -53,14 +53,14 @@ export default function Review() {
   ];
 
   return (
-    <section className="bg-white py-8 md:py-16">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        
+    <section className="px-5 md:px-0 py-5 md:py-16 overflow-hidden my-10">
+      <div className="container mx-auto">
+
         {/* Heading + Navigation */}
         <div className="flex items-center justify-center gap-4 mb-8 relative">
           <div className="swiper-button-prev !static !transform-none md:bg-gray-200 md:border md:border-gray-400 rounded-full p-2 cursor-pointer md:!size-20 !size-5 !text-black md:!mt-2 md:!mr-40"></div>
           <h2 className="text-xl md:text-6xl font-medium flex items-center gap-2">
-            Rated 'Excellent' on 
+            Rated 'Excellent' on
             <img
               src="https://i.ibb.co.com/NnC9MC0B/image.png"
               alt="Trustpilot logo"
