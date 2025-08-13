@@ -23,7 +23,6 @@ import Otp from "../pages/Auth/Otp";
 import ResetPassword from "../pages/Auth/ResetPassword";
 import SignUp from "../pages/Auth/SignUp";
 import UserDashboardLayout from "../layout/UserDashboardLayout";
-import { List } from "lucide-react";
 import ListPlateForSale from "../pages/Dashboards/UserDashboard/ListPlateForSale";
 import MyProfile from "../pages/Dashboards/UserDashboard/MyProfile";
 import AccountSecurity from "../pages/Dashboards/UserDashboard/AccountSecurity";
@@ -31,6 +30,7 @@ import CommunicationPreferences from "../pages/Dashboards/UserDashboard/Communic
 import MyAdverts from "../pages/Dashboards/UserDashboard/MyAdverts";
 import SavedAdverts from "../pages/Dashboards/UserDashboard/SavedAdverts";
 import SecurePayments from "../pages/Dashboards/UserDashboard/SecurePayments";
+import Chat from "../pages/Chat/Chat";
 
 
 const router = createBrowserRouter([
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home></Home>,
+        element: <Home />,
       },
       {
         path: "/sell-a-plate",
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
       },
       {
         path: "plate-view",
-        element: <PlateView></PlateView>,
+        element: <PlateView />,
       },
       {
         path: "/buy-a-plate",
@@ -73,32 +73,32 @@ const router = createBrowserRouter([
 
       {
         path: "plate-details/:id",
-        element: <PlateDetails></PlateDetails>,
+        element: <PlateDetails />,
       },
       {
         path: "recently-sold",
-        element: <RecentlySold></RecentlySold>,
+        element: <RecentlySold />,
       },
       {
         path: "load-all-plates",
-        element: <AllPlates></AllPlates>,
+        element: <AllPlates />,
       },
       {
         path: "guide-and-blog",
-        element: <GuideAndBlog></GuideAndBlog>,
+        element: <GuideAndBlog />,
       },
       {
 
         path: "blog/details/:id",
-        element: <BlogDetails></BlogDetails>,
+        element: <BlogDetails />,
       },
-            {
+      {
         path: "faq",
-        element: <FaqPage></FaqPage>
+        element: <FaqPage />
       },
       {
         path: "Reviewsandtestimonials",
-        element: <Reviewsandtestimonials></Reviewsandtestimonials>
+        element: <Reviewsandtestimonials />
       },
       {
         path: "/login",
@@ -122,10 +122,14 @@ const router = createBrowserRouter([
       },
     ],
   },
- {
-    path: "userdashboard",
-    element: <UserDashboardLayout />, // layout with sidebar
+  {
+    path: "/userdashboard",
+    element: <UserDashboardLayout />,
     children: [
+      {
+        path: "/userdashboard",
+        element: <ListPlateForSale />,
+      },
       {
         path: "list-plate",
         element: <ListPlateForSale />,
@@ -156,15 +160,11 @@ const router = createBrowserRouter([
       },
       {
         path: "message-centre",
-        element: <>Message Centre Page</>
+        element: <Chat />
       },
       {
         path: "secure-payments",
         element: <SecurePayments />,
-      },
-      {
-        path: "logout",
-        element: <>Logging out...</>
       }
     ]
   }

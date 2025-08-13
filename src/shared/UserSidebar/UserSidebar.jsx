@@ -10,7 +10,6 @@ import {
   Pin,
   Mail,
   User,
-  Menu,
   X
 } from "lucide-react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
@@ -48,13 +47,11 @@ export default function UserSidebar() {
 
       {/* Sidebar */}
       <div
-        className={`w-70 bg-gray-50 p-4 ${
-          isMobile
-            ? `fixed top-0 w-80 pl-10 left-0 h-full z-40 transform ${
-                sidebarOpen ? "translate-x-0" : "-translate-x-full"
-              } transition-transform duration-300 ease-in-out`
-            : ""
-        }`}
+        className={`w-70 bg-gray-50 p-4 ${isMobile
+          ? `fixed top-0 w-80 pl-10 left-0 h-full z-40 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } transition-transform duration-300 ease-in-out`
+          : ""
+          }`}
       >
         {/* Close button for mobile */}
         {isMobile && (
@@ -161,20 +158,6 @@ export default function UserSidebar() {
           />
         </Section>
 
-        {/* Exit */}
-        <Section
-          title="Exit"
-          isActive={isSectionActive(location.pathname, [
-            "/userdashboard/logout"
-          ])}
-        >
-          <SidebarButton
-            to="/userdashboard/logout"
-            icon={<LogOut size={18} />}
-            text="Logout"
-            onClick={isMobile ? toggleSidebar : undefined}
-          />
-        </Section>
       </div>
 
       {/* Overlay for mobile */}
@@ -192,9 +175,8 @@ function Section({ title, children, isActive }) {
   return (
     <div className="mb-6">
       <h3
-        className={`flex items-center gap-2 font-semibold mb-2 ${
-          isActive ? "text-blue-600" : "text-black" 
-        }`}
+        className={`flex items-center gap-2 font-semibold mb-2 ${isActive ? "text-blue-600" : "text-black"
+          }`}
       >
         🔵 {title}:
       </h3>
@@ -210,10 +192,9 @@ function SidebarButton({ to, icon, text, onClick }) {
       onClick={onClick}
       className={({ isActive }) =>
         `flex items-center gap-2 px-3 py-2 rounded-md bg-white transition
-        ${
-          isActive
-            ? "!bg-[#00823A] text-white shadow-[inset_0_4px_6px_rgba(0,0,0,0.3)]"
-            : "shadow-[inset_0_-4px_6px_rgba(0,0,0,0.05)] hover:bg-green-100 hover:text-black"
+        ${isActive
+          ? "!bg-[#00823A] text-white shadow-[inset_0_4px_6px_rgba(0,0,0,0.3)]"
+          : "shadow-[inset_0_-4px_6px_rgba(0,0,0,0.05)] hover:bg-green-100 hover:text-black"
         }`
       }
     >
