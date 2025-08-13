@@ -5,12 +5,12 @@ import Footer from "../shared/Footer/Footer";
 
 export default function Layout() {
   return (
-    <div>
+    <main className="font-manrope overflow-hidden">
       <Navbar />
-      <div className=" mb-20 min-h-screen">
+      <div className="min-h-screen bg-[#f6f6f6]">
         <Outlet />
       </div>
       <Footer />
-    </div>
+    </main>
   );
 }
