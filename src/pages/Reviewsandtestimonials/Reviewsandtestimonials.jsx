@@ -8,7 +8,7 @@ export default function Reviewsandtestimonials() {
       review:
         "Very simple and sold plate within 10 days, offered good advice along the way. Highly recommended.",
       image: "https://i.ibb.co.com/ccX46rZ2/image.png", // replace with real path
-      rating: 5,
+      rating: 4,
     },
     {
       name: "Sarah",
