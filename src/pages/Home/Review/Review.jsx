@@ -1,10 +1,5 @@
 import React from 'react';
 import ReviewCard from '../../../shared/ReviewCard/ReviewCard';
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 export default function Review() {
   const testimonials = [
@@ -56,10 +51,9 @@ export default function Review() {
     <section className="px-5 md:px-0 py-5 md:py-16 overflow-hidden my-10">
       <div className="container mx-auto">
 
-        {/* Heading + Navigation */}
-        <div className="flex items-center justify-center gap-4 mb-8 relative">
-          <div className="swiper-button-prev !static !transform-none md:bg-gray-200 md:border md:border-gray-400 rounded-full p-2 cursor-pointer md:!size-20 !size-5 !text-black md:!mt-2 md:!mr-40"></div>
-          <h2 className="text-xl md:text-6xl font-medium flex items-center gap-2">
+        {/* Heading */}
+        <div className="text-center mb-5">
+          <h2 className="text-xl md:text-6xl font-medium flex items-center justify-center gap-2 flex-wrap">
             Rated 'Excellent' on
             <img
               src="https://i.ibb.co.com/NnC9MC0B/image.png"
@@ -68,32 +62,27 @@ export default function Review() {
             />
             Trustpilot
           </h2>
-          <div className="swiper-button-next !static !transform-none md:bg-gray-200 md:border md:border-gray-400 rounded-full p-2 cursor-pointer md:!size-20 !size-5 !text-black md:!mt-2 md:!ml-40"></div>
         </div>
 
-        {/* Swiper Slider */}
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
-          navigation={{
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          }}
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 5000 }}
-          loop
-          spaceBetween={16}
-          breakpoints={{
-            320: { slidesPerView: 1 },
-            640: { slidesPerView: 2 },
-            1024: { slidesPerView: 4 },
-          }}
-        >
-          {testimonials.map((t, i) => (
-            <SwiperSlide key={i}>
-              <ReviewCard {...t} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {/* Marquee Container */}
+        <section className="relative overflow-hidden">
+          <div className="marquee-container">
+            <div className="marquee-content">
+              {/* First set of testimonials */}
+              {testimonials.map((t, i) => (
+                <div key={`first-${i}`} className="marquee-item">
+                  <ReviewCard {...t} />
+                </div>
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {testimonials.map((t, i) => (
+                <div key={`second-${i}`} className="marquee-item">
+                  <ReviewCard {...t} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     </section>
   );

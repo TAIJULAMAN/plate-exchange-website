@@ -7,7 +7,7 @@ export default function Layout() {
   return (
     <main className="font-manrope overflow-hidden">
       <Navbar />
-      <div className="min-h-screen bg-[#f6f6f6]">
+      <div className="min-h-screen bg-[#f6f6f6] pt-[60px]">
         <Outlet />
       </div>
       <Footer />

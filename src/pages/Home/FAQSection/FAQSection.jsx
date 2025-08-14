@@ -2,8 +2,8 @@ import React from 'react'
 import { useState } from 'react'
 import { Plus, Minus } from 'lucide-react'
 
-export default function FAQSection( { headingShow = true  } ) {
-  const [openItems, setOpenItems] = useState([0]) // First item open by default
+export default function FAQSection({ headingShow = true }) {
+  const [openItems, setOpenItems] = useState([0])
 
   const faqs = [
     {
@@ -33,28 +33,28 @@ export default function FAQSection( { headingShow = true  } ) {
   ]
 
   const toggleItem = (index) => {
-    setOpenItems(prev => 
-      prev.includes(index) 
+    setOpenItems(prev =>
+      prev.includes(index)
         ? prev.filter(item => item !== index)
         : [...prev, index]
     )
   }
 
   return (
-    <div 
-      className="bg-[#5587A7] px-4 py-16 rounded-2xl shadow-lg"
+    <div
+      className="bg-[#5587A7] px-5 md:px-0 py-5 md:py-16 rounded-lg mb-10"
     >
       <div className="">
         {/* Header */}
         <div className="text-center mb-12">
 
           {headingShow && (
-          <>
-            
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
-            Frequently Asked Questions
-          </h1>
-          </>
+            <>
+
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
+                Frequently Asked Questions
+              </h1>
+            </>
           )}
           <div className="w-full h-px bg-white/30 mt-8"></div>
         </div>
