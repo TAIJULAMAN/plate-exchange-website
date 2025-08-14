@@ -35,7 +35,7 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     return (
-        <nav className="bg-[#3c3d37] text-white shadow-lg">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-[#3c3d37] text-white shadow-lg">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-4">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
@@ -126,7 +126,7 @@ export default function Navbar() {
                                 <button
                                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     onClick={() => {
-                                       navigate('/login')
+                                        navigate('/login')
                                     }}
                                 >
                                     Logout

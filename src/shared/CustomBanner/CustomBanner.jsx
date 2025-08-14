@@ -6,7 +6,7 @@ export default function CustomBanner({
     className = "",
 }) {
     return (
-        <div className={`${backgroundColor} ${textColor} py-6 w-full font-sans relative overflow-hidden ${className}`}>
+        <div className={`${backgroundColor} ${textColor} py-5 w-full font-sans relative overflow-hidden ${className}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="text-center">
                     <div className="flex items-center justify-center gap-3 mb-2">
