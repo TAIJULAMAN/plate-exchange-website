@@ -117,9 +117,9 @@ const Chat = () => {
         fileInputRef.current?.click();
     };
 
-    useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages]);
+    // useEffect(() => {
+    //     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // }, [messages]);
 
     return (
       <div className="flex flex-col h-screen bg-white ">
