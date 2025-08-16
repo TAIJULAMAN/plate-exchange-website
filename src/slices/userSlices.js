@@ -8,7 +8,7 @@ const initialState = {
 
 export const userSlice = createSlice({
   name: "user",
-  initialState,
+  initialState:{},
   reducers: {
     userLoginInfo: (state, action) => {
       state.value = action.payload;
