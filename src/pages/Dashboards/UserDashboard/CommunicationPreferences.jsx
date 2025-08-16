@@ -23,7 +23,7 @@ export default function CommunicationPreferences() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-0 py-8">
+    <div className="min-h-screen bg-gray-100 p-0 py-8 flex items-center justify-center">
       <div className="max-w-4xl mx-auto p-0">
         {/* Header */}
         <div className="mb-8 text-center">

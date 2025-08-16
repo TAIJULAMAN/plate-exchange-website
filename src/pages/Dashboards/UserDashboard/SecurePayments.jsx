@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function SecurePayments() {
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 p-6 flex items-center justify-center">
       <div className="max-w-4xl mx-auto  p-8">
         {/* Header */}
         <div className="mb-8">
@@ -19,13 +19,17 @@ export default function SecurePayments() {
               What is escrow?
             </h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              Escrow is a secure payment method in which funds are held by a trusted third party until both the seller and buyer 
-              are checked and verified, ensuring the safe completion of the transaction. This provides complete peace of mind 
-              and protection for all parties involved.
+              Escrow is a secure payment method in which funds are held by a
+              trusted third party until both the seller and buyer are checked
+              and verified, ensuring the safe completion of the transaction.
+              This provides complete peace of mind and protection for all
+              parties involved.
             </p>
             <p className="text-gray-700 leading-relaxed mb-6">
-              To facilitate secure escrow-style payments for our users, we have partnered with Trustap, a digital transaction 
-              platform. Trustap safeguards users from potential scams when transacting with someone you don't know, offering:
+              To facilitate secure escrow-style payments for our users, we have
+              partnered with Trustap, a digital transaction platform. Trustap
+              safeguards users from potential scams when transacting with
+              someone you don't know, offering:
             </p>
           </div>
 

@@ -35,7 +35,7 @@ export default function AccountSecurity() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-gray-100 p-6 flex items-center justify-center">
       <div className="max-w-4xl mx-auto  rounded-lg  p-8">
         {/* Header */}
         <div className="text-center mb-8">
