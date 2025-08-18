@@ -11,7 +11,7 @@ export default function SellAPlate() {
   return (
     <div className="bg-[#f6f6f6] px-5 sm:px-6 lg:px-0 py-16">
       <SellAPlateHero />
-      <CustomBanner title="Trusted by more than ten thousands clients!" />
+      <CustomBanner title="Your trusted partner for premium UK number plates" />
       <SellsHowItWorks />
       <Review />
       <NewlyListedPlates />
