@@ -45,40 +45,39 @@ export default function SellAPlateHero() {
                 </h2>
             </div>
 
-            {/* Search Section */}
-            <div className="bg-[#ecedef] rounded-lg shadow-sm py-10 px-4 mb-5 max-w-[600px] mx-auto">
-                <form onSubmit={handleSearch} className="flex">
-                    <div className="flex-1">
-                        <Input
-                            type="text"
-                            placeholder="SEARCH A PLATE"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="flex-1 px-4 py-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-center font-medium text-gray-700"
-                        />
-                    </div>
+      {/* Search Section */}
+      <div className="bg-[#ecedef] rounded-lg shadow-sm py-10 px-4 mb-5 max-w-[550px] mx-auto">
+        <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-2 md:gap-1">
+          <div className="flex-1">
+            <Input
+              type="text"
+              placeholder="Enter Your REG"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="md:flex-1 px-4 py-3 border border-gray-300 rounded-l-md focus:outline-none text-xs md:text-lg text-center font-medium text-gray-700"
+            />
+          </div>
 
-                    <button
-                        type="submit"
-                        className="ml-5 bg-yellow-300 text-black font-bold px-6 py-3 rounded-r-md transition-colors duration-200 flex items-center justify-center"
-                    >
-                        SELL
-                    </button>
-                </form>
-                {/* Trustpilot Reviews */}
-                <div className="mt-6 flex items-center justify-center">
-                    <IoIosStar className="size-10 text-[#00823a] fill-current" />
-                    <span className="text-lg font-medium ml-1 mr-2">Trustpilot</span>
-                    <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                            <div className="bg-[#00823A] mx-1 p-0.5 rounded-xs">
-                                <IoIosStar key={i} className=" text-[#ffffff] fill-current" />
-                            </div>
-                        ))}
-                    </div>
-                    <span className="ml-2 text-lg text-[#1B1B1B]">(12,426 reviews)</span>
-                </div>
-            </div>
+          <button
+            type="submit"
+            className="md:ml-5 bg-yellow-300 text-black font-bold px-6 py-3 rounded-r-md transition-colors duration-200 flex items-center justify-center"
+          >
+            Sell
+          </button>
+        </form>
+        {/* Trustpilot Reviews */}
+        <div className="mt-6 flex items-center justify-center">
+          <IoIosStar className="size-10 text-[#00823a] fill-current" />
+          <span className="text-lg font-medium ml-1 mr-2">Trustpilot</span>
+          <div className="flex">
+            {[...Array(5)].map((_, i) => (
+              <div className="bg-[#00823A] mx-1 p-0.5 rounded-xs">
+                <IoIosStar key={i} className=" text-[#ffffff] fill-current" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
             {/* Features Section */}
             <div className="grid md:grid-cols-3 gap-10 max-w-7xl mx-auto mt-10">

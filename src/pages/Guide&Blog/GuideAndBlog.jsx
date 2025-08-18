@@ -53,7 +53,7 @@ const blogs = [
   };
 
   return (
-    <div className="container mx-auto p-8 bg-white">
+    <div className="container mx-auto p-8">
       {/* Header */}
       <div className="text-center my-12">
         <h1 className="text-3xl md:text-6xl font-medium text-gray-900 mb-6">

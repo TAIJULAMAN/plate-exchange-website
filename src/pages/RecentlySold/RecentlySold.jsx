@@ -1,9 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import svg1 from "/1.png";
+import svg2 from "/2.svg";
+import svg3 from "/3.svg";
+import LikeIconAndText from "../../shared/Hero/LikeIconandtext";
 
 export default function RecentlySold() {
-
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const soldPlates = [
     { plate: "S88 HSE", price: "£571", status: "sold" },
     { plate: "SEYR 56", price: "£571", status: "sold" },
@@ -32,23 +35,38 @@ export default function RecentlySold() {
     { plate: "F58 FTI", price: "£571", status: "sold" },
   ];
 
+  const features = [
+    {
+      imgSrc: svg1,
+      text: "We charge only £10.",
+    },
+    {
+      imgSrc: svg2,
+      text: "No middleman (save up to 30%).",
+    },
+    {
+      imgSrc: svg3,
+      text: "Buyer and Seller deal directly with each other.",
+    },
+  ];
+
   return (
-    <div className="container mx-auto p-8 bg-white">
+    <div className="container mx-auto px-5 md:px-0 py-10 md:py-16">
       {/* Header */}
       <div className="text-center my-12">
         <h1 className="    text-3xl md:text-6xl font-medium text-gray-900 mb-6">
           Plates Sold Via Plate Xpress
         </h1>
-        <div className="max-w-7xl mx-auto">
-          <p className="text-gray-700 text-lg leading-relaxed mb-4">
-            Were the UK's leading private number plate marketplace, and have
-            been helping buyers and sellers to deal directly, with no middlemen
-            or commission for well over a decade now. Below you'll find just
-            some of the plates that have sold via our site. You may notice that
-            the selling price is not shown for all plates. This is simply due to
-            buyers/sellers either giving us permission to publish this, or
-            preferring to keep this information private.
-          </p>
+        <div className="container mx-auto">
+          <div className="grid md:grid-cols-3 gap-10 max-w-9xl mx-auto mt-10">
+            {features.map((feature, index) => (
+              <LikeIconAndText
+                key={index}
+                imgSrc={feature.imgSrc}
+                text={feature.text}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
@@ -84,25 +102,23 @@ export default function RecentlySold() {
         ))}
       </div>
 
+      {/* Buy Now Button */}
+      <div className="flex justify-center mt-8 gap-6">
+        <div className="bg-[#00823A] max-w-xl cursor-pointer px-8 py-4 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] text-center font-sans">
+          <span className="text-white font-bold text-2xl tracking-wider">
+            Load more result...
+          </span>
+        </div>
 
-       {/* Buy Now Button */}
-          <div className="flex justify-center mt-8 gap-6">
-            <div className="bg-[#00823A] max-w-xl cursor-pointer px-8 py-4 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] text-center font-sans">
-              <span className="text-white font-bold text-2xl tracking-wider">
-                Load more result...
-              </span>
-            </div>
-
-            <div
-            onClick={() => navigate("/load-all-plates")}
-            className="bg-[#00823A] max-w-xl cursor-pointer px-8 py-4 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] text-center font-sans">
-              <span className="text-white font-bold text-2xl tracking-wider">
-                Load all
-              </span>
-            </div>
-          </div>
-
-
+        <div
+          onClick={() => navigate("/load-all-plates")}
+          className="bg-[#00823A] max-w-xl cursor-pointer px-8 py-4 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] text-center font-sans"
+        >
+          <span className="text-white font-bold text-2xl tracking-wider">
+            Load all
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

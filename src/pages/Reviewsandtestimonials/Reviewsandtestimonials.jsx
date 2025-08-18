@@ -69,7 +69,7 @@ export default function Reviewsandtestimonials() {
   ];
 
   return (
-    <div className="container mx-auto p-8 bg-white">
+    <div className="container mx-auto px-5 md:px-0 py-10 md:py-16">
       {/* Header */}
       <div className="text-center my-12">
         <h1 className="text-3xl md:text-6xl font-medium text-gray-900 mb-6">
