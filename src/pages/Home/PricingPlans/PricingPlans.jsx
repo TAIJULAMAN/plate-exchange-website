@@ -4,10 +4,10 @@ import { FaCheck } from 'react-icons/fa';
 
 export default function PricingPlans() {
     return (
-        <div className="bg-white px-5 md:px-0 py-5 md:py-12">
+        <div className="bg-white px-5 md:px-0 py-5 md:py-16">
             <div className='container mx-auto'>
                 {/* Header Section */}
-                <div className="text-center mb-12">
+                <div className="text-center mb-10">
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                         Our Pricing Plans
                     </h1>
@@ -18,7 +18,7 @@ export default function PricingPlans() {
 
                 {/* Pricing Card */}
                 <div className="flex justify-center">
-                    <div className="w-full max-w-md border-2 border-green-500 rounded-lg shadow-lg">
+                    <div className="w-full max-w-md border-2 border-[#00823A] rounded-md">
                         {/* Plan Header */}
                         <div className="text-center mb-8 bg-green-50">
                             <h2 className="text-green-600 font-semibold text-base  py-10">
