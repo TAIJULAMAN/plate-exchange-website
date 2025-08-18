@@ -52,6 +52,8 @@ export default function FAQSection({ headingShow = true }) {
 
   return (
     <div className="bg-[#5587A7] px-5 md:px-10 py-5 md:py-16 rounded-lg mb-10 container mx-auto">
+
+
       <div className="">
         {/* Header */}
         <div className="text-center mb-12">

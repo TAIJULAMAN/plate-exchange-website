@@ -60,10 +60,38 @@ export default function PricingPlans() {
                                     <span className="text-gray-700">Initial Rent Collection</span>
 
                                 </div>
+                                <div className="flex items-center gap-3">
+                                    <FaCheck className="w-5 h-5 text-green-600 flex-shrink-0" />
+                                    <span className="text-gray-700">Viewing & Enquiry Organiser</span>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <FaCheck className="w-5 h-5 text-green-600 flex-shrink-0" />
+
+                                    <span className="text-gray-700">Contract drafting & digital signing</span>
+
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <FaCheck className="w-5 h-5 text-green-600 flex-shrink-0" />
+                                    <span className="text-gray-700">Deposit Registration</span>
+
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <FaCheck className="w-5 h-5 text-green-600 flex-shrink-0" />
+                                    <span className="text-gray-700">Initial Rent Collection</span>
+
+                                </div>
+                            </div>
+                            {/* Green Button at Bottom */}
+                            <div className="mt-12">
+                                <button className="w-full bg-[#00823A] text-white font-semibold py-3 px-5 rounded-full transition-colors duration-200 shadow-lg hover:shadow-xl">
+                                Start Your Advert
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     )

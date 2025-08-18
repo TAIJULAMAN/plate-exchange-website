@@ -57,7 +57,7 @@ export default function Hero() {
         />
         <div className="mt-5 flex flex-col md:flex-row gap-5 items-center justify-center">
           <div className="flex items-center gap-2">
-            <IoIosStar className="size-5 text-[#00823a] fill-current" />
+         <IoIosStar className="size-6 sm:size-8 md:size-10 text-[#00823a] fill-current" />
             <span className="text-lg font-medium ml-1 mr-2">Trustpilot</span></div>
           <div className="flex">
             {[...Array(5)].map((_, i) => (
