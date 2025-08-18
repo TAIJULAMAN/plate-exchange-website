@@ -42,7 +42,7 @@ export default function FAQSection({ headingShow = true }) {
 
   return (
     <div
-      className="bg-[#5587A7] px-5 md:px-0 py-5 md:py-16 rounded-lg mb-10"
+      className="bg-[#5587A7] px-5 md:px-0 py-5 md:py-16 rounded-lg mb-10 mx-5 md:mx-0"
     >
       <div className="">
         {/* Header */}
