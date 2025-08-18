@@ -11,7 +11,7 @@ export default function BuyAPlate() {
     return (
         <div className="bg-[#f6f6f6] px-5 sm:px-6 lg:px-0 py-16">
             <BuyAPlateHero />
-            <CustomBanner title="Why pay more? Save up to 30% with direct plate deals." />
+            <CustomBanner title="Buy premium UK number plates with confidence" />
             <BuyHowItWorks />
             <Review />
             <NewlyListedPlates />

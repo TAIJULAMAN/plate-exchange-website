@@ -43,9 +43,9 @@ export default function PlateView() {
                 <div className="lg:col-span-2">
                     <div className="relative bg-white rounded-lg overflow-hidden shadow-sm mb-6">
                         <img
-                            src="/black-mclaren-p1-oov.png"
+                            src="/PlateViewmainCar.png"
                             alt="Car with number plate preview"
-                            className="w-full h-96 object-cover"
+                            className="w-full object-cover"
                         />
                     </div>
                 </div>
@@ -142,7 +142,7 @@ export default function PlateView() {
                                     className="w-full h-full border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center hover:border-gray-400 hover:bg-gray-50 transition-colors bg-white"
                                 >
                                     <Upload className="size-12 text-gray-900 mb-1" />
-                                    <span className="text-xl text-gray-900 text-center px-2">
+                                    <span className="md:text-xl text-sm text-gray-900 text-center px-2">
                                         Upload your car image
                                     </span>
                                 </button>
