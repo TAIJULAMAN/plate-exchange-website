@@ -14,12 +14,14 @@ function App() {
       <div className="container mx-auto">
         <Hero />
       </div>
-      <HowItWorks />
       <CustomBanner title="Why pay more? Save up to 30% with direct plate deals." />
+      <HowItWorks />
+      <Review />
       <div className="container mx-auto">
-        <Review />
         <NewlyListedPlates />
-        <PricingPlans />
+      </div>
+      <PricingPlans />
+      <div className="container mx-auto">
         <HelpfulGuides />
         <FAQSection />
       </div>

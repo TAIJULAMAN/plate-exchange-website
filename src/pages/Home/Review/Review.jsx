@@ -48,7 +48,7 @@ export default function Review() {
   ];
 
   return (
-    <section className="px-5 md:px-0 py-5 md:py-16 overflow-hidden my-10">
+    <section className="px-5 md:px-0 py-5 md:py-16 overflow-hidden my-10 z-10 bg-white">
       <div className="container mx-auto">
 
         {/* Heading */}
@@ -65,7 +65,7 @@ export default function Review() {
         </div>
 
         {/* Marquee Container */}
-        <section className="relative overflow-hidden">
+        <section className="relative overflow-hidden mt-10" >
           <div className="marquee-container">
             <div className="marquee-content">
               {/* First set of testimonials */}

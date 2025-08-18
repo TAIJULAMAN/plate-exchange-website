@@ -10,7 +10,7 @@ const HowItWorksCard = ({ title, description, buttonText }) => {
       </div>
 
       {/* Button Section */}
-      <div className="bg-[#F7F7F7] p-4 flex justify-center">
+      <div className="bg-[#f5f5f5] p-5 flex justify-center">
         <button className="bg-[#00823A] text-white font-dmsans py-3 px-6 rounded transition-colors">
           {buttonText}
         </button>
