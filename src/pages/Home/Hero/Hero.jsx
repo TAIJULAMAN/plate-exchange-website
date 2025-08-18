@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 import { IoIosStar } from "react-icons/io";
 import LikeIconAndText from "../../../shared/Hero/LikeIconandtext";
 import Input from "../../../shared/Input/Input";
+
+import svg1 from "/1.png";
+import svg2 from "/2.svg";
+import svg3 from "/3.svg";
+
+
 
 export default function Hero() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const features = [
     {
-      imgSrc: "https://i.ibb.co.com/WvbNG4wC/image.png",
+      imgSrc: svg1,
       text: "We charge only £10.",
     },
     {
-      imgSrc: "https://i.ibb.co.com/C5rdz3s8/image.png",
+      imgSrc:svg2,
       text: "No middleman (save up to 30%).",
     },
     {
-      imgSrc: "https://i.ibb.co.com/C32DzLYz/image.png",
+      imgSrc: svg3,
       text: "Buyer and Seller deal directly with each other.",
     },
   ];
@@ -59,7 +66,7 @@ export default function Hero() {
               </div>
             ))}
           </div>
-          <span className="ml-2 text-lg text-[#1B1B1B]">(12,426 reviews)</span>
+          {/* <span className="ml-2 text-lg text-[#1B1B1B]">(12,426 reviews)</span> */}
         </div>
       </section>
       <section className="grid md:grid-cols-3 gap-10 max-w-9xl mx-auto mt-10">
