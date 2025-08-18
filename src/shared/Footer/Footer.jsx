@@ -32,7 +32,7 @@ export default function Footer() {
                         The private numberplate marketplace
                     </h2>
 
-                    <div className="flex flex-col sm:flex-row gap-3">
+                    <div className="flex flex-row md:flex-col gap-3">
                         <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-6 py-2 rounded-full">
                             Sell A Plate
                         </button>
