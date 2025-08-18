@@ -3,7 +3,7 @@ import React from "react";
 const LikeIconAndText = ({ imgSrc, text }) => {
   return (
     <div className="flex flex-col items-center text-gray-900 mt-10">
-      <div className="flex items-center justify-center w-16 h-16 mb-3 bg-white">
+      <div className="flex items-center justify-center w-16 h-16 mb-3 ">
         <img
           src={imgSrc}
           alt="icon"

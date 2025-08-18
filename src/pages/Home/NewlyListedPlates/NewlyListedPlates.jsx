@@ -18,7 +18,7 @@ export default function NewlyListedPlates() {
           Newly Listed Plates
         </h1>
         <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-          Discover the latest number plates added to the marketplace — fresh, unique, and available now.
+          Discover the latest number plates added to the marketplace.
         </p>
       </div>
 
