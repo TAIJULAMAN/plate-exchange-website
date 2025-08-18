@@ -29,14 +29,14 @@ export default function Footer() {
             <div className="container mx-auto px-4 py-8">
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8">
                     <h2 className="text-2xl md:text-3xl font-bold">
-                        The private numberplate marketplace
+                     The marketplace for private registrations.
                     </h2>
 
-                    <div className="flex flex-row md:flex-col gap-3">
-                        <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-6 py-2 rounded-full">
+                    <div className="flex flex-row gap-2">
+                        <button className="bg-yellow-500 text-gray-900 font-semibold px-6 py-2 rounded-full">
                             Sell A Plate
                         </button>
-                        <button className="border-2 border-white text-white hover:bg-white hover:text-gray-800 px-6 py-2 rounded-full">
+                        <button className="border-2 border-white bg-white text-gray-900 font-semibold px-6 py-2 rounded-full">
                             Buy A Plate
                         </button>
                     </div>
@@ -50,7 +50,7 @@ export default function Footer() {
                     {/* Description */}
                     <div className="lg:col-span-2">
                         <p className="text-gray-300 leading-relaxed">
-                            Discover a hassle-free way to buy or sell number plates. We connect trusted sellers with serious buyers on a secure, premium platform.
+                           We connect sellers with buyers on a secure, premium platform.
                         </p>
                     </div>
 
@@ -132,7 +132,7 @@ export default function Footer() {
                 {/* Copyright */}
                 <div className="text-center">
                     <p className="text-yellow-500 text-sm">
-                        © 2025 PlateExchange. Company number: 0245645
+                        © 2025 Plate {} Exchange. Company number: 0245645
                     </p>
                 </div>
             </div>
