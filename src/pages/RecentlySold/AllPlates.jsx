@@ -1,33 +1,39 @@
 import React from "react";
 
 export default function AllPlates() {
-  const soldPlates = [
-    { plate: "S88 HSE", price: "£571", status: "sold" },
-    { plate: "SEYR 56", price: "£571", status: "sold" },
-    { plate: "RTDZ HS", price: "£571", status: "sold" },
-    { plate: "STR TH6", price: "£571", status: "sold" },
-    { plate: "SDR H85", price: "£571", status: "sold" },
-    { plate: "ERY Y5W", price: "£571", status: "sold" },
-    { plate: "ERY REY", price: "£571", status: "sold" },
-    { plate: "ETY RYE", price: "£571", status: "sold" },
-    { plate: "F58 FTI", price: "£571", status: "sold" },
-    { plate: "DFU 72P", price: "£571", status: "sold" },
-    { plate: "S88 HSE", price: "£571", status: "sold" },
-    { plate: "SEYR 56", price: "£571", status: "sold" },
-    { plate: "RTDZ HS", price: "£571", status: "sold" },
-    { plate: "STR TH6", price: "£571", status: "sold" },
-    { plate: "SDR H85", price: "£571", status: "sold" },
-    { plate: "ERY Y5W", price: "£571", status: "sold" },
-    { plate: "ERY REY", price: "£571", status: "sold" },
-    { plate: "ETY RYE", price: "£571", status: "sold" },
-    { plate: "F58 FTI", price: "£571", status: "sold" },
-    { plate: "F58 FTI", price: "£571", status: "sold" },
-    { plate: "F58 FTI", price: "£571", status: "sold" },
-    { plate: "F58 FTI", price: "£571", status: "sold" },
-    { plate: "F58 FTI", price: "£571", status: "sold" },
-    { plate: "F58 FTI", price: "£571", status: "sold" },
-    { plate: "F58 FTI", price: "£571", status: "sold" },
-  ];
+const plates = [
+  { plate: "S88 HSE", price: "£571", status: "make offer" },
+  { plate: "SEYR 56", price: "£820", status: "" },
+  { plate: "RTD 123", price: "£999", status: "" },
+  { plate: "STR 777", price: "£650", status: "make offer" },
+  { plate: "SDR 456", price: "£720", status: "make offer" },
+  { plate: "ERY 999", price: "£845", status: "make offer" },
+  { plate: "ERY 888", price: "£571", status: "make offer" },
+  { plate: "ETY 111", price: "£610", status: "make offer" },
+  { plate: "F58 FTI", price: "£571", status: "make offer" },
+  { plate: "DFU 72P", price: "£571", status: "make offer" },
+  { plate: "JAY 123", price: "£600", status: "make offer" },
+  { plate: "LUX 500", price: "£715", status: "" },
+  { plate: "VIP 007", price: "£1200", status: "make offer" },
+  { plate: "CAR 888", price: "£999", status: "make offer" },
+  { plate: "RAC 321", price: "£730", status: "make offer" },
+  { plate: "DRI 456", price: "£540", status: "make offer" },
+  { plate: "WIN 202", price: "£800", status: "make offer" },
+  { plate: "GOA 999", price: "£571", status: "make offer" },
+  { plate: "SUN 404", price: "£620", status: "make offer" },
+  { plate: "MOON 77", price: "£750", status: "make offer" },
+  { plate: "STAR 11", price: "£571", status: "" },
+  { plate: "SKY 300", price: "£690", status: "make offer" },
+  { plate: "JET 222", price: "£810", status: "make offer" },
+  { plate: "CAR 999", price: "£920", status: "make offer" },
+  { plate: "BMW 520", price: "£1100", status: "make offer" },
+  { plate: "BEN 777", price: "£990", status: "make offer" },
+  { plate: "MERC 63", price: "£1500", status: "make offer" },
+  { plate: "AUD 444", price: "£1300", status: "make offer" },
+  { plate: "TES 369", price: "£1400", status: "" },
+  { plate: "LAM 999", price: "£2000", status: "make offer" }
+];
+
 
   return (
     <div className="container mx-auto p-8 bg-white">
@@ -45,32 +51,51 @@ export default function AllPlates() {
 
       {/* Recently Sold Plates Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-        {soldPlates.map((item, index) => (
+        {plates.map((item, index) => (
           <div
             key={index}
             className="bg-white border border-gray-200 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow"
           >
             {/* License Plate */}
             <div className="bg-[#fad549] w-full px-3 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] mb-3 inline-block">
-              <span className="text-black font-bold text-2xl tracking-wider font-mycustom">
+              <span className="text-black font-bold text-4xl tracking-wider font-mycustom">
                 {item.plate}
               </span>
             </div>
 
-            {/* Price Information */}
-            <div className="text-xl">
-              {item.status === "sold" && (
-                <>
-                  <span>Sold</span>
-                  {item.price && (
-                    <>
-                      <span className="mx-1">for</span>
-                      <span>{item.price}</span>
-                    </>
-                  )}
-                </>
-              )}
-            </div>
+            
+{/* Price Information */}
+<div className="text-xl">
+  {item.status === "sold" && (
+    <>
+      <span className="text-red-600 font-semibold">Sold</span>
+      {item.price && (
+        <>
+          <span className="mx-1">for</span>
+          <span>{item.price}</span>
+        </>
+      )}
+    </>
+  )}
+
+  {item.status === "make offer" && (
+    <span className="text-green-600 font-semibold">Make Offer</span>
+  )}
+
+  {item.status === "" && (
+    <>
+      <span className="text-gray-700">Available</span>
+      {item.price && (
+        <>
+          <span className="mx-1">at</span>
+          <span>{item.price}</span>
+        </>
+      )}
+    </>
+  )}
+</div>
+
+            
           </div>
         ))}
       </div>
