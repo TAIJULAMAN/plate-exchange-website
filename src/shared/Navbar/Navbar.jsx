@@ -169,12 +169,12 @@ export default function Navbar() {
                                     {item.name}
                                 </NavLink>
                             ))}
-                            <div className="pt-2">
+                            <div className="pt-2 pl-4">
 
                                 <Link
                                     to="/login"
                                     className={({ isActive }) =>
-                                        `block px-3 py-2 text-base font-medium ${isActive
+                                        `block px-3 text-base font-medium ${isActive
                                             ? "text-yellow-400"
                                             : "text-white hover:text-yellow-400"
                                         }`

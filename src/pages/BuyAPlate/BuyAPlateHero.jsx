@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Input from "../../shared/Input/Input";
 import { IoIosStar } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 export default function BuyAPlateHero() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -8,6 +9,7 @@ export default function BuyAPlateHero() {
     e.preventDefault();
     console.log("Searching for:", searchTerm);
   };
+  const navigate = useNavigate();
 
   return (
     <div className=" px-5 md:px-0 py-16">
@@ -43,8 +45,11 @@ export default function BuyAPlateHero() {
           </div>
 
           <button
+          onClick={()=> {
+            navigate("/load-all-plates");
+          }}
             type="submit"
-            className="md:ml-5 bg-yellow-300 text-black font-bold px-6 py-3 rounded-r-md transition-colors duration-200 flex items-center justify-center"
+            className="md:ml-5 bg-yellow-300 text-black font-bold px-6 py-3 rounded-r-md transition-colors duration-200 flex items-center justify-center cursor-pointer"
           >
             View All
           </button>
