@@ -79,7 +79,7 @@ export default function RecentlySold() {
           >
             {/* License Plate */}
             <div className="bg-[#fad549] w-full px-3 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] mb-3 inline-block">
-              <span className="text-black font-bold text-2xl tracking-wider font-mycustom">
+              <span className="text-black font-bold text-4xl tracking-wider font-mycustom">
                 {item.plate}
               </span>
             </div>
