@@ -12,7 +12,7 @@ export default function PricingPlans() {
     const itemsPerPage = 6; // items per page
 
     // Pass page & limit to backend
-    const { isLoading, error, isSuccess, data } = useGetAllSubscriptionQuery({
+    const { isLoading, error, data } = useGetAllSubscriptionQuery({
         page: currentPage,
         limit: itemsPerPage
     });

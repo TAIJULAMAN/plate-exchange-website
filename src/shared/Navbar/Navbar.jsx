@@ -59,6 +59,7 @@ export default function Navbar() {
         { path: "/contact-us", name: "Contact" },
         { path: "/privacy-policy", name: "Privacy Policy" },
         { path: "/terms-conditions", name: "Terms & Conditions" },
+        { path: "/about-us", name: "About Us" },
     ];
 
     const mobileMenuItems = [...mainMenuItems, ...moreMenuItems];
