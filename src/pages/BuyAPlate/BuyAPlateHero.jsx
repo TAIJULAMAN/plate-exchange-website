@@ -11,6 +11,9 @@ export default function BuyAPlateHero() {
   };
   const navigate = useNavigate();
 
+
+
+
   return (
     <div className=" px-5 md:px-0 py-16">
       {/* Header Section */}

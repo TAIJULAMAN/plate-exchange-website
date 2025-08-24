@@ -31,6 +31,7 @@ import MyAdverts from "../pages/Dashboards/UserDashboard/MyAdverts";
 import SavedAdverts from "../pages/Dashboards/UserDashboard/SavedAdverts";
 import SecurePayments from "../pages/Dashboards/UserDashboard/SecurePayments";
 import Chat from "../pages/Chat/Chat";
+import PrivateRoute from "./PrivateRoute.JSX";
 
 
 const router = createBrowserRouter([
@@ -44,7 +45,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/sell-a-plate",
-        element: <SellAPlate />,
+        element: <PrivateRoute>
+          <SellAPlate />
+        </PrivateRoute>,
       },
       {
         path: "plate-view",

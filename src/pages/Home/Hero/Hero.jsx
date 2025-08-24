@@ -1,42 +1,47 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { IoIosStar } from "react-icons/io";
 import LikeIconAndText from "../../../shared/Hero/LikeIconandtext";
 import Input from "../../../shared/Input/Input";
-
 import svg1 from "/1.png";
 import svg2 from "/2.svg";
 import svg3 from "/3.svg";
-
-
+import { useGetAllplatesSalesQuery } from "../../../redux/api/platesSalesApi";
+import Loader from "../../../shared/Loaders/Loader";
+import ErrorPage from "../../../shared/Error/ErrorPage";
 
 export default function Hero() {
   const [searchTerm, setSearchTerm] = useState("");
 
+  // ✅ only call API when searchTerm length >= 1
+  const {
+    data,
+    isLoading,
+    error,
+    isSuccess,
+  } = useGetAllplatesSalesQuery(
+    { registrationId: searchTerm },
+    { skip: searchTerm.length < 1 }
+  );
+
+  if (isLoading) return <Loader />;
+  if (error) return <ErrorPage message={error?.message} />;
+
+  console.log("Search results:", data?.data?.all_plates);
+
   const features = [
-    {
-      imgSrc: svg1,
-      text: "We charge only £10.",
-    },
-    {
-      imgSrc:svg2,
-      text: "No middleman (save up to 30%).",
-    },
-    {
-      imgSrc: svg3,
-      text: "Buyer and Seller deal directly with each other.",
-    },
+    { imgSrc: svg1, text: "We charge only £10." },
+    { imgSrc: svg2, text: "No middleman (save up to 30%)." },
+    { imgSrc: svg3, text: "Buyer and Seller deal directly with each other." },
   ];
-
-
 
   return (
     <main className="container mx-auto px-5 md:px-0 py-16">
+      {/* Hero text */}
       <section className="text-center mb-16 text-4xl md:text-6xl font-normal">
-        <h1 className="  text-gray-800 mb-2 leading-tight">
+        <h1 className="text-gray-800 mb-2 leading-tight">
           Connecting buyers and sellers of
         </h1>
-        <h2 className=" text-gray-800 mb-8">
+        <h2 className="text-gray-800 mb-8">
           <span className="text-custom-yellow px-2 py-1 rounded relative">
             Number Plates{" "}
             <img
@@ -48,32 +53,39 @@ export default function Hero() {
           directly.
         </h2>
       </section>
-      <section className=" rounded-lg shadow-sm py-10 px-5 mb-6 max-w-[600px] mx-auto">
+
+      {/* Search box */}
+      <section className="rounded-lg shadow-sm py-10 px-5 mb-6 max-w-[600px] mx-auto">
         <Input
           type="text"
           placeholder="SEARCH PLATE"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <div className="mt-5 flex flex-col md:flex-row gap-5 items-center justify-center">
-          <div className="flex items-center gap-2">
-         <IoIosStar className="size-6 sm:size-8 md:size-10 text-[#00823a] fill-current" />
-            <span className="text-lg font-medium ml-1 mr-2">Trustpilot</span></div>
-          <div className="flex">
-            {[...Array(5)].map((_, i) => (
-              <div className="bg-[#00823A] mx-1 p-0.5 rounded-xs">
-                <IoIosStar key={i} className=" text-[#ffffff] fill-current" />
-              </div>
-            ))}
-          </div>
-          {/* <span className="ml-2 text-lg text-[#1B1B1B]">(12,426 reviews)</span> */}
-        </div>
       </section>
+
+
       <section className="grid md:grid-cols-3 gap-10 max-w-9xl mx-auto mt-10">
         {features.map((feature, index) => (
           <LikeIconAndText key={index} imgSrc={feature.imgSrc} text={feature.text} />
         ))}
       </section>
+
+
+      {isSuccess && searchTerm.length >= 1 && (
+        <div className="mt-10">
+          <h3 className="text-xl font-bold">Search Results:</h3>
+          {data?.data?.all_plates?.length > 0 ? (
+            <ul className="list-disc pl-5">
+              {!isLoading && data?.success && isSuccess &&  data.data.all_plates.map((plate) => (
+                <li key={plate._id}>{plate.registrationId}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No plates found.</p>
+          )}
+        </div>
+      )}
     </main>
   );
 }

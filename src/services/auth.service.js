@@ -1,13 +1,12 @@
 import { decodeAuthToken } from "../Utils/decode-access-token";
 import { getFromLocalStorage, getRemoveLocalStorage, setToLocalStorage } from "../Utils/local-storage";
-// import { getFromLocalStorage, setToLocalStorage } from "../Utils/local-storage";
 
-// Store user info in localStorage
+
+
 export const storeUserInfo = (userData) => {
   setToLocalStorage("userData", JSON.stringify(userData));
 };
 
-// Retrieve user data from localStorage
 export const getUserData = () => {
   const userData = getFromLocalStorage("userData");
   return userData ? JSON.parse(userData) : null;
@@ -18,7 +17,7 @@ export const storeUserToken = ({ accessToken }) => {
     setToLocalStorage("accessToken", accessToken);
   }
 };
-// Retrieve user token from localStorage
+
 export const getUserToken = () => {
   const token = getFromLocalStorage("accessToken");
   if (!token) {
@@ -42,7 +41,6 @@ export const getResetToken = () => {
   return token;
 };
 
-// Retrieve user info (decoded token) from localStorage
 export const getUserInfo = () => {
   const authToken = getFromLocalStorage("accessToken");
   if (authToken) {

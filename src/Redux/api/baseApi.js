@@ -1,17 +1,18 @@
 /* eslint-disable no-unused-vars */
-
-
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getBaseUrl } from "../../config/envConfig";
 
-// Helper function to get the auth token
-export const baseApi = createApi({
 
+export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
     baseUrl: getBaseUrl(),
-    headers: {
-      Authorization: localStorage.getItem("token"),
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        headers.set("Authorization", token);
+      }
+      return headers;
     },
   }),
   endpoints: () => ({}),
@@ -19,16 +20,8 @@ export const baseApi = createApi({
     "admin",
     "dashboard",
     "user",
-    "list",
-    "transaction",
     "subscription",
-    "termsAndConditions",
-    "privacy",
-    "faq",
-    "notification",
-    "profile",
-    "location",
-    "city",
-    "categories"
+    "auth",
+    "plates_sales"
   ],
 });

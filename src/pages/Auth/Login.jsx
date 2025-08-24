@@ -1,18 +1,87 @@
 import React, { useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
+import { useLogInMutation } from '../../Redux/api/authApi';
+import { setUser } from '../../Redux/Slice/authSlice';
+import { useDispatch } from 'react-redux';
+
+
+
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    //  const user = useSelector();
-    //  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    const handleSubmit = (e) => {
+
+
+    const [logIn, { isLoading, error }] = useLogInMutation();
+
+    //  const user = useSelector();
+    // const dispatch = useDispatch();
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate("/");
+
+        if (!email || !password) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: !email ? "Email is required!" : "Password is required!",
+            });
+            return;
+        }
+        const loginData = { email, password };
+        try {
+            const response = await logIn(loginData).unwrap();
+            console.log(response);
+
+            if (response?.success && response?.data?.accessToken) {
+                // console.log("Login successful:", response.data.accessToken);
+                localStorage.setItem("token", response?.data?.accessToken);
+
+                console.log(response);
+
+                dispatch(
+                    setUser({
+                        user: response?.data || {},
+                        token: response?.data?.accessToken,
+                    })
+                );
+
+                Swal.fire({
+                    icon: "success",
+                    title: "Login successful!",
+                    text: "You are now logged in.",
+                });
+                navigate("/");
+            }
+
+        }
+        catch (error) {
+
+            toast.error(` ${error?.data?.message || "Login failed!"}`);
+        }
+
+
+
+
+
+
+
     };
+
+    // if (isLoading) {
+    //     return <h1>loading .............</h1>
+    // }
+
+    // if (error) {
+    //     console.log(error);
+    // }
+
+
+
 
     return (
         <section className="flex items-center justify-center min-h-screen px-5 md:px-0 py-16">
