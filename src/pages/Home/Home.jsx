@@ -23,7 +23,7 @@ function App() {
       <PricingPlans />
       <div className="container mx-auto">
         <HelpfulGuides />
-        <FAQSection />
+        <FAQSection searchTerm={"general"} />
       </div>
     </>
   );

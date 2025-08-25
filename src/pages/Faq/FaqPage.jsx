@@ -33,7 +33,7 @@ export default function FaqPage() {
             onClick={() => {
               setActiveTab(tab.key);
             }}
-            className={`px-6 py-3 rounded-full font-semibold transition ${
+            className={`px-6 py-3 rounded-full font-semibold transition cursor-pointer ${
               searchTerm === tab.key
                 ? "bg-[#00823A] text-white"
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"

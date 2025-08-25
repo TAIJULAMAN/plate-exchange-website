@@ -12,7 +12,7 @@ export default function Navbar() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     // ✅ ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
-    const { isLoading, isSuccess, error, data } = useGetMyProfileQuery({});
+    const { isLoading, error, data } = useGetMyProfileQuery({});
     const navigate = useNavigate();
 
 
@@ -135,13 +135,18 @@ export default function Navbar() {
                     <div className="hidden md:flex items-center space-x-4">
                         {isLoggedIn ? (
                             <div className="relative">
-                                <button
+                                <div className='flex gap-2'>
+                                    <button
                                     onClick={toggleAvatarDropdown}
                                     className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-yellow-400 hover:border-yellow-500 overflow-hidden"
                                 >
                                     <img src={`${import.meta.env.VITE_ROOT_URL}/${data?.data?.photo}`} alt="User Avatar" className="w-full h-full object-cover" />
                                 </button>
+                                <div>
+                                    <p>Welcome</p>
                                 <p>{data?.data?.fastname.concat(" ").concat(data?.data?.lastname)}</p>
+                                </div>
+                                </div>
                                 {isAvatarDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
                                         <NavLink

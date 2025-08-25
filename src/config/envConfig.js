@@ -4,6 +4,8 @@ export const url =
 export const getBaseUrl = () => {
   return url;
 };
+export const imgUrl =
+  "http://10.10.20.48:3055";
 
 // Function to get the image base URL
 export const getImageBaseUrl = () => {
@@ -16,5 +18,5 @@ export const getImageUrl = (imagePath) => {
     return imagePath;
   }
 
-  return `${url}${imagePath}`;
+  return `${imgUrl}${imagePath}`;
 };

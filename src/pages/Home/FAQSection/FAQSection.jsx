@@ -39,7 +39,7 @@ export default function FAQSection({ headingShow = true, searchTerm }) {
             <p className="text-center text-white">No FAQs found.</p>
           ) : (
             faqs.map((faq, index) => (
-              <div key={faq._id} className="border-b border-white/20">
+              <div key={faq._id} className="border-b border-white/20 ">
                 {/* Question */}
                 <button
                   onClick={() => toggleItem(index)}
