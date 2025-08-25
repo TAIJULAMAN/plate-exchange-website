@@ -25,8 +25,18 @@ export const blogApi = baseApi.injectEndpoints({
     // Optionally: get single blog
     getSingleBlog: builder.query({
       query: (id) => ({
-        url: `blogs/${id}`,
+        url: `blogs/find_by_specific_blogs/${id}`,
         method: "GET",
+      }),
+      providesTags: ["blog"],
+    }),
+
+
+    // get recent blogs 
+    getRecentBlogs: builder.query({
+      query: () => ({
+      url: "blogs/recent_blog",
+      method: "GET",
       }),
       providesTags: ["blog"],
     }),
@@ -58,4 +68,5 @@ export const {
   useGetSingleBlogQuery,
   useUpdateBlogMutation,
   useDeleteBlogMutation,
+  useGetRecentBlogsQuery,
 } = blogApi;

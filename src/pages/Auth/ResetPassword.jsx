@@ -1,95 +1,160 @@
+import React, { useState } from "react";
 
-import React from "react";
-import { useState } from "react";
-import { IoEyeOffOutline, IoEyeOutline, IoClose } from "react-icons/io5";
-import { Link } from "react-router-dom";
 
-export default function ResetPassword() {
-    const [formData, setFormData] = useState({
-        password: "",
-        confirm_password: "",
-    });
-    const [showPassword, setShowPassword] = useState(false);
-    const [isChecked, setIsChecked] = useState(false);
+import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Swal from "sweetalert2";
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
+import { jwtDecode } from "jwt-decode"; 
+import { useResetPasswordMutation } from "../../Redux/api/authApi";
+import BrandLogo from "../../components/Shared/brandLogo";
 
-    const handleCheckboxChange = (event) => {
-        setIsChecked(event.target.checked);
-    };
+const ResetPassword = () => {
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    return (
-        <div className="flex items-center justify-center min-h-screen px-5 md:px-0 py-16">
-            <div className="w-full container mx-auto">
-                <div className="max-w-xl mx-auto w-full">
-                    <h1 className="text-center text-3xl font-bold text-gray-900 mb-4">Reset Password</h1>
-                    <p className="text-center text-[#9F9C96] mb-8">Your password must be 8-10 character long.</p>
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
+  const navigate = useNavigate();
 
-                    <form className="space-y-6">
-                        <div>
-                            <label className="block text-gray-700 text-sm mb-2">Password</label>
-                            <div className="relative">
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    placeholder="Enter your password"
-                                    className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none"
-                                    required
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
-                                >
-                                    {showPassword ? <IoEyeOffOutline size={20} /> : <IoEyeOutline size={20} />}
-                                </button>
-                            </div>
-                        </div>
-                        <div>
-                            <label className="block text-gray-300 text-sm mb-2">Confirm Password</label>
-                            <div className="relative">
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    name="confirm_password"
-                                    value={formData.confirm_password}
-                                    onChange={handleChange}
-                                    placeholder="Enter your confirm password"
-                                    className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none"
-                                    required
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
-                                >
-                                    {showPassword ? <IoEyeOffOutline size={20} /> : <IoEyeOutline size={20} />}
-                                </button>
-                            </div>
-                        </div>
+  const handleUpdatePassword = async (e) => {
+    e.preventDefault();
 
-                        <Link to="/login">
-                            <button
-                                type="submit"
-                                className="w-full flex justify-center py-2 px-4 border border-transparent
-                                rounded-md font-medium text-white
-                                bg-[#00823A]
-                                focus:outline-none"
-                            >
-                                Confirm
-                            </button>
-                        </Link>
+    if (newPassword !== confirmPassword) {
+      Swal.fire({
+        icon: "error",
+        title: "Password Mismatch",
+        text: "The passwords do not match. Please try again.",
+      });
+      return;
+    }
 
-                    </form>
-                </div>
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Request",
+        text: "Missing verification token. Please restart the reset process.",
+      });
+      return;
+    }
+
+    // ✅ Decode token to get userId
+    let decoded;
+    try {
+      decoded = jwtDecode(token);
+    } catch (error) {
+      Swal.fire({
+        icon: "error" + error,
+        title: "Invalid Token",
+        text: "Your session is invalid. Please try again.",
+      });
+      return;
+    }
+
+    const userId = decoded?.id;
+
+    try {
+      await resetPassword(
+        {
+          userId,
+          password: newPassword,
+        },
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      ).unwrap();
+
+      Swal.fire({
+        icon: "success",
+        title: "Password Updated!",
+        text: "Your password has been successfully updated.",
+      });
+
+      // ✅ remove token after reset
+      localStorage.removeItem("accessToken");
+      navigate("/login");
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Password Reset Failed",
+        text: error?.data?.message || "Please try again.",
+      });
+    }
+  };
+
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-[#f0f6ff] p-5">
+      <div className="bg-white shadow-lg relative rounded-2xl p-6 w-full max-w-lg text-start">
+        <BrandLogo
+          status="Set a new password"
+          information="Create a new password. Ensure it differs from previous ones for security."
+        />
+        <form className="space-y-5" onSubmit={handleUpdatePassword}>
+          {/* --- New Password --- */}
+          <div className="w-full">
+            <label className="text-xl text-gray-800 mb-2 flex justify-start">
+              New Password
+            </label>
+            <div className="w-full relative">
+              <input
+                type={showNewPassword ? "text" : "password"}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="**********"
+                className="w-full px-5 py-3 border-2 border-gray-400 rounded-md outline-none mt-2"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowNewPassword(!showNewPassword)}
+                className="absolute right-3 bottom-3 text-gray-400"
+              >
+                {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
-        </div>
-    );
-}
+          </div>
+
+          {/* --- Confirm Password --- */}
+          <div className="w-full">
+            <label className="text-xl text-gray-800 mb-2 flex justify-start">
+              Confirm Password
+            </label>
+            <div className="w-full relative">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="**********"
+                className="w-full px-5 py-3 border-2 border-gray-400 rounded-md outline-none mt-2"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-3 bottom-3 text-gray-400"
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+          </div>
+
+          <div className="flex justify-center items-center text-white">
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-[#00823b] font-semibold py-3 px-6 rounded-lg shadow-lg cursor-pointer mt-5"
+            >
+              {isLoading ? "Updating..." : "Update Password"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default ResetPassword;

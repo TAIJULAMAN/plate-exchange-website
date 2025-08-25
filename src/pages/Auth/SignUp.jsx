@@ -1,42 +1,57 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
-import { FiCamera, FiX } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useCreateUserMutation } from "../../Redux/api/authApi";
+import Swal from "sweetalert2";
 
 export default function SignUp() {
     const [formData, setFormData] = useState({
+        first_name: "",
+        last_name: "",
         email: "",
         password: "",
         gdc_no: "",
     });
     const [showPassword, setShowPassword] = useState(false);
-    const [profileImage, setProfileImage] = useState(null);
-    const [imagePreview, setImagePreview] = useState(null);
+
+    const navigate = useNavigate();
+    const [createUser, { isLoading, error }] = useCreateUserMutation();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleImageUpload = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setProfileImage(file);
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setImagePreview(e.target.result);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const payload = {
+                fastname: formData.first_name,
+                lastname: formData.last_name,
+                email: formData.email,
+                password: formData.password,
             };
-            reader.readAsDataURL(file);
-        }
-    };
 
-    const removeImage = () => {
-        setProfileImage(null);
-        setImagePreview(null);
+            await createUser(payload).unwrap();
+
+            // ✅ Show SweetAlert on success
+            Swal.fire({
+                icon: "success",
+                title: "Account Created!",
+                text: "Your account has been successfully created.",
+                confirmButtonText: "OK",
+            }).then(() => {
+                navigate("/login"); // Redirect after user clicks OK
+            });
+        } catch (err) {
+            console.error("Failed to create user:", err);
+            Swal.fire({
+                icon: "error",
+                title: "Signup Failed",
+                text: err?.data?.message || "Something went wrong.",
+            });
+        }
     };
 
     return (
@@ -50,7 +65,7 @@ export default function SignUp() {
                         Please enter your information to create account
                     </p>
 
-                    <form className="space-y-5">
+                    <form className="space-y-5" onSubmit={handleSubmit}>
                         <div>
                             <label className="block text-gray-900 font-bold text-lg mb-2">
                                 First name
@@ -65,6 +80,7 @@ export default function SignUp() {
                                 required
                             />
                         </div>
+
                         <div>
                             <label className="block text-gray-900 font-bold text-lg mb-2">
                                 Last name
@@ -79,6 +95,7 @@ export default function SignUp() {
                                 required
                             />
                         </div>
+
                         <div>
                             <label className="block text-gray-900 font-bold text-lg mb-2">
                                 Email
@@ -113,26 +130,20 @@ export default function SignUp() {
                                     onClick={() => setShowPassword(!showPassword)}
                                     className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
                                 >
-                                    {showPassword ? (
-                                        <IoEyeOffOutline size={20} />
-                                    ) : (
-                                        <IoEyeOutline size={20} />
-                                    )}
+                                    {showPassword ? <IoEyeOffOutline size={20} /> : <IoEyeOutline size={20} />}
                                 </button>
                             </div>
                         </div>
 
-                        <Link to="/login">
-                            <button
-                                type="submit"
-                                className="w-full flex justify-center py-2 px-4 border border-transparent
-                                rounded-md font-medium text-white
-                                bg-[#00823A]
-                                focus:outline-none"
-                            >
-                                Sign Up
-                            </button>
-                        </Link>
+                        <button
+                            type="submit"
+                            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md font-medium text-white bg-[#00823A] focus:outline-none"
+                            disabled={isLoading}
+                        >
+                            {isLoading ? "Creating..." : "Sign Up"}
+                        </button>
+
+                        {error && <p className="text-red-500 mt-2">{error.data?.message || "Failed to create user"}</p>}
 
                         <p className="text-center text-[#9F9C96] mt-5">
                             Already have an account?{" "}

@@ -1,13 +1,18 @@
 import React from 'react';
 import BlogCard from '../../../shared/BlogCard/BlogCard';
 import { useGetAllBlogsQuery } from '../../../Redux/api/blogApi';
+import Loader from '../../../shared/Loaders/Loader';
 
 export default function HelpfulGuides() {
   const { data, isLoading } = useGetAllBlogsQuery({ limit: 3 });
-  console.log(data, isLoading);
+  // console.log(data, isLoading);
 
   // Extract blog list safely
   const articles = data?.data?.allBlogsList || [];
+
+  if(isLoading){
+    <Loader></Loader>
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-16">

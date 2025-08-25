@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import { useEffect, useState } from "react";
-import { Navigate } from "react-router";
+import { Navigate } from "react-router-dom";
 import Loader from "../shared/Loaders/Loader";
 
 const PrivateRoute = ({ children }) => {
@@ -10,25 +9,32 @@ const PrivateRoute = ({ children }) => {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
+
         if (token) {
             try {
                 const decoded = jwtDecode(token);
-                if (decoded.role === import.meta.env.VITE_ROLE) {
+
+                // Optional: check expiry
+                if (decoded.exp * 1000 > Date.now()) {
                     setIsAuthorized(true);
                 } else {
+                    localStorage.removeItem("token"); // expired
                     setIsAuthorized(false);
                 }
             } catch (error) {
                 console.error("Invalid token", error);
+                localStorage.removeItem("token");
+                setIsAuthorized(false);
             }
+        } else {
+            setIsAuthorized(false);
         }
+
         setIsLoading(false);
     }, []);
 
     if (isLoading) {
-        return (
-            <Loader />
-        );
+        return <Loader />;
     }
 
     return isAuthorized ? children : <Navigate to="/login" />;

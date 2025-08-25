@@ -4,26 +4,38 @@ import { ChevronDown, Menu, X } from 'lucide-react';
 import { useGetMyProfileQuery } from '../../Redux/api/authApi';
 import Loader from '../Loaders/Loader';
 import ErrorPage from '../Error/ErrorPage';
+import { getImageUrl } from '../../config/envConfig';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
     const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
-    // ✅ ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
-    const { isLoading, error, data } = useGetMyProfileQuery({});
     const navigate = useNavigate();
 
+const token = localStorage.getItem("token");
+const [shouldFetch, setShouldFetch] = useState(!!token);
 
-    // Check token on mount and listen for storage changes
+const { data, isLoading, error, refetch } = useGetMyProfileQuery({}, { skip: !shouldFetch });
+
+// Whenever login happens:
+useEffect(() => {
+    if (isLoggedIn) {
+        setShouldFetch(true);
+        refetch();
+    }
+}, [isLoggedIn, refetch]);
+
+
+
+
+    // Keep auth state in sync with storage
     useEffect(() => {
         const checkAuthStatus = () => {
             const token = localStorage.getItem("token");
             setIsLoggedIn(!!token);
         };
-
-        checkAuthStatus();
 
         window.addEventListener('storage', checkAuthStatus);
         return () => window.removeEventListener('storage', checkAuthStatus);
@@ -42,6 +54,7 @@ export default function Navbar() {
     const handleLogin = () => {
         navigate("/login");
     };
+
 
     // Menu items
     const mainMenuItems = [
@@ -140,7 +153,7 @@ export default function Navbar() {
                                     onClick={toggleAvatarDropdown}
                                     className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-yellow-400 hover:border-yellow-500 overflow-hidden"
                                 >
-                                    <img src={`${import.meta.env.VITE_ROOT_URL}/${data?.data?.photo}`} alt="User Avatar" className="w-full h-full object-cover" />
+                                    <img src={`${getImageUrl(data?.data?.photo)}`} alt="User Avatar" className="w-full h-full object-cover" />
                                 </button>
                                 <div>
                                     <p>Welcome</p>

@@ -26,7 +26,7 @@ export default function Hero() {
   if (isLoading) return <Loader />;
   if (error) return <ErrorPage message={error?.message} />;
 
-  console.log("Search results:", data?.data?.all_plates);
+  // console.log("Search results:", data?.data?.all_plates);
 
   const features = [
     { imgSrc: svg1, text: "We charge only £10." },

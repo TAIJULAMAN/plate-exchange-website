@@ -29,7 +29,7 @@ export default function ListPlateForSale() {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert('Advert created successfully! You can now edit your listing at any time.');
-    console.log('Form submitted with data:', formData);
+    // console.log('Form submitted with data:', formData);
   };
 
   return (

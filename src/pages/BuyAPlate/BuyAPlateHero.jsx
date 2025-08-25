@@ -7,7 +7,7 @@ export default function BuyAPlateHero() {
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log("Searching for:", searchTerm);
+    // console.log("Searching for:", searchTerm);
   };
   const navigate = useNavigate();
 

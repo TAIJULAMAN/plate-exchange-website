@@ -32,6 +32,7 @@ import SavedAdverts from "../pages/Dashboards/UserDashboard/SavedAdverts";
 import SecurePayments from "../pages/Dashboards/UserDashboard/SecurePayments";
 import Chat from "../pages/Chat/Chat";
 import PrivateRoute from "./PrivateRoute.JSX";
+import VerificationCode from "../pages/Auth/Otp";
 
 
 const router = createBrowserRouter([
@@ -111,10 +112,10 @@ const router = createBrowserRouter([
         path: "/forget-password",
         element: <ForgetPassword />,
       },
-      {
-        path: "/verify-mail",
-        element: <Otp />,
-      },
+  {
+    path: "/otp",
+    element: <VerificationCode />,
+  },
       {
         path: "/reset-password",
         element: <ResetPassword />,
