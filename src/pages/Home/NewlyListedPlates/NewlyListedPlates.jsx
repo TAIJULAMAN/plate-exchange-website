@@ -21,7 +21,7 @@ export default function NewlyListedPlates() {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+   
   };
 
   const getVisiblePages = () => {
@@ -79,7 +79,7 @@ export default function NewlyListedPlates() {
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="px-4 py-2 bg-white border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="px-4 py-2 bg-[#00823A] text-white cursor-pointer border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed "
               >
                 Previous
               </button>
@@ -103,7 +103,7 @@ export default function NewlyListedPlates() {
                   key={page}
                   onClick={() => handlePageChange(page)}
                   className={`px-3 py-2 rounded-lg ${currentPage === page
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-[#00823A] text-white'
                     : 'bg-white border hover:bg-gray-50'
                     }`}
                 >
@@ -128,7 +128,7 @@ export default function NewlyListedPlates() {
               <button
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPage}
-                className="px-4 py-2 bg-white border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                className="px-4 py-2 bg-[#00823A] text-white border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed "
               >
                 Next
               </button>
