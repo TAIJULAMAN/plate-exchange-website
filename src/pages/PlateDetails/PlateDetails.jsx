@@ -1,5 +1,6 @@
 import React from "react";
 import { Heart, Share2, Facebook, Twitter, MessageCircle } from "lucide-react";
+import { FiMessageSquare } from "react-icons/fi";
 
 export default function PlateDetails() {
   const similarPlates = [
@@ -75,9 +76,13 @@ export default function PlateDetails() {
           </div>
 
           {/* Price */}
-          <div className="mb-4 font-medium">
+          <div className="mb-4 font-medium flex  justify-center gap-2 items-center">
             <span className="text-xl text-gray-800 mr-2">Asking Price</span>
             <span className="text-xl text-gray-800">£643</span>
+            <div className="flex items-center space-x-2 bg-gray-200 p-2 rounded-md ml-4 cursor-pointer">
+              <FiMessageSquare className="text-2xl text-indigo-600" />
+              <span className="text-xl text-gray-800">Chat With Seller</span>
+            </div>
           </div>
 
           {/* Share Buttons */}
@@ -182,9 +187,6 @@ export default function PlateDetails() {
           ))}
         </div>
       </div>
-
-
-      
     </div>
   );
 }

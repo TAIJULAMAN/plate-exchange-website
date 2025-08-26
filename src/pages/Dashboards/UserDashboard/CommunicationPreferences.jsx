@@ -19,7 +19,7 @@ export default function CommunicationPreferences() {
 
   const handleSaveChanges = () => {
     alert('Communication preferences saved successfully!');
-    console.log('Preferences saved:', preferences);
+    // console.log('Preferences saved:', preferences);
   };
 
   return (

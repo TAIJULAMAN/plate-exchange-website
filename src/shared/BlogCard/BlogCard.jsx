@@ -2,13 +2,15 @@ import { ArrowRight } from 'lucide-react';
 import React from 'react'
 import { MdOutlineArrowOutward } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { getImageUrl } from '../../config/envConfig';
 export default function BlogCard({ article }) {
+    // console.log(getImageUrl(article.image), "this is blog img")
     return (
         <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
             {/* Article Image */}
             <div className="aspect-video overflow-hidden">
                 <img
-                    src={article.image || "/placeholder.svg"}
+                    src={getImageUrl(article.image) || "/placeholder.svg"}
                     alt="Article thumbnail"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
@@ -16,11 +18,11 @@ export default function BlogCard({ article }) {
 
             {/* Article Content */}
             <div className="p-6">
-                <h2 className="text-xl font-bold text-gray-900 mb-4 leading-tight">
+                <h2 className="text-xl font-bold text-gray-900 mb-4 leading-tight line-clamp-2">
                     {article.title}
                 </h2>
 
-                <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-6">
+                <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-3">
                     {article.description}
                 </p>
 

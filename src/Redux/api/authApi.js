@@ -1,6 +1,5 @@
 import { baseApi } from "./baseApi";
 
-
 const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         logIn: builder.mutation({
@@ -13,6 +12,14 @@ const authApi = baseApi.injectEndpoints({
             },
             invalidatesTags: ["auth"],
         }),
+        createUser: builder.mutation({
+          query: (data) => ({
+            url: "user/create_user",
+            method: "POST",
+            body: data,
+          }),
+          invalidatesTags: ["User"],
+        }),
         getMyProfile: builder.query({
             query: () => ({
                 url: "auth/myprofile",
@@ -21,32 +28,35 @@ const authApi = baseApi.injectEndpoints({
             }),
             providesTags: ["auth"],
         }),
-        forgotPassword: builder.mutation({
-            query: (data) => ({
-                url: "verification/create",
-                method: "POST",
-                body: data,
-            }),
-        }),
-        verifyEmail: builder.mutation({
-            query: (data) => ({
-                url: "verification/verify",
-                method: "POST",
-                body: data,
-            }),
-        }),
-        resetPassword: builder.mutation({
-            query: (data) => ({
-                url: "auth/reset-password",
-                method: "POST",
-                body: data,
-                headers: {
-                    Authorization: localStorage.getItem("resetToken"),
-                },
-            }),
+    forgotPassword: builder.mutation({
+      query: (data) => ({
+        url: "user/forgot_password",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    verifyEmail: builder.mutation({
+      query: (data) => ({
+        url: "user/verification_forgot_user",
+        method: "POST",
+        body: data,
+      }),
+    }),
 
-            invalidatesTags: ["admin"],
-        }),
+    resetPassword: builder.mutation({
+      query: ({ userId, password }) => {
+        const token = localStorage.getItem("accessToken");
+        return {
+          url: "user/reset_password",
+          method: "POST",
+          body: { userId, password },
+          headers: {
+            Authorization: `${token}`,
+          },
+        };
+      },
+      invalidatesTags: ["User"],
+    }),
 
     }),
 });
@@ -55,9 +65,10 @@ const authApi = baseApi.injectEndpoints({
 
 export const {
     useLogInMutation,
-    useForgotPasswordMutation,
-    useVerifyEmailMutation,
-    useResetPasswordMutation,
+    useCreateUserMutation,
+  useForgotPasswordMutation,
+  useVerifyEmailMutation,
+  useResetPasswordMutation,
     useGetMyProfileQuery
 
 } = authApi;

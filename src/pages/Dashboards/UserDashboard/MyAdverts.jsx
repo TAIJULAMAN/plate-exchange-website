@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
-import { Eye, Edit, BarChart3, X } from 'lucide-react';
+import React, { useState } from "react";
+import { Eye, Edit, BarChart3, X } from "lucide-react";
 
 export default function MyAdverts() {
   const [adverts] = useState([
     {
       id: 1,
-      plateNumber: 'S88JHSE',
-      price: '£635',
-      date: '26 June 2025'
+      plateNumber: "S88JHSE",
+      price: "£635",
+      date: "26 June 2025",
     },
     {
       id: 2,
-      plateNumber: 'S88 HSE',
-      price: '£635',
-      date: '26 June 2025'
+      plateNumber: "S88 HSE",
+      price: "£635",
+      date: "26 June 2025",
     },
     {
       id: 3,
-      plateNumber: 'S88 HSE',
-      price: '£635',
-      date: '26 June 2025'
+      plateNumber: "S88 HSE",
+      price: "£635",
+      date: "26 June 2025",
     },
     {
       id: 4,
-      plateNumber: 'S88 HSE',
-      price: '£635',
-      date: '26 June 2025'
-    }
+      plateNumber: "S88 HSE",
+      price: "£635",
+      date: "26 June 2025",
+    },
   ]);
 
   const handleView = (advertId) => {
@@ -42,13 +42,13 @@ export default function MyAdverts() {
   };
 
   const handleDelete = (advertId) => {
-    if (window.confirm('Are you sure you want to delete this advert?')) {
+    if (window.confirm("Are you sure you want to delete this advert?")) {
       alert(`Deleting advert ${advertId}`);
     }
   };
 
   const handleListNewPlate = () => {
-    alert('Redirecting to list new plate...');
+    alert("Redirecting to list new plate...");
   };
 
   return (
@@ -66,7 +66,7 @@ export default function MyAdverts() {
               Active Adverts
             </h2>
             <p className="text-lg mb-2 block font-medium text-[#1B1B1B]">
-              Premium Monthly (£497 Per Month)
+              Premium Monthly (£497 4 Months)
             </p>
           </div>
         </div>

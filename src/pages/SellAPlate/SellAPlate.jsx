@@ -17,7 +17,7 @@ export default function SellAPlate() {
       <NewlyListedPlates />
       <PricingPlans />
       <HelpfulGuides />
-      <FAQSection />
+      <FAQSection searchTerm={"selling"} />
     </div>
   )
 }

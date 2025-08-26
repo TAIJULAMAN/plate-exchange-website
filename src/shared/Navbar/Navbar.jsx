@@ -4,26 +4,38 @@ import { ChevronDown, Menu, X } from 'lucide-react';
 import { useGetMyProfileQuery } from '../../Redux/api/authApi';
 import Loader from '../Loaders/Loader';
 import ErrorPage from '../Error/ErrorPage';
+import { getImageUrl } from '../../config/envConfig';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
     const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
-    // ✅ ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
-    const { isLoading, isSuccess, error, data } = useGetMyProfileQuery({});
     const navigate = useNavigate();
 
+const token = localStorage.getItem("token");
+const [shouldFetch, setShouldFetch] = useState(!!token);
 
-    // Check token on mount and listen for storage changes
+const { data, isLoading, error, refetch } = useGetMyProfileQuery({}, { skip: !shouldFetch });
+
+// Whenever login happens:
+useEffect(() => {
+    if (isLoggedIn) {
+        setShouldFetch(true);
+        refetch();
+    }
+}, [isLoggedIn, refetch]);
+
+
+
+
+    // Keep auth state in sync with storage
     useEffect(() => {
         const checkAuthStatus = () => {
             const token = localStorage.getItem("token");
             setIsLoggedIn(!!token);
         };
-
-        checkAuthStatus();
 
         window.addEventListener('storage', checkAuthStatus);
         return () => window.removeEventListener('storage', checkAuthStatus);
@@ -43,6 +55,7 @@ export default function Navbar() {
         navigate("/login");
     };
 
+
     // Menu items
     const mainMenuItems = [
         { path: "/", name: "Home", end: true },
@@ -59,6 +72,7 @@ export default function Navbar() {
         { path: "/contact-us", name: "Contact" },
         { path: "/privacy-policy", name: "Privacy Policy" },
         { path: "/terms-conditions", name: "Terms & Conditions" },
+        { path: "/about-us", name: "About Us" },
     ];
 
     const mobileMenuItems = [...mainMenuItems, ...moreMenuItems];
@@ -134,13 +148,18 @@ export default function Navbar() {
                     <div className="hidden md:flex items-center space-x-4">
                         {isLoggedIn ? (
                             <div className="relative">
-                                <button
+                                <div className='flex gap-2'>
+                                    <button
                                     onClick={toggleAvatarDropdown}
                                     className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-yellow-400 hover:border-yellow-500 overflow-hidden"
                                 >
-                                    <img src={`${import.meta.env.VITE_ROOT_URL}/${data?.data?.photo}`} alt="User Avatar" className="w-full h-full object-cover" />
+                                    <img src={`${getImageUrl(data?.data?.photo)}`} alt="User Avatar" className="w-full h-full object-cover" />
                                 </button>
+                                <div>
+                                    <p>Welcome</p>
                                 <p>{data?.data?.fastname.concat(" ").concat(data?.data?.lastname)}</p>
+                                </div>
+                                </div>
                                 {isAvatarDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
                                         <NavLink

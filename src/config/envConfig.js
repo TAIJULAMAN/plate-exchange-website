@@ -1,20 +1,26 @@
+export const imgUrl = "http://10.10.20.48:3055/";
+export const url = `${imgUrl}api/v1/`;
+
 // Function to get the base API URL
-export const url =
-  "http://10.10.20.48:3055/api/v1/";
-export const getBaseUrl = () => {
-  return url;
-};
+export const getBaseUrl = () => url;
 
 // Function to get the image base URL
-export const getImageBaseUrl = () => {
-  return url;
-  
-};
- 
+export const getImageBaseUrl = () => imgUrl;
+
 export const getImageUrl = (imagePath) => {
-  if (imagePath.includes("http")) {
+  if (!imagePath) return "";
+
+  // If it's already a full URL, return as-is
+  if (imagePath.startsWith("http")) {
     return imagePath;
   }
 
-  return `${url}${imagePath}`;
+  // Remove trailing slash from base and leading slash from path
+  const base = imgUrl.replace(/\/+$/, "");
+  const path = imagePath.replace(/^\/+/, "");
+
+  const finalUrl = `${base}/${path}`;
+  // console.log("Image URL:", finalUrl);
+
+  return finalUrl;
 };

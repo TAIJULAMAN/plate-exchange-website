@@ -16,7 +16,7 @@ export default function Login() {
 
 
 
-    const [logIn, { isLoading, error }] = useLogInMutation();
+    const [logIn, { isLoading }] = useLogInMutation();
 
     //  const user = useSelector();
     // const dispatch = useDispatch();
@@ -35,13 +35,13 @@ export default function Login() {
         const loginData = { email, password };
         try {
             const response = await logIn(loginData).unwrap();
-            console.log(response);
+            // console.log(response);
 
             if (response?.success && response?.data?.accessToken) {
                 // console.log("Login successful:", response.data.accessToken);
                 localStorage.setItem("token", response?.data?.accessToken);
 
-                console.log(response);
+                // console.log(response);
 
                 dispatch(
                     setUser({
@@ -60,8 +60,9 @@ export default function Login() {
 
         }
         catch (error) {
+            console.log(error)
 
-            toast.error(` ${error?.data?.message || "Login failed!"}`);
+            // toast.error(` ${error?.data?.message || "Login failed!"}`);
         }
 
 
@@ -130,14 +131,14 @@ export default function Login() {
 
                     {/* Submit */}
                     <button
-                        onClick={handleSubmit}
                         type="submit"
                         className="w-full flex justify-center py-2 px-4 border border-transparent
-                       rounded-md font-medium text-white
+                       rounded-md font-medium text-white cursor-pointer
                        bg-[#00823A]
                        focus:outline-none"
+                        disabled={isLoading}
                     >
-                        Log In
+                        {isLoading ? "Logging in..." : "Log In"}
                     </button>
 
                     <div className="flex items-center justify-between w-full">

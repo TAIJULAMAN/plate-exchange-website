@@ -19,7 +19,7 @@ export default function BuyAPlate() {
 
             <PricingPlans />
             <HelpfulGuides />
-            <FAQSection />
+            <FAQSection searchTerm={"buying"} />
         </div>
     );
 }

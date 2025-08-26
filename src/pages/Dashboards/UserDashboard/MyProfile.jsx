@@ -1,33 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useGetProfileQuery, useUpdateProfileMutation } from '../../../Redux/api/profileApi';
+import Swal from 'sweetalert2';
 
 export default function MyProfile() {
-     const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-
-
-
-       const handleDeleteAccount = () => {
-    setShowDeleteModal(true);
-  };
-
-  const confirmDelete = () => {
-    alert('Account deletion process initiated.');
-    setShowDeleteModal(false);
-  };
-
-  const cancelDelete = () => {
-    setShowDeleteModal(false);
-  };
-
-
+  // const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const { data, refetch } = useGetProfileQuery();
+  const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     gender: 'Male',
-    phoneNumber: '+56465463545',
-    emailAddress: 'arralhani815@gmail.com'
+    phoneNumber: '',
+    emailAddress: '',
+    address: ''
   });
+  const [photo, setPhoto] = useState(null);
+
+  // 🟢 Populate default form values from API
+  useEffect(() => {
+    if (data?.data) {
+      setFormData({
+        firstName: data.data.fastname || '',
+        lastName: data.data.lastname || '',
+        gender: data.data.male || 'Male',
+        phoneNumber: data.data.phoneNumber || '',
+        emailAddress: data.data.email || '',
+        address: data.data.address || ''
+      });
+    }
+  }, [data]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -37,23 +39,61 @@ export default function MyProfile() {
     }));
   };
 
-  const handleSave = () => {
-    alert('Profile updated successfully!');
-    console.log('Profile data saved:', formData);
+  const handleFileChange = (e) => {
+    setPhoto(e.target.files[0]);
   };
 
+  const handleSave = async () => {
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('fastname', formData.firstName);
+      formDataToSend.append('lastname', formData.lastName);
+      formDataToSend.append('male', formData.gender);
+      formDataToSend.append('phoneNumber', formData.phoneNumber);
+      formDataToSend.append('address', formData.address);
 
+      if (photo) formDataToSend.append('file', photo);
+      if (!formData.phoneNumber) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Phone Number Required',
+          text: 'Please enter your phone number.',
+        });
+        return;
+      }
+
+      await updateProfile(formDataToSend).unwrap();
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Profile Updated',
+        text: 'Your profile has been updated successfully!',
+      });
+
+      refetch(); // Refresh profile data
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error updating profile',
+        text: error?.data?.message || 'Something went wrong!',
+      });
+    }
+  };
+
+  // const handleDeleteAccount = () => setShowDeleteModal(true);
+  // const confirmDelete = () => {
+  //   alert('Account deletion process initiated.');
+  //   setShowDeleteModal(false);
+  // };
+  // const cancelDelete = () => setShowDeleteModal(false);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 flex items-center justify-center">
-      <div className="max-w-2xl mx-auto rounded-lg p-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6  items-center justify-center">
+      <div className="max-w-2xl mx-auto rounded-lg p-8 bg-white shadow-md">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center justify-center">
           {/* First Name */}
           <div className="form-group">
-            <label
-              htmlFor="firstName"
-              className="block mb-2 font-bold text-[#1B1B1B] text-lg"
-            >
+            <label htmlFor="firstName" className="block mb-2 font-bold text-[#1B1B1B] text-lg">
               First Name
             </label>
             <input
@@ -69,10 +109,7 @@ export default function MyProfile() {
 
           {/* Last Name */}
           <div className="form-group">
-            <label
-              htmlFor="lastName"
-              className="block mb-2 font-bold text-[#1B1B1B] text-lg"
-            >
+            <label htmlFor="lastName" className="block mb-2 font-bold text-[#1B1B1B] text-lg">
               Last Name
             </label>
             <input
@@ -88,10 +125,7 @@ export default function MyProfile() {
 
           {/* Gender */}
           <div className="form-group">
-            <label
-              htmlFor="gender"
-              className="block mb-2 font-bold text-[#1B1B1B] text-lg"
-            >
+            <label htmlFor="gender" className="block mb-2 font-bold text-[#1B1B1B] text-lg">
               Gender
             </label>
             <select
@@ -111,15 +145,13 @@ export default function MyProfile() {
 
           {/* Phone Number */}
           <div className="form-group">
-            <label
-              htmlFor="phoneNumber"
-              className="block mb-2 font-bold text-[#1B1B1B] text-lg"
-            >
+            <label htmlFor="phoneNumber" className="block mb-2 font-bold text-[#1B1B1B] text-lg">
               Phone Number
             </label>
             <input
               type="tel"
               id="phoneNumber"
+              required={true}
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleInputChange}
@@ -127,51 +159,61 @@ export default function MyProfile() {
               className="w-full px-4 py-3 border border-gray-700 rounded-md text-base bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
-        </div>
 
-        {/* Email Address - Full Width */}
-        <div className="form-group mt-6">
-          <label
-            htmlFor="emailAddress"
-            className="block mb-2 font-bold text-[#1B1B1B] text-lg"
-          >
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="emailAddress"
-            name="emailAddress"
-            value={formData.emailAddress}
-            onChange={handleInputChange}
-            placeholder="Your email address"
-            className="w-full px-4 py-3 border border-gray-700 rounded-md text-base bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
+          {/* Address */}
+          <div className="form-group md:col-span-2">
+            <label htmlFor="address" className="block mb-2 font-bold text-[#1B1B1B] text-lg">
+              Address
+            </label>
+            <input
+              type="text"
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleInputChange}
+              placeholder="Your address"
+              className="w-full px-4 py-3 border border-gray-700 rounded-md text-base bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* Profile Image */}
+          <div className="form-group md:col-span-2">
+            <label htmlFor="photo" className="block mb-2 font-bold text-[#1B1B1B] text-lg">
+              Profile Image
+            </label>
+            <input
+              type="file"
+              id="photo"
+              name="photo"
+              onChange={handleFileChange}
+              className="w-full px-4 py-3 border border-gray-700 rounded-md text-base bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
         </div>
 
         {/* Save Button */}
         <button
           onClick={handleSave}
-          className="w-full mt-8 py-3 px-4 text-white font-medium rounded-md transition-colors duration-200 hover:opacity-90"
+          disabled={isLoading}
+          className={`w-full mt-8 py-3 px-4 cursor-pointer text-white font-medium rounded-md transition-colors duration-200 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
           style={{ backgroundColor: "#00823A" }}
         >
           Save Updated
         </button>
 
         {/* Footer Links */}
-        <div className="flex justify-between items-center mt-6 text-sm">
-          <span className="text-gray-600">
-            Want to close your account entirely?
-          </span>
+        {/* <div className="flex justify-between items-center mt-6 text-sm">
+          <span className="text-gray-600">Want to close your account entirely?</span>
           <button
             onClick={handleDeleteAccount}
             className="text-gray-700 underline hover:text-gray-900 transition-colors duration-200"
           >
             Want to delete your account?
           </button>
-        </div>
+        </div> */}
 
         {/* Delete Confirmation Modal */}
-        {showDeleteModal && (
+        {/* {showDeleteModal && (
           <div className="fixed inset-0 bg-white/30 backdrop-blur-xs flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4 shadow-2xl">
               <h2 className="text-xl font-semibold text-gray-900 text-center mb-8">
@@ -195,7 +237,9 @@ export default function MyProfile() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
+
+
       </div>
     </div>
   );
