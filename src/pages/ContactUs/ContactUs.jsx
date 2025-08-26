@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { MapPin, Mail, Clock } from "lucide-react"
+import { useCreateContactMutation } from "../../Redux/api/contactApi"
 
 export default function ContactUs() {
     const [formData, setFormData] = useState({
@@ -7,6 +8,7 @@ export default function ContactUs() {
         email: "",
         question: "",
     })
+    const [createContact] = useCreateContactMutation()
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -15,11 +17,17 @@ export default function ContactUs() {
             [name]: value,
         }))
     }
+    const  handleSubmit = async (e) => {
 
-    const handleSubmit = (e) => {
         e.preventDefault()
-        // console.log("Form submitted:", formData)
+        await createContact(formData)
+        setFormData({
+            name: "",
+            email: "",
+            question: "",
+        })
     }
+    
 
     return (
         <div className="px-5 md:px-0 py-16 container mx-auto">
