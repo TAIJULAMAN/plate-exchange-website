@@ -4,11 +4,11 @@ import { baseApi } from "../baseApi";
 const soldPlatesApi = baseApi.injectEndpoints({
           endpoints: (builder) => ({
                     getSoldPlates: builder.query({
-                              query: ({params}) => ({
-                                        url: 'plates_sales/find_by_all_sold_plate_sales_list',
+                              query: () => ({
+                                        url: 'plates_sales/find_by_all_listed_sales_plate',
                                         method: 'GET',
                               }),
-                              providesTags: ['soldPlates'],
+                              providesTags: ['listedPlates'],
                     }),
           }),
 });
