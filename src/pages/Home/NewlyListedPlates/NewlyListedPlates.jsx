@@ -6,7 +6,7 @@ import ErrorPage from "../../../shared/Error/ErrorPage";
 
 export default function NewlyListedPlates() {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 12;
 
   const { data, isLoading, error, isSuccess } = useGetAllplatesSalesQuery({
     page: currentPage,
