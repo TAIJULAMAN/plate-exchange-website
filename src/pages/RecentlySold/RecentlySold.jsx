@@ -9,10 +9,12 @@ import { useGetSoldPlatesQuery } from "../../Redux/api/PlatesApis/soldPlatesApi"
 export default function RecentlySold() {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  const limit = 10;
+  const limit = 20;
 
   // Fetch data with page & limit params
   const { data, isLoading, isError } = useGetSoldPlatesQuery({ page, limit });
+  const totalPage = data?.data?.meta?.totalPage || 1;
+  const currentPage = data?.data?.meta?.page || page;
 
   const features = [
     {
@@ -29,9 +31,9 @@ export default function RecentlySold() {
     },
   ];
 
-  const handleLoadMore = () => {
-    if (data?.data?.meta?.page < data?.data?.meta?.totalPage) {
-      setPage((prev) => prev + 1);
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPage) {
+      setPage(newPage);
     }
   };
 
@@ -48,11 +50,7 @@ export default function RecentlySold() {
         <div className="container mx-auto">
           <div className="grid md:grid-cols-3 gap-10 max-w-9xl mx-auto mt-10">
             {features.map((feature, index) => (
-              <LikeIconAndText
-                key={index}
-                imgSrc={feature.imgSrc}
-                text={feature.text}
-              />
+              <LikeIconAndText key={index} imgSrc={feature.imgSrc} text={feature.text} />
             ))}
           </div>
         </div>
@@ -90,27 +88,55 @@ export default function RecentlySold() {
         ))}
       </div>
 
-      {/* Buttons */}
-      <div className="flex justify-center mt-8 gap-6">
-        {data?.data?.meta?.page < data?.data?.meta?.totalPage && (
-          <div
-            onClick={handleLoadMore}
-            className="bg-[#00823A] max-w-xl cursor-pointer px-8 py-4 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] text-center font-sans"
-          >
-            <span className="text-white font-bold text-2xl tracking-wider">
-              Load more result...
-            </span>
-          </div>
-        )}
-
-        <div
-          onClick={() => navigate("/load-all-plates")}
-          className="bg-[#00823A] max-w-xl cursor-pointer px-8 py-4 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] text-center font-sans"
+      {/* Pagination */}
+      <div className="flex justify-center items-center mt-10 gap-2">
+        {/* Prev button */}
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`px-4 py-2 rounded ${
+            currentPage === 1 ? "bg-gray-300 text-gray-600 cursor-not-allowed" : "bg-[#00823A] text-white"
+          }`}
         >
-          <span className="text-white font-bold text-2xl tracking-wider">
-            Load all
-          </span>
-        </div>
+          Prev
+        </button>
+
+        {/* Page numbers */}
+        {[...Array(totalPage)].map((_, index) => {
+          const pageNum = index + 1;
+          return (
+            <button
+              key={pageNum}
+              onClick={() => handlePageChange(pageNum)}
+              className={`px-4 py-2 rounded ${
+                currentPage === pageNum
+                  ? "bg-[#00823A] text-white font-bold"
+                  : "bg-white border text-gray-700 hover:bg-gray-100"
+              }`}
+            >
+              {pageNum}
+            </button>
+          );
+        })}
+
+        {/* Next button */}
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPage}
+          className={`px-4 py-2 rounded ${
+            currentPage === totalPage ? "bg-gray-300 text-gray-600 cursor-not-allowed" : "bg-[#00823A] text-white"
+          }`}
+        >
+          Next
+        </button>
+      </div>
+
+      {/* Load All */}
+      <div
+        onClick={() => navigate("/load-all-plates")}
+        className="bg-[#00823A] max-w-xl mx-auto mt-6 cursor-pointer px-8 py-4 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] text-center font-sans"
+      >
+        <span className="text-white font-bold text-2xl tracking-wider">Load all</span>
       </div>
     </div>
   );

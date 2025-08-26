@@ -1,4 +1,4 @@
-export const imgUrl = "http://10.10.20.48:3055/";
+export const imgUrl = "http://10.10.20.13:3055/";
 export const url = `${imgUrl}api/v1/`;
 
 // Function to get the base API URL
