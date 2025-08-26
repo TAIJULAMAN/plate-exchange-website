@@ -1,27 +1,43 @@
 import React from "react";
 import { Heart, Share2, Facebook, Twitter, MessageCircle } from "lucide-react";
 import { FiMessageSquare } from "react-icons/fi";
+import { useParams } from "react-router-dom";
+import {
+  useGetSimilarPlatesQuery,
+  useGetSinglePlateQuery,
+} from "../../Redux/api/PlatesApis/singlePlateApi";
+import { getImageUrl } from "../../config/envConfig";
 
 export default function PlateDetails() {
-  const similarPlates = [
-    { plate: "F4 BLE", price: "£571", status: "sold" },
-    { plate: "VEE66", price: "£657", status: "sold" },
-    { plate: "J4 EWE", price: "£576", status: "sold" },
-    { plate: "G5 564", price: "", status: "sold" },
-    { plate: "P4 REE", price: "£587", status: "sold" },
-    { plate: "F4 RLF", price: "£745", status: "sold" },
-    { plate: "T6 KSN", price: "£545", status: "sold" },
-    { plate: "F4 SDF", price: "£667", status: "sold" },
-    { plate: "G6 RLF", price: "£642", status: "sold" },
-    { plate: "F4 RLF", price: "£554", status: "sold" },
-  ];
+  const { id } = useParams();
+  const { data, error, isLoading } = useGetSinglePlateQuery(id);
+
+  const { data: similarplatesData } = useGetSimilarPlatesQuery(id);
+
+  if (isLoading) return <p className="text-center py-10">Loading...</p>;
+  if (error)
+    return (
+      <p className="text-center py-10 text-red-500">
+        Failed to load plate details
+      </p>
+    );
+
+  const plate = data?.data;
+  // Use dynamic similar plates from API
+  const similarPlates =
+    similarplatesData?.data?.result?.map((item) => ({
+      id: item._id,
+      plate: item.registrationId,
+      price: item.askingPrice ? `£${item.askingPrice}` : "",
+      status: item.status?.toLowerCase() || "available",
+    })) || [];
 
   return (
-    <div className="container mx-auto my-10">
+    <div className="container mx-auto py-16">
       <div className="max-w-4xl mx-auto p-6">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="   text-3xl md:text-6xl font-medium text-gray-900 mb-6">
+          <h1 className="text-3xl md:text-6xl font-medium text-gray-900 mb-6">
             Number Plate Details
           </h1>
           <p className="text-gray-900">
@@ -34,8 +50,8 @@ export default function PlateDetails() {
         <div className="relative mb-8">
           <div className="relative bg-gray-100 rounded-lg overflow-hidden">
             <img
-              src="/black-mclaren-p1-oov.png"
-              alt="Car with number plate P1 00V"
+              src={getImageUrl(plate?.photo) || "/black-mclaren-p1-oov.png"}
+              alt={plate?.registrationId || "Car number plate"}
               className="w-full h-96 object-cover"
             />
             <button className="absolute top-4 right-4 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 transition-all">
@@ -48,9 +64,9 @@ export default function PlateDetails() {
         <div className="text-center mb-8">
           {/* License Plate */}
           <div className="flex justify-center my-4">
-            <div className="bg-[#fad549] max-w-2xs px-16 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] text-center">
+            <div className="bg-[#fad549]  px-16 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] text-center">
               <span className="text-black font-bold text-5xl tracking-wider font-mycustom">
-                P1J00V
+                {plate?.registrationId || "N/A"}
               </span>
             </div>
           </div>
@@ -60,7 +76,7 @@ export default function PlateDetails() {
             <button className="flex items-center uppercase gap-2 px-4 py-2 hover:bg-gray-200 rounded-md text-xl border text-gray-700 transition-colors">
               <img
                 src="https://i.ibb.co.com/35Gdvj1M/image.png"
-                alt="asdf"
+                alt="responsive"
                 className="size-8"
               />
               VERY RESPONSIVE
@@ -68,7 +84,7 @@ export default function PlateDetails() {
             <button className="flex items-center uppercase gap-2 px-4 py-2 hover:bg-gray-200 rounded-md text-xl border text-gray-700 transition-colors">
               <img
                 src="https://i.ibb.co.com/LdvtTXjj/image.png"
-                alt="asdf"
+                alt="useful"
                 className="size-8"
               />
               HIGHLY USEFUL
@@ -76,9 +92,11 @@ export default function PlateDetails() {
           </div>
 
           {/* Price */}
-          <div className="mb-4 font-medium flex  justify-center gap-2 items-center">
+          <div className="mb-4 font-medium flex justify-center gap-2 items-center">
             <span className="text-xl text-gray-800 mr-2">Asking Price</span>
-            <span className="text-xl text-gray-800">£643</span>
+            <span className="text-xl text-gray-800">
+              £{plate?.askingPrice || 0}
+            </span>
             <div className="flex items-center space-x-2 bg-gray-200 p-2 rounded-md ml-4 cursor-pointer">
               <FiMessageSquare className="text-2xl text-indigo-600" />
               <span className="text-xl text-gray-800">Chat With Seller</span>
@@ -87,7 +105,7 @@ export default function PlateDetails() {
 
           {/* Share Buttons */}
           <div className="flex justify-center items-center gap-3 mb-6 text-xl text-gray-800 font-medium">
-            <span className=" mr-2">Share Advert:</span>
+            <span className="mr-2">Share Advert:</span>
             <button className="w-8 h-8 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition-colors">
               <Facebook className="w-4 h-4 text-white" />
             </button>
@@ -120,40 +138,35 @@ export default function PlateDetails() {
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-600">Asking Price:</span>
-              <span className="font-medium">£643</span>
+              <span className="font-medium">£{plate?.askingPrice || 0}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Date Advert Placed:</span>
-              <span className="font-medium">3rd July 2020</span>
+              <span className="font-medium">
+                {new Date(plate?.createdAt).toLocaleDateString()}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Seller Name:</span>
-              <span className="font-medium">John F ⭐⭐⭐⭐⭐</span>
+              <span className="font-medium">
+                {plate?.sellerId?.fastname} {plate?.sellerId?.lastname}{" "}
+                ⭐⭐⭐⭐⭐
+              </span>
             </div>
           </div>
 
           <div className="mt-6 pt-4 border-t border-gray-200">
             <p className="text-sm text-gray-600 leading-relaxed">
-              <strong>Reg Issue Date:</strong> The registration can be assigned
-              to vehicles registered on or after 1st September 2001
+              <strong>Status:</strong> {plate?.status}
             </p>
             <p className="text-sm text-gray-600 leading-relaxed mt-2">
-              <strong>Keywords for this number plate:</strong> pool, p1, 00v,
-              poov
-            </p>
-            <p className="text-sm text-gray-600 leading-relaxed mt-2">
-              <strong>Description:</strong> Looking to stand out? Meet P41T 00V
-              – a bold, cheeky, and unforgettable number plate that says it all
-              without you're driving a brand-up hatchback, a supercharged
-              saloon, or a street monster that turns heads, this plate makes
-              bold.
+              <strong>Description:</strong> {plate?.description}
             </p>
           </div>
         </div>
       </div>
 
       {/* Similar Plates Section */}
-
       <div>
         <h3 className="text-xl font-semibold text-gray-900 mb-6 ">
           Similar Plates:
@@ -169,17 +182,21 @@ export default function PlateDetails() {
                   {item.plate}
                 </span>
               </div>
-
               <div className="text-xl">
-                {item.status === "sold" && (
+                {item.status === "sold" ? (
                   <>
-                    <span className=" ">Sold</span>
+                    <span>Sold</span>
                     {item.price && (
                       <>
-                        <span className=" mx-1 ">for</span>
-                        <span className=" ">{item.price}</span>
+                        <span className="mx-1">for</span>
+                        <span>{item.price}</span>
                       </>
                     )}
+                  </>
+                ) : (
+                  <>
+                    <span className="text-green-600">{item.status}</span>
+                    {item.price && <span className="ml-2">{item.price}</span>}
                   </>
                 )}
               </div>
