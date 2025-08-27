@@ -1,7 +1,7 @@
 import React from "react";
 import { Heart, Share2, Facebook, Twitter, MessageCircle } from "lucide-react";
 import { FiMessageSquare } from "react-icons/fi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useGetSimilarPlatesQuery,
   useGetSinglePlateQuery,
@@ -9,6 +9,7 @@ import {
 import { getImageUrl } from "../../config/envConfig";
 
 export default function PlateDetails() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { data, error, isLoading } = useGetSinglePlateQuery(id);
 
@@ -22,6 +23,11 @@ export default function PlateDetails() {
       </p>
     );
 
+    const handleSavePlate = (plateId) => () => {
+    console.log(plateId);
+    // Implement save functionality here
+  };
+
   const plate = data?.data;
   // Use dynamic similar plates from API
   const similarPlates =
@@ -31,6 +37,11 @@ export default function PlateDetails() {
       price: item.askingPrice ? `£${item.askingPrice}` : "",
       status: item.status?.toLowerCase() || "available",
     })) || [];
+
+
+      const handleSimilarPlateClick = (plateId) => {
+    navigate(`/plate-details/${plateId}`);
+  };
 
   return (
     <div className="container mx-auto py-16">
@@ -54,7 +65,9 @@ export default function PlateDetails() {
               alt={plate?.registrationId || "Car number plate"}
               className="w-full h-96 object-cover"
             />
-            <button className="absolute top-4 right-4 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 transition-all">
+            <button
+            onClick={handleSavePlate(plate?.id)}
+            className="absolute top-4 right-4 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 transition-all hover:bg-gray-50 cursor-pointer">
               <Heart className="w-5 h-5 text-gray-600" />
             </button>
           </div>
@@ -175,7 +188,8 @@ export default function PlateDetails() {
           {similarPlates.map((item, index) => (
             <div
               key={index}
-              className="bg-white border border-gray-200 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow"
+                onClick={() => handleSimilarPlateClick(item.id)}
+              className="bg-white border border-gray-200 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow cursor-pointer"
             >
               <div className="bg-[#fad549] w-full px-3 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] mb-3 inline-block">
                 <span className="text-black font-bold text-2xl tracking-wider font-mycustom">
