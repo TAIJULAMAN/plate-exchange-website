@@ -7,12 +7,13 @@ import {
   useGetSinglePlateQuery,
 } from "../../Redux/api/PlatesApis/singlePlateApi";
 import { getImageUrl } from "../../config/envConfig";
+import { useAddToSavedPlatesMutation } from "../../Redux/api/PlatesApis/mySavedAdversApi";
 
 export default function PlateDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data, error, isLoading } = useGetSinglePlateQuery(id);
-
+ const [addToSavedPlates] = useAddToSavedPlatesMutation();
   const { data: similarplatesData } = useGetSimilarPlatesQuery(id);
 
   if (isLoading) return <p className="text-center py-10">Loading...</p>;
@@ -26,6 +27,7 @@ export default function PlateDetails() {
     const handleSavePlate = (plateId) => () => {
     console.log(plateId);
     // Implement save functionality here
+    addToSavedPlates(plateId);
   };
 
   const plate = data?.data;
@@ -66,7 +68,7 @@ export default function PlateDetails() {
               className="w-full h-96 object-cover"
             />
             <button
-            onClick={handleSavePlate(plate?.id)}
+            onClick={handleSavePlate(plate?._id)}
             className="absolute top-4 right-4 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 transition-all hover:bg-gray-50 cursor-pointer">
               <Heart className="w-5 h-5 text-gray-600" />
             </button>

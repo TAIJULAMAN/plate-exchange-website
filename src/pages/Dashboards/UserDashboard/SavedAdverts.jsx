@@ -1,72 +1,35 @@
-import React, { useState } from 'react';
-import { MessageCircle, Heart } from 'lucide-react';
+import React from "react";
+import { MessageCircle, Heart } from "lucide-react";
+import { useGetMySavedPlatesQuery, useRemoveFromSavedPlatesMutation } from "../../../Redux/api/PlatesApis/mySavedAdversApi";
+import { useNavigate } from "react-router-dom";
 
 export default function SavedAdverts() {
-  const [savedAdverts, setSavedAdverts] = useState([
-    {
-      id: 1,
-      plateNumber: 'S88JHSE',
-      price: '£635',
-      status: 'Available',
-      isFavorited: true
-    },
-    {
-      id: 2,
-      plateNumber: 'S88 HSE',
-      price: '£635',
-      status: 'Sold',
-      isFavorited: true
-    },
-    {
-      id: 3,
-      plateNumber: 'S88 HSE',
-      price: '£635',
-      status: 'Available',
-      isFavorited: true
-    },
-    {
-      id: 4,
-      plateNumber: 'S88 HSE',
-      price: '£635',
-      status: 'Sold',
-      isFavorited: true
-    },
-    {
-      id: 5,
-      plateNumber: 'S88 HSE',
-      price: '£635',
-      status: 'Available',
-      isFavorited: true
-    },
-    {
-      id: 6,
-      plateNumber: 'S88 HSE',
-      price: '£635',
-      status: 'Available',
-      isFavorited: true
-    }
-  ]);
+  const { data, isLoading, error } = useGetMySavedPlatesQuery();
+  const [removeFromSavedPlates] =     useRemoveFromSavedPlatesMutation();
+  const navigate = useNavigate();
+
+  if (isLoading) return <p className="text-center">Loading...</p>;
+  if (error) return <p className="text-center text-red-500">Error loading adverts</p>;
+
+  // Extract adverts list from API response
+  const savedAdverts = data?.data?.all_save_plates || [];
 
   const handleContact = (advertId) => {
-    alert(`Contacting seller for advert ${advertId}`);
+    console.log("Chat clicked, ID:", advertId);
+    navigate(`/userdashboard/message-centre`);
   };
 
   const toggleFavorite = (advertId) => {
-    setSavedAdverts(prev => 
-      prev.map(advert => 
-        advert.id === advertId 
-          ? { ...advert, isFavorited: !advert.isFavorited }
-          : advert
-      )
-    );
+    console.log("Favorite clicked, ID:", advertId);
+    removeFromSavedPlates(advertId);
   };
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 flex items-center justify-center">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto w-full">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-center font-semibold text-gray-900 mb-6 text-6xl">
+          <h1 className="text-center font-semibold text-gray-900 mb-6 text-4xl">
             Saved Adverts
           </h1>
         </div>
@@ -75,14 +38,10 @@ export default function SavedAdverts() {
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           {/* Table Header (Hidden on Mobile) */}
           <div className="hidden sm:grid grid-cols-5 gap-4 p-4 bg-gray-50 border-b border-gray-200">
-            <div className="text-sm font-medium text-gray-700">
-              Number Plate
-            </div>
+            <div className="text-sm font-medium text-gray-700">Number Plate</div>
             <div className="text-sm font-medium text-gray-700">Price</div>
             <div className="text-sm font-medium text-gray-700">Status</div>
-            <div className="text-sm font-medium text-gray-700">
-              Contact Seller
-            </div>
+            <div className="text-sm font-medium text-gray-700">Contact Seller</div>
             <div className="text-sm font-medium text-gray-700"></div>
           </div>
 
@@ -90,55 +49,51 @@ export default function SavedAdverts() {
           <div className="divide-y divide-gray-200">
             {savedAdverts.map((advert) => (
               <div
-                key={advert.id}
+                key={advert._id}
                 className="flex flex-col sm:grid sm:grid-cols-5 gap-4 p-4 items-center hover:bg-gray-50 transition-colors"
               >
                 {/* Number Plate */}
                 <div className="bg-[#fad549] px-4 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] w-fit">
                   <span className="text-black font-bold text-lg tracking-wider font-mycustom">
-                    {advert.plateNumber}
+                    {advert.platesalesId?.registrationId}
                   </span>
                 </div>
 
                 {/* Price */}
-                <div className="text-gray-900 font-medium">{advert.price}</div>
+                <div className="text-gray-900 font-medium">
+                  ${advert.platesalesId?.askingPrice}
+                </div>
 
                 {/* Status */}
                 <div
                   className={`text-sm font-medium ${
-                    advert.status === "Available"
+                    advert.platesalesId?.status === "Available"
                       ? "text-green-600"
                       : "text-red-600"
                   }`}
                 >
-                  {advert.status}
+                  {advert.platesalesId?.status}
                 </div>
 
                 {/* Contact Seller */}
                 <div className="w-full sm:w-auto">
                   <button
-                    onClick={() => handleContact(advert.id)}
-                    className="flex items-center justify-center gap-2 px-4 py-2 border border-blue-300 rounded-full text-blue-600 hover:bg-blue-50 transition-colors text-sm w-full sm:w-auto"
-                    disabled={advert.status === "Sold"}
+                    onClick={() => handleContact(advert._id)}
+                    className="flex items-center justify-center gap-2 cursor-pointer px-4 py-2 border border-blue-300 rounded-full text-blue-600 hover:bg-blue-50 transition-colors text-sm w-full sm:w-auto"
+                    disabled={advert.platesalesId?.status === "Sold"}
                   >
                     <MessageCircle className="w-4 h-4" />
-                    {advert.status === "Sold" ? "Sold" : "Chat"}
+                    {advert.platesalesId?.status === "Sold" ? "Sold" : "Chat"}
                   </button>
                 </div>
 
                 {/* Favorite */}
                 <div className="flex justify-center w-full sm:w-auto">
                   <button
-                    onClick={() => toggleFavorite(advert.id)}
+                    onClick={() => toggleFavorite(advert._id)}
                     className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                   >
-                    <Heart
-                      className={`w-5 h-5 ${
-                        advert.isFavorited
-                          ? "fill-red-500 text-red-500"
-                          : "text-gray-400"
-                      }`}
-                    />
+                    <Heart className="w-5 h-5 text-gray-400" />
                   </button>
                 </div>
               </div>
@@ -146,7 +101,7 @@ export default function SavedAdverts() {
           </div>
         </div>
 
-        {/* Empty State (if no saved adverts) */}
+        {/* Empty State */}
         {savedAdverts.length === 0 && (
           <div className="text-center py-12">
             <Heart className="w-16 h-16 text-gray-300 mx-auto mb-4" />

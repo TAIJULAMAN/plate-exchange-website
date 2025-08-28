@@ -31,6 +31,11 @@ export default function RecentlySold() {
     },
   ];
 
+
+      const handlePlateClick = (plateId) => {
+    navigate(`/plate-details/${plateId}`);
+  };
+
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPage) {
       setPage(newPage);
@@ -61,7 +66,8 @@ export default function RecentlySold() {
         {data?.data?.all_sold_plates?.map((item, index) => (
           <div
             key={item._id || index}
-            className="bg-white border border-gray-200 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow"
+             onClick={() => handlePlateClick(item._id)}
+            className="bg-white border border-gray-200 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow cursor-pointer"
           >
             {/* License Plate */}
             <div className="bg-[#fad549] w-full px-3 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] mb-3 inline-block">

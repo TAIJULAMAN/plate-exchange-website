@@ -1,16 +1,17 @@
 import React from "react";
-import { useGetSpecificSubscriptionQuery } from "../../../redux/api/subscriptionAPI";
 import Loader from "../../../shared/Loaders/Loader";
 import ErrorPage from "../../../shared/Error/ErrorPage";
 import { FaCheck } from "react-icons/fa";
+import { useGetAllSubscriptionQuery } from "../../../Redux/api/subscriptionApi";
 
 export default function PricingPlans() {
-  const { data: specificSubscription, isLoading, error } = useGetSpecificSubscriptionQuery({});
+  const { data: specificSubscription, isLoading, error } = useGetAllSubscriptionQuery({});
 
   if (isLoading) return <Loader />;
   if (error) return <ErrorPage message={error?.message} />;
 
-  const subscriptions = specificSubscription?.data ? [specificSubscription.data] : [];
+  // ✅ Correctly extract subscriptions from response
+  const subscriptions = specificSubscription?.data?.all_subscription || [];
 
   return (
     <div className="bg-white px-5 md:px-0 py-5 md:py-16">
@@ -24,7 +25,7 @@ export default function PricingPlans() {
           </p>
         </div>
 
-        {/* Pricing Card */}
+        {/* Pricing Cards */}
         {subscriptions.map((subscription) => (
           <div key={subscription._id} className="flex justify-center mb-10">
             <div className="w-full max-w-md border-2 border-[#00823A] rounded-md">
@@ -39,7 +40,9 @@ export default function PricingPlans() {
                   <span className="text-green-600 ml-2">/4 Months</span>
                 </div>
                 <div className="text-center pb-10">
-                  <p className="text-gray-700 font-medium">{subscription.description}</p>
+                  <p className="text-gray-700 font-medium">
+                    {subscription.description}
+                  </p>
                 </div>
               </div>
 
