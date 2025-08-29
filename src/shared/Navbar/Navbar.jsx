@@ -81,9 +81,12 @@ useEffect(() => {
 
   // ✅ Alternative approach - render loading/error states within the navbar structure
   // This maintains consistent layout and prevents hooks order issues
-  if (isLoading) {
-    return <Loader />;
-  }
+{isLoading && (
+  <div className="flex justify-center items-center h-16">
+    <div className="w-6 h-6 border-4 border-gray-300 border-t-green-500 rounded-full animate-spin"></div>
+  </div>
+)}
+
 
 
   return (
