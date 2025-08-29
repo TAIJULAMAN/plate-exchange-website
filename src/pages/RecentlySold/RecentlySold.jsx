@@ -46,7 +46,7 @@ export default function RecentlySold() {
   if (isError) return <p className="text-center py-10 text-red-500">Error fetching sold plates.</p>;
 
   return (
-    <div className="container mx-auto px-5 md:px-0 py-10 md:py-16">
+    <div className="container mx-auto px-5 md:px-0 py-10 md:py-16 ">
       {/* Header */}
       <div className="text-center my-12">
         <h1 className="text-3xl md:text-6xl font-medium text-gray-900 mb-6">
@@ -62,7 +62,8 @@ export default function RecentlySold() {
       </div>
 
       {/* Recently Sold Plates Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+   <div className="min-h-[20rem]">
+       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 ">
         {data?.data?.all_sold_plates?.map((item, index) => (
           <div
             key={item._id || index}
@@ -93,6 +94,7 @@ export default function RecentlySold() {
           </div>
         ))}
       </div>
+   </div>
 
       {/* Pagination */}
       <div className="flex justify-center items-center mt-10 gap-2">

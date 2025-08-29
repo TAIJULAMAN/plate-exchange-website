@@ -2,50 +2,59 @@ import React from 'react';
 import ReviewCard from '../../../shared/ReviewCard/ReviewCard';
 
 export default function Review() {
-  const testimonials = [
-    {
-      name: "Sarah Johnson",
-      rating: 5,
-      review: "Fantastic service! Found the perfect plate for my new car and saved hundreds compared to other dealers. The direct contact with the seller made everything so much easier.",
-      date: "2 days ago",
-      image: "https://i.ibb.co.com/ccX46rZ2/image.png"
-    },
-    {
-      name: "Michael Chen",
-      rating: 5,
-      review: "PlateExchange is brilliant - no middleman fees and direct communication with sellers. Sold my plate within a week at full asking price. Highly recommended!",
-      date: "1 week ago",
-      image: "https://i.ibb.co.com/ccX46rZ2/image.png"
-    },
-    {
-      name: "Emma Thompson",
-      rating: 5,
-      review: "Amazing platform! The £10 flat fee is so much better than the 30% commission other sites charge. Quick, easy, and transparent process throughout.",
-      date: "2 weeks ago",
-      image: "https://i.ibb.co.com/ccX46rZ2/image.png"
-    },
-    {
-      name: "David Wilson",
-      rating: 5,
-      review: "Best number plate marketplace I've used. Direct dealing with sellers, no hidden fees, and excellent customer support. Will definitely use again.",
-      date: "3 weeks ago",
-      image: "https://i.ibb.co.com/ccX46rZ2/image.png"
-    },
-    {
-      name: "Lisa Parker",
-      rating: 5,
-      review: "Sold my cherished plate in just 3 days! The platform is so easy to use and the direct communication with buyers made the whole process seamless.",
-      date: "1 month ago",
-      image: "https://i.ibb.co.com/ccX46rZ2/image.png"
-    },
-    {
-      name: "James Mitchell",
-      rating: 5,
-      review: "Outstanding service from start to finish. Found exactly what I was looking for at a great price. The no-middleman approach really works!",
-      date: "1 month ago",
-      image: "https://i.ibb.co.com/ccX46rZ2/image.png"
-    }
-  ];
+const testimonials = [
+  {
+    name: "Sophia Martinez",
+    reviewHeadings: "Highly recommended",
+    rating: 5,
+    review: "Incredible experience! I listed my plate on PlateExchange and it sold within 48 hours. The process was smooth and completely hassle-free.",
+    date: "3 days ago",
+    image: "https://randomuser.me/api/portraits/women/44.jpg"
+  },
+  {
+    name: "Oliver Brown",
+    reviewHeadings: "Very satisfied",
+    rating: 5,
+    review: "Honestly the easiest platform I’ve ever used to sell a plate. No hidden costs, direct buyer contact, and quick payment. Couldn’t ask for more!",
+    date: "1 week ago",
+    image: "https://randomuser.me/api/portraits/men/32.jpg"
+  },
+  {
+    name: "Chloe Anderson",
+    reviewHeadings: "Great platform",
+    rating: 4,
+    review: "Great platform! Bought my dream plate for far less than dealer prices. The secure payment system gave me confidence in the transaction.",
+    date: "2 weeks ago",
+    image: "https://randomuser.me/api/portraits/women/68.jpg"
+  },
+  {
+    name: "Daniel Carter",
+    reviewHeadings: "Highly recommended",
+    rating: 5,
+    review: "I was surprised at how quickly I found a buyer. The flat £10 fee is a bargain compared to what others charge. Highly recommend to sellers!",
+    date: "3 weeks ago",
+    image: "https://randomuser.me/api/portraits/men/56.jpg"
+  },
+  {
+    name: "Amelia Wright",
+    reviewHeadings: "Fantastic support",
+    rating: 5,
+    review: "Fantastic support team! They guided me through the steps and made sure my listing was visible. My plate sold in less than a week.",
+    date: "1 month ago",
+    image: "https://randomuser.me/api/portraits/women/12.jpg"
+  },
+  {
+    name: "Liam Evans",
+    reviewHeadings: "Game changer",
+    rating: 5,
+    review: "PlateExchange is a game changer. I’ve used other sites before, but this was faster, cheaper, and more transparent. Will definitely use again!",
+    date: "1 month ago",
+    image: "https://randomuser.me/api/portraits/men/76.jpg"
+  }
+];
+
+
+
 
   return (
     <section className="px-5 md:px-0 py-5 md:py-16 overflow-hidden my-10 z-10 bg-white">

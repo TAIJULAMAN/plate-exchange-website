@@ -10,9 +10,11 @@ import {
   Pin,
   Mail,
   User,
-  X
+  X,
+  SubscriptIcon
 } from "lucide-react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import { BsBoxSeam } from "react-icons/bs";
 
 export default function UserSidebar() {
   const location = useLocation();
@@ -120,6 +122,7 @@ export default function UserSidebar() {
           title="Marketplace Tools"
           isActive={isSectionActive(location.pathname, [
             "/userdashboard/my-adverts",
+            "/userdashboard/my-subscriptions",
             "/userdashboard/saved-adverts",
             "/userdashboard/message-centre"
           ])}
@@ -128,6 +131,12 @@ export default function UserSidebar() {
             to="/userdashboard/my-adverts"
             icon={<List size={18} />}
             text="My Adverts"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
+           <SidebarButton
+            to="/userdashboard/my-subscriptions"
+            icon={<BsBoxSeam size={18} />}
+            text="My Subscriptions"
             onClick={isMobile ? toggleSidebar : undefined}
           />
           <SidebarButton

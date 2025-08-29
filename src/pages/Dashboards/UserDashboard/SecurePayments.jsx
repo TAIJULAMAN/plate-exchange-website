@@ -1,13 +1,11 @@
 // components/SecurePayments.jsx
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect,  useState } from "react";
 import { useCreatePaymentSecureMutation } from "../../../Redux/api/PaymentApis/securePaymentApi";
 
 export default function SecurePayments() {
   const [createPaymentSecure, { data, isLoading, error }] =
     useCreatePaymentSecureMutation();
 
-  const retryCount = useRef(0);
-  const maxRetries = 5;
 
   const [redirectUrl, setRedirectUrl] = useState(null);
   const [countdown, setCountdown] = useState(5);
@@ -32,31 +30,16 @@ export default function SecurePayments() {
   };
 
   // Handle API response from Redux
-  useEffect(() => {
-    if (data?.data?.onboardingUrl) {
-      const onboardingUrl = data.data.onboardingUrl;
-
-      if (typeof onboardingUrl === "string") {
-        const newWindow = window.open(onboardingUrl, "_blank");
-
-        if (!newWindow || newWindow.closed || typeof newWindow.closed === "undefined") {
-          setRedirectUrl(onboardingUrl); // fallback
-        }
-      } else if (
-        typeof onboardingUrl === "object" &&
-        (onboardingUrl.card_payments === "inactive" ||
-          onboardingUrl.transfers === "inactive")
-      ) {
-        if (retryCount.current < maxRetries) {
-          retryCount.current += 1;
-          console.warn(`Retrying API call... attempt ${retryCount.current}`);
-          createPaymentSecure();
-        } else {
-          console.error("Max retries reached. Onboarding not ready yet.");
-        }
-      }
+useEffect(() => {
+  const url = data?.data?.onboardingUrl?.onboardingUrl || data?.data?.onboardingUrl;
+  if (url && typeof url === "string") {
+    const newWindow = window.open(url, "_blank");
+    if (!newWindow || newWindow.closed || typeof newWindow.closed === "undefined") {
+      setRedirectUrl(url);
     }
-  }, [data, createPaymentSecure]);
+  }
+}, [data]);
+
 
   // Countdown effect for fallback redirect
   useEffect(() => {
@@ -77,6 +60,43 @@ export default function SecurePayments() {
             Secure Payments
           </h1>
         </div>
+
+
+         {/* Benefits List */}
+          <div className="pl-6">
+            <ul className="space-y-3">
+              <li className="flex items-start">
+                <span className="inline-block w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0"></span>
+                <span className="text-gray-700 leading-relaxed">
+                  Protection for buyers and sellers
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="inline-block w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0"></span>
+                <span className="text-gray-700 leading-relaxed">
+                  Trustworthy transactions
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="inline-block w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0"></span>
+                <span className="text-gray-700 leading-relaxed">
+                  Transparent process
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="inline-block w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0"></span>
+                <span className="text-gray-700 leading-relaxed">
+                  Safe & secure payments
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="inline-block w-2 h-2 bg-gray-900 rounded-full mt-2 mr-4 flex-shrink-0"></span>
+                <span className="text-gray-700 leading-relaxed">
+                  A fair and secure transaction for everyone involved
+                </span>
+              </li>
+            </ul>
+          </div>
 
         {/* Button */}
         <div className="mt-8 flex justify-center">

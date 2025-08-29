@@ -153,7 +153,7 @@ useEffect(() => {
                                     onClick={toggleAvatarDropdown}
                                     className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-yellow-400 hover:border-yellow-500 overflow-hidden"
                                 >
-                                    <img src={`${getImageUrl(data?.data?.photo)}`} alt="User Avatar" className="w-full h-full object-cover" />
+                                    <img src={`${getImageUrl(data?.data?.photo)}`} alt="User Avatar" className="w-full h-full object-cover cursor-pointer" />
                                 </button>
                                 <div>
                                     <p>Welcome</p>

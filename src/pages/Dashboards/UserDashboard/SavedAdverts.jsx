@@ -91,9 +91,9 @@ export default function SavedAdverts() {
                 <div className="flex justify-center w-full sm:w-auto">
                   <button
                     onClick={() => toggleFavorite(advert._id)}
-                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                    className="p-2 hover:bg-red-100 border border-gray-100 rounded-full transition-colors cursor-pointer "
                   >
-                    <Heart className="w-5 h-5 text-gray-400" />
+                    <Heart className="w-5 h-5 text-red-400 " />
                   </button>
                 </div>
               </div>

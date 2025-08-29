@@ -1,17 +1,82 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Loader from "../../../shared/Loaders/Loader";
 import ErrorPage from "../../../shared/Error/ErrorPage";
 import { FaCheck } from "react-icons/fa";
 import { useGetAllSubscriptionQuery } from "../../../Redux/api/subscriptionApi";
+import { useCreatePaymentSecureMutation } from "../../../Redux/api/PaymentApis/securePaymentApi";
+import { useNavigate } from "react-router-dom";
+import { useCreateCheckoutMutation } from "../../../Redux/api/PaymentApis/createCheckoutApi";
 
 export default function PricingPlans() {
-  const { data: specificSubscription, isLoading, error } = useGetAllSubscriptionQuery({});
+  const [createPaymentSecure, { isLoading: checkPaymentSequre }] =
+    useCreatePaymentSecureMutation();
+  const [createCheckout, { isLoading: checkoutLoading }] =
+    useCreateCheckoutMutation();
+  const navigate = useNavigate();
 
-  if (isLoading) return <Loader />;
-  if (error) return <ErrorPage message={error?.message} />;
+  const {
+    data: specificSubscription,
+    isLoading,
+    error,
+  } = useGetAllSubscriptionQuery({});
 
   // ✅ Correctly extract subscriptions from response
   const subscriptions = specificSubscription?.data?.all_subscription || [];
+
+  // Save the first subscription ID (or loop if needed) to localStorage
+  useEffect(() => {
+    if (subscriptions.length > 0) {
+      subscriptions.forEach((sub) => {
+        if (sub._id) {
+          localStorage.setItem("subscriptionId", sub._id);
+        }
+      });
+    }
+  }, [subscriptions]);
+
+  const handleStartAdvert = async (subscriptionId) => {
+    try {
+      // 1️⃣ Call secure payment API
+      const secureResponse = await createPaymentSecure().unwrap();
+      console.log("Secure Payment Response:", secureResponse);
+
+      // 2️⃣ Check if onboarding is active
+      const onboardingUrl = secureResponse?.data?.onboardingUrl;
+      if (
+        secureResponse?.success &&
+        onboardingUrl &&
+        onboardingUrl.card_payments === "active" &&
+        onboardingUrl.transfers === "active"
+      ) {
+        // ✅ Call checkout API
+        const checkoutBody = {
+          price: 10.99,
+          subscriptionId: subscriptionId,
+          description: "I am interested in this subscription",
+        };
+
+        const checkoutResponse = await createCheckout(checkoutBody).unwrap();
+        console.log("Checkout Response:", checkoutResponse);
+
+        // 3️⃣ Redirect to checkout URL if available
+        const checkoutUrl = checkoutResponse?.data?.checkoutUrl;
+        if (checkoutUrl) {
+          window.location.href = checkoutUrl;
+        } else {
+          console.error("Checkout URL not found");
+        }
+      } else {
+        // If onboarding not active, navigate to secure payments page
+        navigate("/userdashboard/secure-payments");
+      }
+    } catch (error) {
+      console.error("Error in payment flow:", error);
+      navigate("/userdashboard/secure-payments");
+    }
+  };
+
+  if (isLoading) return <Loader />;
+  if (error) return <ErrorPage message={error?.message} />;
 
   return (
     <div className="bg-white px-5 md:px-0 py-5 md:py-16">
@@ -55,8 +120,20 @@ export default function PricingPlans() {
                 ))}
 
                 <div className="mt-12">
-                  <button className="w-full bg-[#00823A] text-white font-semibold py-3 px-5 rounded-full transition-colors duration-200 shadow-lg hover:shadow-xl">
-                    Start Your Advert
+                  <button
+                    onClick={() => handleStartAdvert(subscription._id)}
+                    disabled={checkPaymentSequre || checkoutLoading} // disable while loading
+                    className={`w-full bg-[#00823A] text-white font-semibold py-3 px-5 rounded-full transition-colors duration-200 shadow-lg hover:shadow-xl cursor-pointer ${
+                      checkPaymentSequre || checkoutLoading
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
+                    }`}
+                  >
+                    {checkPaymentSequre || checkoutLoading ? (
+                      <span>Processing...</span>
+                    ) : (
+                      "Start Your Advert"
+                    )}
                   </button>
                 </div>
               </div>

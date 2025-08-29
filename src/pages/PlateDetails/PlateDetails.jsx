@@ -7,14 +7,27 @@ import {
   useGetSinglePlateQuery,
 } from "../../Redux/api/PlatesApis/singlePlateApi";
 import { getImageUrl } from "../../config/envConfig";
-import { useAddToSavedPlatesMutation } from "../../Redux/api/PlatesApis/mySavedAdversApi";
+import {
+  useAddToSavedPlatesMutation,
+  useGetMySavedPlatesQuery,
+} from "../../Redux/api/PlatesApis/mySavedAdversApi";
+import { useCreateBuyerSellerCheckoutSessionMutation } from "../../Redux/api/PaymentApis/buyAPlate";
+import { useIssubscribedMutation } from "../../Redux/api/Issubscribed/IssubscribedApi";
+import ShareButtons from "./ShareButtons";
 
 export default function PlateDetails() {
+  const [checkSubscribed] = useIssubscribedMutation();
+  const { data: savedPlates, isLoading: loadingSaved } =
+    useGetMySavedPlatesQuery();
   const navigate = useNavigate();
   const { id } = useParams();
   const { data, error, isLoading } = useGetSinglePlateQuery(id);
- const [addToSavedPlates] = useAddToSavedPlatesMutation();
+  const [addToSavedPlates] = useAddToSavedPlatesMutation();
   const { data: similarplatesData } = useGetSimilarPlatesQuery(id);
+  const [createCheckout, { isLoading: checkoutLoading }] =
+    useCreateBuyerSellerCheckoutSessionMutation();
+
+  console.log(checkoutLoading);
 
   if (isLoading) return <p className="text-center py-10">Loading...</p>;
   if (error)
@@ -24,13 +37,19 @@ export default function PlateDetails() {
       </p>
     );
 
-    const handleSavePlate = (plateId) => () => {
+  const handleSavePlate = (plateId) => () => {
     console.log(plateId);
     // Implement save functionality here
     addToSavedPlates(plateId);
   };
 
   const plate = data?.data;
+
+  // চেক করা হচ্ছে savedPlates এ এই প্লেট আছে কি না
+  const isSaved = savedPlates?.data?.all_save_plates?.some(
+    (item) => item.platesalesId?._id === plate?._id
+  );
+
   // Use dynamic similar plates from API
   const similarPlates =
     similarplatesData?.data?.result?.map((item) => ({
@@ -40,9 +59,42 @@ export default function PlateDetails() {
       status: item.status?.toLowerCase() || "available",
     })) || [];
 
-
-      const handleSimilarPlateClick = (plateId) => {
+  const handleSimilarPlateClick = (plateId) => {
     navigate(`/plate-details/${plateId}`);
+  };
+
+  const handleBuyAPlate = async (plateId) => {
+    const subscriptionId = localStorage.getItem("subscriptionId");
+
+    if (!subscriptionId) {
+      navigate("/please-subscribe");
+      return;
+    }
+
+    try {
+      const response = await checkSubscribed({ id: subscriptionId }).unwrap();
+      console.log("Subscription check response:", response);
+
+      if (response?.data?.isAvailable) {
+        // proceed to checkout
+        const buydata = {
+          sellerId: plate?.sellerId?.id,
+          price: plate?.askingPrice,
+          platesalesId: plateId,
+        };
+
+        const checkoutRes = await createCheckout(buydata).unwrap();
+        if (checkoutRes?.data?.checkoutUrl) {
+          window.location.href = checkoutRes.data.checkoutUrl;
+        }
+      } else {
+        navigate("/please-subscribe");
+      }
+    } catch (error) {
+      console.error("Subscription check failed:", error);
+
+      navigate("/please-subscribe");
+    }
   };
 
   return (
@@ -68,9 +120,15 @@ export default function PlateDetails() {
               className="w-full h-96 object-cover"
             />
             <button
-            onClick={handleSavePlate(plate?._id)}
-            className="absolute top-4 right-4 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 transition-all hover:bg-gray-50 cursor-pointer">
-              <Heart className="w-5 h-5 text-gray-600" />
+              onClick={handleSavePlate(plate?._id)}
+              disabled={loadingSaved}
+              className="absolute top-4 right-4 bg-white border border-gray-200 bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 transition-all hover:bg-gray-50 cursor-pointer"
+            >
+              <Heart
+                className={`w-6 h-6 ${
+                  isSaved ? "text-red-500 fill-red-500" : "text-gray-600"
+                }`}
+              />
             </button>
           </div>
         </div>
@@ -119,29 +177,23 @@ export default function PlateDetails() {
           </div>
 
           {/* Share Buttons */}
-          <div className="flex justify-center items-center gap-3 mb-6 text-xl text-gray-800 font-medium">
-            <span className="mr-2">Share Advert:</span>
-            <button className="w-8 h-8 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition-colors">
-              <Facebook className="w-4 h-4 text-white" />
-            </button>
-            <button className="w-8 h-8 bg-blue-400 hover:bg-blue-500 rounded-full flex items-center justify-center transition-colors">
-              <Twitter className="w-4 h-4 text-white" />
-            </button>
-            <button className="w-8 h-8 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors">
-              <MessageCircle className="w-4 h-4 text-white" />
-            </button>
-            <button className="w-8 h-8 bg-gray-400 hover:bg-gray-500 rounded-full flex items-center justify-center transition-colors">
-              <Share2 className="w-4 h-4 text-white" />
-            </button>
-          </div>
+          <ShareButtons />
 
           {/* Buy Now Button */}
           <div className="flex justify-center my-4">
-            <div className="bg-[#00823A] max-w-2xl px-12 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] text-center font-sans">
-              <span className="text-white font-bold text-5xl tracking-wider">
-                Buy Now
-              </span>
-            </div>
+            <button
+  onClick={() => handleBuyAPlate(plate?._id)}
+  className="bg-[#00823A] max-w-2xl px-12 py-4 rounded-md shadow-md 
+             text-center font-sans cursor-pointer 
+             hover:bg-[#006f2e] active:scale-95 
+             focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 
+             transition transform"
+>
+  <span className="text-white font-bold text-xl tracking-wide">
+    Buy Now
+  </span>
+</button>
+
           </div>
         </div>
 
@@ -190,7 +242,7 @@ export default function PlateDetails() {
           {similarPlates.map((item, index) => (
             <div
               key={index}
-                onClick={() => handleSimilarPlateClick(item.id)}
+              onClick={() => handleSimilarPlateClick(item.id)}
               className="bg-white border border-gray-200 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow cursor-pointer"
             >
               <div className="bg-[#fad549] w-full px-3 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] mb-3 inline-block">

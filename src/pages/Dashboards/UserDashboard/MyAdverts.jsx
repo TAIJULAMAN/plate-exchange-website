@@ -38,7 +38,7 @@ export default function MyAdverts() {
       preConfirm: () => {
         return {
           registrationId: document.getElementById("swal-input1").value,
-          askingPrice: Number(document.getElementById("swal-input2").value),
+          askingPrice: String(document.getElementById("swal-input2").value),
           description: document.getElementById("swal-input3").value,
         };
       },
@@ -47,12 +47,16 @@ export default function MyAdverts() {
     });
 
     if (formValues) {
-      console.log(advertId, formValues, 'formValues');
       try {
-        await updateAdvert({ advertId ,data: formValues });
+      const res = await updateAdvert({ advertId, data: formValues }).unwrap();
+      // The API response is in res, check for res.success or res.data.status
+      if (res.success || res.data?.status) {
         Swal.fire("Updated!", "Your advert has been updated.", "success");
+      } else {
+        Swal.fire("Error", "Failed to update advert.");
+      }
       } catch (err) {
-        Swal.fire("Error", "Failed to update advert.", "error");
+      Swal.fire("Error", "Failed to update advert.",err);
       }
     }
   };
@@ -81,7 +85,7 @@ export default function MyAdverts() {
   };
 
   const handleListNewPlate = () => {
-    alert("Redirecting to list new plate...");
+    navigate("/userdashboard/list-plate");
   };
 
   return (
