@@ -7,7 +7,7 @@ const profileApi = baseApi.injectEndpoints({
         url: `auth/myprofile`,
         method: "GET",
       }),
-      providesTags: ["profile"],
+      providesTags: ["auth"],
     }),
     getAdminProfile: builder.query({
       query: () => ({

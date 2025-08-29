@@ -6,12 +6,42 @@ import { HiOutlineUpload } from "react-icons/hi"; // ✅ Upload Icon
 export default function PlateView() {
   // Car images config with default positions
   const initialCars = [
-    { id: 1, type: "rear", src: "/PlateViewmainCar.png", defaultPos: { x: 409, y: 295, width: 168, height: 37 } },
-    { id: 2, type: "front", src: "/car (2).png", defaultPos: { x: 384, y: 392, width: 239, height: 59 } },
-    { id: 3, type: "rear", src: "/car (3).png", defaultPos: { x: 360, y: 248, width: 225, height: 48 } },
-    { id: 4, type: "rear", src: "/car (4).png", defaultPos: { x: 395, y: 215, width: 155, height: 48 } },
-    { id: 5, type: "rear", src: "/car (5).png", defaultPos: { x: 405, y: 220, width: 160, height: 50 } },
-    { id: 6, type: "front", src: "/car (6).png", defaultPos: { x: 400, y: 200, width: 155, height: 50 } },
+    {
+      id: 1,
+      type: "rear",
+      src: "/PlateViewmainCar.png",
+      defaultPos: { x: 409, y: 295, width: 168, height: 37 },
+    },
+    {
+      id: 2,
+      type: "front",
+      src: "/car (2).png",
+      defaultPos: { x: 384, y: 392, width: 239, height: 59 },
+    },
+    {
+      id: 3,
+      type: "rear",
+      src: "/car (3).png",
+      defaultPos: { x: 360, y: 248, width: 225, height: 48 },
+    },
+    {
+      id: 4,
+      type: "rear",
+      src: "/car (4).png",
+      defaultPos: { x: 395, y: 215, width: 155, height: 48 },
+    },
+    {
+      id: 5,
+      type: "rear",
+      src: "/car (5).png",
+      defaultPos: { x: 405, y: 220, width: 160, height: 50 },
+    },
+    {
+      id: 6,
+      type: "front",
+      src: "/car (6).png",
+      defaultPos: { x: 400, y: 200, width: 155, height: 50 },
+    },
   ];
 
   const [carImages, setCarImages] = useState(initialCars);
@@ -47,18 +77,17 @@ export default function PlateView() {
   };
 
   // Select view type manually
-// Select view type manually
-const handleSelectView = (viewType) => {
-  if (selectedCar) {
-    // ✅ if current car is uploaded, just change its type dynamically
-    setSelectedCar((prev) => ({ ...prev, type: viewType }));
-  } else {
-    // fallback: find another car in gallery
-    const found = carImages.find((c) => c.type === viewType);
-    if (found) handleSelectCar(found);
-  }
-};
-
+  // Select view type manually
+  const handleSelectView = (viewType) => {
+    if (selectedCar) {
+      // ✅ if current car is uploaded, just change its type dynamically
+      setSelectedCar((prev) => ({ ...prev, type: viewType }));
+    } else {
+      // fallback: find another car in gallery
+      const found = carImages.find((c) => c.type === viewType);
+      if (found) handleSelectCar(found);
+    }
+  };
 
   // Add random/uploaded car image
   const handleAddCarImage = (e) => {
@@ -91,54 +120,56 @@ const handleSelectView = (viewType) => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Preview */}
-{/* Main Preview */}
-<div className="lg:col-span-2">
-  <div
-    ref={previewRef}
-    className="relative bg-white overflow-hidden shadow-sm mb-6
+        {/* Main Preview */}
+        <div className="lg:col-span-2">
+          <div
+            ref={previewRef}
+            className="relative bg-white overflow-hidden shadow-sm mb-6
                w-full max-w-[980px] mx-auto rounded-2xl
                aspect-[4/3] lg:aspect-[980/520]"
-  >
-    {/* Car Image */}
-    <img
-      src={selectedCar.src}
-      alt="Car with number plate preview"
-      className="w-full h-full object-cover"
-    />
+          >
+            {/* Car Image */}
+            <img
+              src={selectedCar.src}
+              alt="Car with number plate preview"
+              className="w-full h-full object-cover"
+            />
 
-    {/* Plate Overlay */}
-    <Rnd
-      bounds="parent"
-      size={{ width: platePosition.width, height: platePosition.height }}
-      position={{ x: platePosition.x, y: platePosition.y }}
-      onDragStop={(e, d) =>
-        setPlatePosition((p) => ({ ...p, x: d.x, y: d.y }))
-      }
-      onResizeStop={(e, dir, ref, delta, pos) =>
-        setPlatePosition({
-          width: parseInt(ref.style.width),
-          height: parseInt(ref.style.height),
-          x: pos.x,
-          y: pos.y,
-        })
-      }
-    >
-      <div
-        className="flex items-center justify-center w-full h-full rounded shadow-md"
-        style={{
-          backgroundColor:
-            selectedCar.type === "rear" ? "#fad549" : "#ffffff",
-          filter: `brightness(${brightness}%)`,
-        }}
-      >
-        <span className="font-bold text-4xl tracking-wider font-mycustom text-black">
-          {plateText}
-        </span>
-      </div>
-    </Rnd>
-  </div>
-</div>
-
+            {/* Plate Overlay */}
+            <Rnd
+              bounds="parent"
+              size={{
+                width: platePosition.width,
+                height: platePosition.height,
+              }}
+              position={{ x: platePosition.x, y: platePosition.y }}
+              onDragStop={(e, d) =>
+                setPlatePosition((p) => ({ ...p, x: d.x, y: d.y }))
+              }
+              onResizeStop={(e, dir, ref, delta, pos) =>
+                setPlatePosition({
+                  width: parseInt(ref.style.width),
+                  height: parseInt(ref.style.height),
+                  x: pos.x,
+                  y: pos.y,
+                })
+              }
+            >
+              <div
+                className="flex items-center justify-center w-full h-full rounded shadow-md"
+                style={{
+                  backgroundColor:
+                    selectedCar.type === "rear" ? "#fad549" : "#ffffff",
+                  filter: `brightness(${brightness}%)`,
+                }}
+              >
+                <span className="font-bold text-4xl tracking-wider font-mycustom text-black">
+                  {plateText}
+                </span>
+              </div>
+            </Rnd>
+          </div>
+        </div>
 
         {/* Controls */}
         <div className="space-y-6">
@@ -225,53 +256,53 @@ const handleSelectView = (viewType) => {
             </button>
           </div>
 
-{/* Upload Car Image */}
-<div className="text-center mt-6">
-  <label
-    htmlFor="carUpload"
-    className="inline-flex flex-col items-center justify-center w-full p-4 border-2 border-dashed border-gray-400 rounded-lg cursor-pointer hover:bg-gray-100"
-  >
-    <HiOutlineUpload className="text-4xl text-gray-600 mb-2" />
-    <span className="text-gray-700 font-medium">Upload Car Image</span>
-    <input
-      id="carUpload"
-      type="file"
-      accept="image/*"
-      className="hidden"
-      onChange={handleAddCarImage}
-    />
-  </label>
-</div>
+          {/* Upload Car Image */}
+          <div className="text-center mt-6">
+            <label
+              htmlFor="carUpload"
+              className="inline-flex flex-col items-center justify-center w-full p-4 border-2 border-dashed border-gray-400 rounded-lg cursor-pointer hover:bg-gray-100"
+            >
+              <HiOutlineUpload className="text-4xl text-gray-600 mb-2" />
+              <span className="text-gray-700 font-medium">
+                Upload Car Image
+              </span>
+              <input
+                id="carUpload"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleAddCarImage}
+              />
+            </label>
+          </div>
         </div>
       </div>
 
       {/* Car Gallery Grid */}
 
-
-{/* Car Gallery Grid */}
-<div className="mt-10">
-  <h2 className="text-2xl font-bold mb-4 text-gray-800">All Cars</h2>
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    {carImages.map((car) => (
-      <div
-        key={car.id}
-        className={`aspect-[4/3] border rounded-lg flex items-center justify-center cursor-pointer overflow-hidden ${
-          selectedCar.id === car.id
-            ? "border-yellow-500 border-4"
-            : "border-gray-300"
-        }`}
-        onClick={() => handleSelectCar(car)}
-      >
-        <img
-          src={car.src}
-          alt={`Car ${car.id}`}
-          className="w-full h-full object-cover"
-        />
+      {/* Car Gallery Grid */}
+      <div className="mt-10">
+        <h2 className="text-2xl font-bold mb-4 text-gray-800">All Cars</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {carImages.map((car) => (
+            <div
+              key={car.id}
+              className={`aspect-[4/3] border rounded-lg flex items-center justify-center cursor-pointer overflow-hidden ${
+                selectedCar.id === car.id
+                  ? "border-yellow-500 border-4"
+                  : "border-gray-300"
+              }`}
+              onClick={() => handleSelectCar(car)}
+            >
+              <img
+                src={car.src}
+                alt={`Car ${car.id}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    ))}
-  </div>
-</div>
-
     </div>
   );
 }
