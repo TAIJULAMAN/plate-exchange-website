@@ -20,14 +20,19 @@ const authApi = baseApi.injectEndpoints({
           }),
           invalidatesTags: ["User"],
         }),
+      
+        
         getMyProfile: builder.query({
-            query: () => ({
-                url: "auth/myprofile",
-                method: "GET"
+  query: (token) => ({
+    url: "auth/myprofile",
+    method: "GET",
+    headers: { Authorization: token },
+  }),
+  providesTags: ["auth"],
+}),
 
-            }),
-            providesTags: ["auth"],
-        }),
+
+
     forgotPassword: builder.mutation({
       query: (data) => ({
         url: "user/forgot_password",

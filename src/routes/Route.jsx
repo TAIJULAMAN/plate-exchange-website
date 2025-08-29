@@ -33,7 +33,12 @@ import SecurePayments from "../pages/Dashboards/UserDashboard/SecurePayments";
 import Chat from "../pages/Chat/Chat";
 import PrivateRoute from "./PrivateRoute.JSX";
 import VerificationCode from "../pages/Auth/Otp";
-
+import PaymentSuccessful from "../pages/Payment/PaymentSuccessful";
+import TransactionSuccess from "../pages/Payment/TransactionSuccess";
+import PricingPlans from "../pages/Home/PricingPlans/PricingPlans";
+import IsPremiumRoute from "./IsPrimiumRoute";
+import MySubscriptions from "../pages/Dashboards/UserDashboard/MySubscriptions";
+import GetPlateValued from "../pages/Dashboards/UserDashboard/GetPlateValued";
 
 const router = createBrowserRouter([
   {
@@ -46,9 +51,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/sell-a-plate",
-        element: <PrivateRoute>
-          <SellAPlate />
-        </PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <SellAPlate />
+          </PrivateRoute>
+        ),
       },
       {
         path: "plate-view",
@@ -92,17 +99,16 @@ const router = createBrowserRouter([
         element: <GuideAndBlog />,
       },
       {
-
         path: "blog/details/:id",
         element: <BlogDetails />,
       },
       {
         path: "faq",
-        element: <FaqPage />
+        element: <FaqPage />,
       },
       {
         path: "Reviewsandtestimonials",
-        element: <Reviewsandtestimonials />
+        element: <Reviewsandtestimonials />,
       },
       {
         path: "/login",
@@ -112,10 +118,10 @@ const router = createBrowserRouter([
         path: "/forget-password",
         element: <ForgetPassword />,
       },
-  {
-    path: "/otp",
-    element: <VerificationCode />,
-  },
+      {
+        path: "/otp",
+        element: <VerificationCode />,
+      },
       {
         path: "/reset-password",
         element: <ResetPassword />,
@@ -124,23 +130,46 @@ const router = createBrowserRouter([
         path: "/sign-up",
         element: <SignUp />,
       },
+      {
+        path: "please-subscribe",
+        element: <PrivateRoute><PricingPlans /></PrivateRoute>,
+      },
+      {
+        // stripe connect successful onboarding
+        path: "/stripe/onboarding/return",
+        element: <PaymentSuccessful />,
+      },
+      // stripe connect failed onboarding
+      {
+        path: "/stripe/onboarding/failed",
+        element: <div>Stripe Onboarding Failed. Please try again.</div>,
+      },
+      // payment success
+      {
+        path: `/success`,
+        element: <TransactionSuccess />,
+      },
     ],
   },
   {
     path: "/userdashboard",
-    element: <UserDashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <UserDashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/userdashboard",
-        element: <ListPlateForSale />,
+        element: <MyProfile />,
       },
       {
         path: "list-plate",
-        element: <ListPlateForSale />,
+        element: <IsPremiumRoute><ListPlateForSale /></IsPremiumRoute>,
       },
       {
         path: "get-plate-valued",
-        element: <>Get Plate Valued Page</>
+        element: <GetPlateValued />,
       },
       {
         path: "profile",
@@ -159,18 +188,22 @@ const router = createBrowserRouter([
         element: <MyAdverts />,
       },
       {
+        path: "my-subscriptions",
+        element: <MySubscriptions />,
+      },
+      {
         path: "saved-adverts",
         element: <SavedAdverts />,
       },
       {
         path: "message-centre",
-        element: <Chat />
+        element: <Chat />,
       },
       {
         path: "secure-payments",
         element: <SecurePayments />,
-      }
-    ]
-  }
+      },
+    ],
+  },
 ]);
 export default router;

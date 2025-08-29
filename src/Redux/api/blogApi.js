@@ -17,7 +17,7 @@ export const blogApi = baseApi.injectEndpoints({
       query: (params) => ({
         url: "blogs/find_by_all_blogs",
         method: "GET",
-        params,
+        params, // e.g., { page: 1, limit: 10 }
       }),
       providesTags: ["blog"],
     }),
@@ -31,12 +31,11 @@ export const blogApi = baseApi.injectEndpoints({
       providesTags: ["blog"],
     }),
 
-
-    // get recent blogs 
+    // get recent blogs
     getRecentBlogs: builder.query({
       query: () => ({
-      url: "blogs/recent_blog",
-      method: "GET",
+        url: "blogs/recent_blog",
+        method: "GET",
       }),
       providesTags: ["blog"],
     }),

@@ -2,7 +2,7 @@
 import React from "react";
 import { IoIosStar } from "react-icons/io";
 
-export default function ReviewCard({ name, review, image, rating = 5 }) {
+export default function ReviewCard({ name, review, image, rating = 5, reviewHeadings }) {
   return (
     <div className="bg-[#f5f5f5] rounded-xl px-5 py-10 text-center max-w-sm mx-auto flex flex-col justify-between h-full border border-[#00823A]">
       {/* Rating Stars */}
@@ -16,7 +16,7 @@ export default function ReviewCard({ name, review, image, rating = 5 }) {
 
       {/* Review Title */}
       <h3 className="text-lg font-semibold text-[#5587A7] mb-4">
-        Highly recommended
+        {reviewHeadings}
       </h3>
 
       {/* Review Text with better responsive sizing */}

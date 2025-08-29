@@ -10,9 +10,11 @@ import {
   Pin,
   Mail,
   User,
-  X
+  X,
+  SubscriptIcon
 } from "lucide-react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import { BsBoxSeam } from "react-icons/bs";
 
 export default function UserSidebar() {
   const location = useLocation();
@@ -47,11 +49,11 @@ export default function UserSidebar() {
 
       {/* Sidebar */}
       <div
-        className={`w-70 bg-gray-50 p-4 ${isMobile
-          ? `fixed top-0 w-80 pl-10 left-0 h-full z-40 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } transition-transform duration-300 ease-in-out`
-          : ""
-          }`}
+         className={`w-70 bg-gray-50 p-4 mt-[150px] ${isMobile
+      ? `fixed top-0 w-80 pl-10 left-0 h-full z-40 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+      } transition-transform duration-300 ease-in-out`
+      : ""
+      }`}
       >
         {/* Close button for mobile */}
         {isMobile && (
@@ -66,6 +68,7 @@ export default function UserSidebar() {
         {/* Quick Actions */}
         <Section
           title="Quick Actions"
+          className=""
           isActive={isSectionActive(location.pathname, [
             "/userdashboard/list-plate",
             "/userdashboard/get-plate-valued"
@@ -119,6 +122,7 @@ export default function UserSidebar() {
           title="Marketplace Tools"
           isActive={isSectionActive(location.pathname, [
             "/userdashboard/my-adverts",
+            "/userdashboard/my-subscriptions",
             "/userdashboard/saved-adverts",
             "/userdashboard/message-centre"
           ])}
@@ -127,6 +131,12 @@ export default function UserSidebar() {
             to="/userdashboard/my-adverts"
             icon={<List size={18} />}
             text="My Adverts"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
+           <SidebarButton
+            to="/userdashboard/my-subscriptions"
+            icon={<BsBoxSeam size={18} />}
+            text="My Subscriptions"
             onClick={isMobile ? toggleSidebar : undefined}
           />
           <SidebarButton
