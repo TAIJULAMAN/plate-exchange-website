@@ -91,52 +91,54 @@ const handleSelectView = (viewType) => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Preview */}
-        <div className="lg:col-span-2">
-          <div
-            ref={previewRef}
-            className="relative bg-white overflow-hidden shadow-sm mb-6 
-                       w-full max-w-[980px] aspect-[980/520] mx-auto rounded-2xl"
-          >
-            {/* Car Image */}
-            <img
-              src={selectedCar.src}
-              alt="Car with number plate preview"
-              className="w-full h-full object-cover"
-              style={{ width: "980px", height: "520px" }}
-            />
+{/* Main Preview */}
+<div className="lg:col-span-2">
+  <div
+    ref={previewRef}
+    className="relative bg-white overflow-hidden shadow-sm mb-6
+               w-full max-w-[980px] mx-auto rounded-2xl
+               aspect-[4/3] lg:aspect-[980/520]"
+  >
+    {/* Car Image */}
+    <img
+      src={selectedCar.src}
+      alt="Car with number plate preview"
+      className="w-full h-full object-cover"
+    />
 
-            {/* Plate Overlay */}
-            <Rnd
-              bounds="parent"
-              size={{ width: platePosition.width, height: platePosition.height }}
-              position={{ x: platePosition.x, y: platePosition.y }}
-              onDragStop={(e, d) =>
-                setPlatePosition((p) => ({ ...p, x: d.x, y: d.y }))
-              }
-              onResizeStop={(e, dir, ref, delta, pos) =>
-                setPlatePosition({
-                  width: parseInt(ref.style.width),
-                  height: parseInt(ref.style.height),
-                  x: pos.x,
-                  y: pos.y,
-                })
-              }
-            >
-              <div
-                className="flex items-center justify-center w-full h-full rounded shadow-md"
-                style={{
-                  backgroundColor:
-                    selectedCar.type === "rear" ? "#fad549" : "#ffffff",
-                  filter: `brightness(${brightness}%)`,
-                }}
-              >
-                <span className="font-bold text-4xl tracking-wider font-mycustom text-black">
-                  {plateText}
-                </span>
-              </div>
-            </Rnd>
-          </div>
-        </div>
+    {/* Plate Overlay */}
+    <Rnd
+      bounds="parent"
+      size={{ width: platePosition.width, height: platePosition.height }}
+      position={{ x: platePosition.x, y: platePosition.y }}
+      onDragStop={(e, d) =>
+        setPlatePosition((p) => ({ ...p, x: d.x, y: d.y }))
+      }
+      onResizeStop={(e, dir, ref, delta, pos) =>
+        setPlatePosition({
+          width: parseInt(ref.style.width),
+          height: parseInt(ref.style.height),
+          x: pos.x,
+          y: pos.y,
+        })
+      }
+    >
+      <div
+        className="flex items-center justify-center w-full h-full rounded shadow-md"
+        style={{
+          backgroundColor:
+            selectedCar.type === "rear" ? "#fad549" : "#ffffff",
+          filter: `brightness(${brightness}%)`,
+        }}
+      >
+        <span className="font-bold text-4xl tracking-wider font-mycustom text-black">
+          {plateText}
+        </span>
+      </div>
+    </Rnd>
+  </div>
+</div>
+
 
         {/* Controls */}
         <div className="space-y-6">
