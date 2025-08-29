@@ -47,10 +47,18 @@ export default function PlateView() {
   };
 
   // Select view type manually
-  const handleSelectView = (viewType) => {
+// Select view type manually
+const handleSelectView = (viewType) => {
+  if (selectedCar) {
+    // ✅ if current car is uploaded, just change its type dynamically
+    setSelectedCar((prev) => ({ ...prev, type: viewType }));
+  } else {
+    // fallback: find another car in gallery
     const found = carImages.find((c) => c.type === viewType);
     if (found) handleSelectCar(found);
-  };
+  }
+};
+
 
   // Add random/uploaded car image
   const handleAddCarImage = (e) => {
