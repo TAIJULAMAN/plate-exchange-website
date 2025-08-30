@@ -170,9 +170,15 @@ export default function PlateDetails() {
             <span className="text-xl text-gray-800">
               £{plate?.askingPrice || 0}
             </span>
-            <div className="flex items-center space-x-2 bg-gray-200 p-2 rounded-md ml-4 cursor-pointer">
+            <div
+            onClick={() => {
+               navigate(
+      `/userdashboard/message-center/${plate?.sellerId?._id}?plate=${plate?.registrationId}`
+    );
+            }}
+            className="flex items-center space-x-2 bg-gray-200 hover:bg-gray-400 hover:text-white p-2 rounded-md ml-4 cursor-pointer">
               <FiMessageSquare className="text-2xl text-indigo-600" />
-              <span className="text-xl text-gray-800">Chat With Seller</span>
+              <span className="text-xl text-gray-800 ">Chat With Seller</span>
             </div>
           </div>
 

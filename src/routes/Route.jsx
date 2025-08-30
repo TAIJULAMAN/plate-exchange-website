@@ -39,6 +39,10 @@ import PricingPlans from "../pages/Home/PricingPlans/PricingPlans";
 import IsPremiumRoute from "./IsPrimiumRoute";
 import MySubscriptions from "../pages/Dashboards/UserDashboard/MySubscriptions";
 import GetPlateValued from "../pages/Dashboards/UserDashboard/GetPlateValued";
+import MyBuyPlates from "../pages/Dashboards/UserDashboard/MyBuyPlates";
+import MySelledPlates from "../pages/Dashboards/UserDashboard/MySelledPlates";
+import AllChating from "../pages/Chat/AllChating";
+import MessageDetails from "../pages/Dashboards/UserDashboard/messageDetails";
 
 const router = createBrowserRouter([
   {
@@ -192,12 +196,28 @@ const router = createBrowserRouter([
         element: <MySubscriptions />,
       },
       {
+        path: "my-buyed-plates",
+        element: <MyBuyPlates />,
+      },
+      {
+        path: "my-selled-plates",
+        element: <MySelledPlates />,
+      },
+      {
         path: "saved-adverts",
         element: <SavedAdverts />,
       },
       {
-        path: "message-centre",
+        path: "message-center",
+        element: <AllChating />,
+      },
+      {
+        path: "message-center/:id",
         element: <Chat />,
+      },
+      {
+        path: "message-centre/details/:id",
+        element: <MessageDetails  />,
       },
       {
         path: "secure-payments",

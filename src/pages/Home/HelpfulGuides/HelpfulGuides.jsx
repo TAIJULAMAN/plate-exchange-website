@@ -23,7 +23,7 @@ export default function HelpfulGuides() {
           Valuing Number Plates With<br />
           PlateExange
         </h1>
-        <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+        <p className="text-lg text-gray-600  mx-auto">
           Discover the latest number plates added to the marketplace — fresh, unique, and available now.
         </p>
       </div>

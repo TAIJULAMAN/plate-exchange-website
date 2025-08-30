@@ -16,7 +16,7 @@ export default function SavedAdverts() {
 
   const handleContact = (advertId) => {
     console.log("Chat clicked, ID:", advertId);
-    navigate(`/userdashboard/message-centre`);
+    navigate(`/userdashboard/message-center`);
   };
 
   const toggleFavorite = (advertId) => {

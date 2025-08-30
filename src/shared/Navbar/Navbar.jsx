@@ -91,7 +91,7 @@ useEffect(() => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#3c3d37] text-white shadow-lg">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-4">
+      <div className="container mx-auto px-5 md:px-0 py-2 md:py-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <NavLink to="/" className="flex-shrink-0">
