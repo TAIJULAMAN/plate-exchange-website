@@ -7,7 +7,8 @@ import Swal from "sweetalert2";
 
 import { jwtDecode } from "jwt-decode"; 
 import { useResetPasswordMutation } from "../../Redux/api/authApi";
-import BrandLogo from "../../components/Shared/brandLogo";
+
+
 
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -89,10 +90,7 @@ const ResetPassword = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#f0f6ff] p-5">
       <div className="bg-white shadow-lg relative rounded-2xl p-6 w-full max-w-lg text-start">
-        <BrandLogo
-          status="Set a new password"
-          information="Create a new password. Ensure it differs from previous ones for security."
-        />
+
         <form className="space-y-5" onSubmit={handleUpdatePassword}>
           {/* --- New Password --- */}
           <div className="w-full">

@@ -163,6 +163,11 @@ export default function Login() {
               Forgot password?
             </Link>
           </div>
+          {error && (
+            <p className="text-red-500 text-sm mt-2">
+              {error?.data?.message || "Login failed!"}
+            </p>
+          )}
         </form>
       </div>
     </section>

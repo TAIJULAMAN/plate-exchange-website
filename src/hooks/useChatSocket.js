@@ -6,7 +6,7 @@ export default function useChatSocket(channelName, senderId) {
 
   useEffect(() => {
     const wsProtocol = window.location.protocol === "https:" ? "wss" : "ws";
-    socketRef.current = new WebSocket(`${wsProtocol}://10.10.20.13:3055`);
+    socketRef.current = new WebSocket(`${wsProtocol}://heritage-despite-relaxation-became.trycloudflare.com`);
 
     socketRef.current.onopen = () => {
       console.log("✅ Connected to WebSocket server");

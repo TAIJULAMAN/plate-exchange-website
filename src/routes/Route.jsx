@@ -16,10 +16,8 @@ import GuideAndBlog from "../pages/Guide&Blog/GuideAndBlog";
 import FaqPage from "../pages/Faq/FaqPage";
 import Reviewsandtestimonials from "../pages/Reviewsandtestimonials/Reviewsandtestimonials";
 import BlogDetails from "../pages/Guide&Blog/BlogDetails";
-
+import PrivateRoute from "./PrivateRoute";
 import Login from "../pages/Auth/Login";
-import ForgetPassword from "../pages/Auth/ForgetPassword";
-import Otp from "../pages/Auth/Otp";
 import ResetPassword from "../pages/Auth/ResetPassword";
 import SignUp from "../pages/Auth/SignUp";
 import UserDashboardLayout from "../layout/UserDashboardLayout";
@@ -31,7 +29,6 @@ import MyAdverts from "../pages/Dashboards/UserDashboard/MyAdverts";
 import SavedAdverts from "../pages/Dashboards/UserDashboard/SavedAdverts";
 import SecurePayments from "../pages/Dashboards/UserDashboard/SecurePayments";
 import Chat from "../pages/Chat/Chat";
-import PrivateRoute from "./PrivateRoute.JSX";
 import VerificationCode from "../pages/Auth/Otp";
 import PaymentSuccessful from "../pages/Payment/PaymentSuccessful";
 import TransactionSuccess from "../pages/Payment/TransactionSuccess";
@@ -43,6 +40,8 @@ import MyBuyPlates from "../pages/Dashboards/UserDashboard/MyBuyPlates";
 import MySelledPlates from "../pages/Dashboards/UserDashboard/MySelledPlates";
 import AllChating from "../pages/Chat/AllChating";
 import MessageDetails from "../pages/Dashboards/UserDashboard/messageDetails";
+import UserVerification from "../pages/Auth/UserVerification";
+import ForgetPassword from "../pages/Auth/ForgetPassword";
 
 const router = createBrowserRouter([
   {
@@ -135,8 +134,16 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
+        path: "/user-verification",
+        element: <UserVerification></UserVerification>,
+      },
+      {
         path: "please-subscribe",
-        element: <PrivateRoute><PricingPlans /></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <PricingPlans />
+          </PrivateRoute>
+        ),
       },
       {
         // stripe connect successful onboarding
@@ -169,7 +176,11 @@ const router = createBrowserRouter([
       },
       {
         path: "list-plate",
-        element: <IsPremiumRoute><ListPlateForSale /></IsPremiumRoute>,
+        element: (
+          <IsPremiumRoute>
+            <ListPlateForSale />
+          </IsPremiumRoute>
+        ),
       },
       {
         path: "get-plate-valued",
@@ -217,7 +228,7 @@ const router = createBrowserRouter([
       },
       {
         path: "message-centre/details/:id",
-        element: <MessageDetails  />,
+        element: <MessageDetails />,
       },
       {
         path: "secure-payments",

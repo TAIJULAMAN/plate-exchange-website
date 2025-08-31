@@ -1,3 +1,4 @@
+
 import { baseApi } from "./baseApi";
 
 const authApi = baseApi.injectEndpoints({
@@ -63,6 +64,16 @@ const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["User"],
     }),
 
+    userVarification: builder.mutation({
+      query: (data) => ({
+        url: "user/user_verification",
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    }),
+        
+
     }),
 });
 
@@ -74,7 +85,8 @@ export const {
   useForgotPasswordMutation,
   useVerifyEmailMutation,
   useResetPasswordMutation,
-    useGetMyProfileQuery
+    useGetMyProfileQuery,
+    useUserVarificationMutation,
 
 } = authApi;
 

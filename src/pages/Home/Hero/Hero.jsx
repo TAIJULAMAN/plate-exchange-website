@@ -5,7 +5,7 @@ import Input from "../../../shared/Input/Input";
 import svg1 from "/1.png";
 import svg2 from "/2.svg";
 import svg3 from "/3.svg";
-import { useGetAllplatesSalesQuery } from "../../../redux/api/platesSalesApi";
+
 import Loader from "../../../shared/Loaders/Loader";
 import ErrorPage from "../../../shared/Error/ErrorPage";
 
@@ -13,18 +13,18 @@ export default function Hero() {
   const [searchTerm, setSearchTerm] = useState("");
 
   // ✅ only call API when searchTerm length >= 1
-  const {
-    data,
-    isLoading,
-    error,
-    isSuccess,
-  } = useGetAllplatesSalesQuery(
-    { registrationId: searchTerm },
-    { skip: searchTerm.length < 1 }
-  );
+  // const {
+  //   data,
+  //   isLoading,
+  //   error,
+  //   isSuccess,
+  // } = useGetAllplatesSalesQuery(
+  //   { registrationId: searchTerm },
+  //   { skip: searchTerm.length < 1 }
+  // );
 
-  if (isLoading) return <Loader />;
-  if (error) return <ErrorPage message={error?.message} />;
+  // if (isLoading) return <Loader />;
+  // if (error) return <ErrorPage message={error?.message} />;
 
   // console.log("Search results:", data?.data?.all_plates);
 
@@ -72,7 +72,7 @@ export default function Hero() {
       </section>
 
 
-      {isSuccess && searchTerm.length >= 1 && (
+      {/* {isSuccess && searchTerm.length >= 1 && (
         <div className="mt-10">
           <h3 className="text-xl font-bold">Search Results:</h3>
           {data?.data?.all_plates?.length > 0 ? (
@@ -85,7 +85,7 @@ export default function Hero() {
             <p>No plates found.</p>
           )}
         </div>
-      )}
+      )} */}
     </main>
   );
 }

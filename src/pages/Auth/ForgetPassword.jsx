@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
 import { useForgotPasswordMutation } from "../../Redux/api/authApi";
-import BrandLogo from "../../components/Shared/brandLogo";
+// import BrandLogo from "../../components/Shared/brandLogo";
 
 function ForgetPassword() {
   const [email, setEmail] = useState("");
@@ -58,7 +58,7 @@ function ForgetPassword() {
     <div className="flex justify-center items-center min-h-screen bg-[#f0f6ff] p-5">
       <div className="bg-white relative shadow-lg rounded-2xl px-5 py-20 w-full max-w-xl text-center">
         <div className="flex mb-5 flex-col items-center justify-center w-full">
-          <BrandLogo img="/logo.png" />
+          {/* <BrandLogo img="/logo.png" /> */}
         </div>
         <div className="flex mb-5 flex-col items-center justify-center w-full">
           <h2 className="text-gray-800 text-2xl font-bold text-center mb-5">
