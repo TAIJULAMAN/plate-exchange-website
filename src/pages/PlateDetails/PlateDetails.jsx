@@ -26,6 +26,7 @@ export default function PlateDetails() {
   const { data: similarplatesData } = useGetSimilarPlatesQuery(id);
   const [createCheckout, { isLoading: checkoutLoading }] =
     useCreateBuyerSellerCheckoutSessionMutation();
+    
 
   console.log(checkoutLoading);
 

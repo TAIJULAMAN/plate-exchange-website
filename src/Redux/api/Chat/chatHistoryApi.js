@@ -10,8 +10,16 @@ const chatHistoryApi = baseApi.injectEndpoints({
             query: (channelName) => `message/plate_ways_chat_history/${channelName}`,
             providesTags: ['ChannelChatDetails'],
         }),
+        handleImgMSG: builder.mutation({
+            query: (formData) => ({
+                url: `message/send_message`,
+                method: "POST",
+                body: formData,
+            }),
+            invalidatesTags: ['ChannelChatDetails'],
+        }),
     }),
 });
 
-export const { useGetChannelChatHistoryQuery , useChannelChatDetailsQuery } = chatHistoryApi;
+export const { useGetChannelChatHistoryQuery , useChannelChatDetailsQuery, useHandleImgMSGMutation } = chatHistoryApi;
 export default chatHistoryApi;
