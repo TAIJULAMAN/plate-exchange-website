@@ -6,6 +6,7 @@ export const getBaseUrl = () => url;
 
 // Function to get the image base URL
 export const getImageBaseUrl = () => imgUrl;
+// asdf 
 
 export const getImageUrl = (imagePath) => {
   if (!imagePath) return "";

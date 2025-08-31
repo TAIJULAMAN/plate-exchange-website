@@ -120,7 +120,7 @@ const router = createBrowserRouter([
       {
         path: "/forget-password",
         element: <ForgetPassword />,
-      },
+      }, 
       {
         path: "/otp",
         element: <VerificationCode />,
