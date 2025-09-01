@@ -8,9 +8,11 @@ import svg3 from "/3.svg";
 
 import Loader from "../../../shared/Loaders/Loader";
 import ErrorPage from "../../../shared/Error/ErrorPage";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   // ✅ only call API when searchTerm length >= 1
   // const {
@@ -42,7 +44,7 @@ export default function Hero() {
           Connecting buyers and sellers of
         </h1>
         <h2 className="text-gray-800 mb-8">
-          <span className="text-custom-yellow px-2 py-1 rounded relative">
+          <span className="text-custom-yellow  px-2 py-1 rounded relative">
             Number Plates{" "}
             <img
               className="absolute -bottom-3 right-0"
@@ -50,19 +52,42 @@ export default function Hero() {
               alt="yellow-line"
             />
           </span>{" "}
-          directly.
+          <span className="md:inline block mt-10">directly.</span>
         </h2>
       </section>
 
-      {/* Search box */}
-      <section className="rounded-lg shadow-sm py-10 px-5 mb-6 max-w-[600px] mx-auto">
-        <Input
-          type="text"
-          placeholder="SEARCH PLATE"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </section>
+{/* Search box */}
+<section className="rounded-lg shadow-sm py-10 px-5 mb-6 max-w-[600px] mx-auto flex md:flex-row flex-col gap-2 md:gap-0.5 items-center">
+  <Input
+    type="text"
+    placeholder="SEARCH PLATE"
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+    className="flex-grow  rounded-l-md"
+  />
+
+  <button
+    type="submit"
+    onClick={()=>{
+      navigate(`load-all-plates?${searchTerm}`)
+    }}
+    className="ml-3 bg-yellow-300 text-black font-bold px-6 py-3 rounded-md transition-colors duration-200 flex items-center justify-center cursor-pointer hover:bg-yellow-400 "
+  >
+    Buy
+  </button>
+  
+
+    <button
+    type="submit"
+     onClick={()=>{
+      navigate(`userdashboard/list-plate?${searchTerm}`)
+    }}
+    className="ml-3 bg-yellow-300 text-black font-bold px-6 py-3 rounded-md transition-colors duration-200 flex items-center justify-center cursor-pointer hover:bg-yellow-400 "
+  >
+    Sell
+  </button>
+</section>
+
 
 
       <section className="grid md:grid-cols-3 gap-10 max-w-9xl mx-auto mt-10">

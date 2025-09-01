@@ -1,45 +1,39 @@
-// src/pages/Chat.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useCreateMessageMutation } from "../../Redux/api/Chat/createChatApi";
 
 export default function Chat() {
-  const { id: receiverId } = useParams(); // seller/user id
+  const { id: receiverId } = useParams();
   const [searchParams] = useSearchParams();
-  const registrationId = searchParams.get("plate"); // registrationId from query
+  const registrationId = searchParams.get("plate");
   const navigate = useNavigate();
 
   const [createMessage] = useCreateMessageMutation();
   const [loading, setLoading] = useState(true);
 
+  const hasRunRef = useRef(false); // <--- track if already run
+
   useEffect(() => {
+    if (hasRunRef.current) return; // prevent running twice
+    hasRunRef.current = true;
+
     const createChannel = async () => {
       try {
-        // Step 1: Request backend to create/get channel
+        const initialFormData = new FormData();
+        initialFormData.append(
+          "message",
+          `Is this plate ${registrationId} available?`
+        );
+
         const res = await createMessage({
           id: receiverId,
-          formData: new FormData(), // empty → just create channel
-          registrationId,
+          formData: initialFormData,
         }).unwrap();
 
         const channel = res.data.channel;
-        if (channel && channel.channelName) {
-          // Step 2: Send initial message automatically
-          const initialFormData = new FormData();
-          initialFormData.append(
-            "message",
-            `Is this plate ${registrationId} available?`
-          );
-
-          await createMessage({
-            id: receiverId,
-            formData: initialFormData,
-            registrationId,
-          }).unwrap();
-
-          // Step 3: Navigate to channel details page
+        if (channel?.channelName) {
           navigate(
-            `/userdashboard/message-centre/details/${channel.channelName}`
+            `/userdashboard/message-center?${channel.channelName}`
           );
         }
       } catch (err) {
@@ -67,4 +61,3 @@ export default function Chat() {
     </div>
   );
 }
-

@@ -1,13 +1,25 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useGetAllPlatesQuery } from "../../Redux/api/PlatesApis/allListedPlatesApi";
+
 
 export default function AllPlates() {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const limit = 30;
+  
 
-  const { data, isLoading, isError } = useGetAllPlatesQuery({ page, limit });
+  const { search } = useLocation();
+  let searchTerm = "";
+
+  if (search.startsWith("?")) {
+    searchTerm = search.substring(1); // remove "?"
+  }
+
+  console.log(searchTerm);
+
+
+  const { data, isLoading, isError } = useGetAllPlatesQuery({ page, limit, searchTerm });
 
   // Extract API response safely
   const plates = data?.data?.all_plates || [];

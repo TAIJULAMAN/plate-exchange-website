@@ -2,12 +2,25 @@ import React, { useState } from "react";
 import { HiOutlineUpload } from "react-icons/hi";
 import { useAddAdvertMutation } from "../../../Redux/api/PlatesApis/myAdvartApi";
 import Swal from "sweetalert2";
+import { useLocation } from "react-router-dom";
 
 export default function ListPlateForSale() {
   const [addAdvert, { isLoading }] = useAddAdvertMutation();
+
+
+    const { search } = useLocation();
+    let searchTerm = "";
+  
+    if (search.startsWith("?")) {
+      searchTerm = search.substring(1); // remove "?"
+    }
+  
+    console.log(searchTerm);
+
+
   const [uploadedFile, setUploadedFile] = useState(null);
   const [formData, setFormData] = useState({
-    registration: "",
+    registration: searchTerm ? searchTerm : "",
     askingPrice: 0,
     price: "",
     vat: false,

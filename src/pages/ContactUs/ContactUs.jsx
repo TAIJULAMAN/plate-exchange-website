@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MapPin, Mail, Clock } from "lucide-react";
 import { useCreateContactMutation } from "../../Redux/api/contactApi";
 import Swal from "sweetalert2";
+import { useLocation } from "react-router-dom";
 
 export default function ContactUs() {
+    const location = useLocation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,6 +20,25 @@ export default function ContactUs() {
       [name]: value,
     }));
   };
+
+    // parse query params
+  useEffect(() => {
+    const query = new URLSearchParams(location.search);
+    const reportedUserId = query.get("reportedUserId") || "";
+    const reportedUserName = query.get("reportedUserName") || "";
+    const reporterEmail = query.get("reporterEmail") || "";
+
+    //set a message
+    let message = `I would like to report this user.\n\nUser ID: ${reportedUserId}\nUser Name: ${reportedUserName}\n\nPlease provide details of the issue here...`;
+
+    setFormData((prev) => ({
+      ...prev,
+      email: reporterEmail || prev.email,
+      reportedUserId,
+      question: reportedUserId ? message : prev.question,
+    }));
+  }, [location.search]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();

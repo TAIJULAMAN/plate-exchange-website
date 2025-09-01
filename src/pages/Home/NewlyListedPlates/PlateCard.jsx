@@ -5,7 +5,7 @@ export default function PlateCard({ plateNumber, currentPrice, plateId }) {
   const navigate = useNavigate();
   return (
     <div className="p-6 bg-white rounded-lg shadow-[2px_2px_8px_rgba(0,0,0,0.20)] hover:shadow-[6px_6px_14px_rgba(0,0,0,0.2)] transition-shadow duration-200">
-      <div className="flex items-center justify-center gap-6">
+      <div className="flex md:flex-row flex-col items-center justify-center gap-6">
         {/* License Plate */}
         <div className="bg-[#fad549] px-6 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)]">
           <span className="text-black font-bold text-4xl tracking-wider font-mycustom">
