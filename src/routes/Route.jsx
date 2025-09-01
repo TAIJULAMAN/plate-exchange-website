@@ -220,15 +220,15 @@ const router = createBrowserRouter([
       },
       {
         path: "message-center",
-        element: <AllChating />,
+        element: <IsPremiumRoute><AllChating /></IsPremiumRoute>,
       },
       {
         path: "message-center/:id",
-        element: <Chat />,
+        element: <IsPremiumRoute><Chat /></IsPremiumRoute>,
       },
       {
         path: "message-centre/details/:id",
-        element: <MessageDetails />,
+        element: <IsPremiumRoute><MessageDetails /></IsPremiumRoute>,
       },
       {
         path: "secure-payments",
