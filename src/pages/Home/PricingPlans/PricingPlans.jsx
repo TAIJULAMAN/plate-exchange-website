@@ -92,10 +92,10 @@ export default function PricingPlans() {
 
         {/* Pricing Cards */}
         {subscriptions.map((subscription) => (
-          <div key={subscription._id} className="flex justify-center mb-10">
-            <div className="w-full max-w-md border-2 border-[#00823A] rounded">
+          <div key={subscription._id} className="flex justify-center mb-5">
+            <div className="w-full max-w-[32rem] border-2 border-[#00823A] rounded">
               <div className="text-center mb-8 bg-green-50 p-5">
-                <h2 className="text-[#00823A] font-semibold text-base py-10">
+                <h2 className="text-[#00823A] font-semibold text-base py-5">
                   {subscription.subscriptionName}
                 </h2>
                 <div className="mb-5 flex items-center justify-center">

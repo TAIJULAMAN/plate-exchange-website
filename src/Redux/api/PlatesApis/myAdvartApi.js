@@ -9,6 +9,13 @@ const myAdvertsApi = baseApi.injectEndpoints({
       }),
       providesTags: ["plates"],
     }),
+  getMyAdvertStatistics: builder.query({
+      query: (id) => ({
+        url: `plates_sales/find_by_statistics/${id}`, // dynamic id
+        method: "GET",
+      }),
+      providesTags: ["plates"],
+    }),
     deleteAdvert: builder.mutation({
       query: (advertId) => ({
         url: `plates_sales/delete_plate_sales/${advertId}`,
@@ -43,6 +50,7 @@ const myAdvertsApi = baseApi.injectEndpoints({
 
 export const {
   useGetMyAdvertsQuery,
+  useGetMyAdvertStatisticsQuery,
   useDeleteAdvertMutation,
   useUpdateAdvertMutation,
   useAddAdvertMutation,

@@ -3,9 +3,11 @@ import { IoIosStar } from "react-icons/io";
 import LikeIconAndText from "../../shared/Hero/LikeIconandtext";
 import Input from "../../shared/Input/Input";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SellAPlateHero() {
     const [searchTerm, setSearchTerm] = useState("");
+        const navigate = useNavigate();
     const features = [
         {
             imgSrc: "https://i.ibb.co.com/C5rdz3s8/image.png",
@@ -45,6 +47,7 @@ export default function SellAPlateHero() {
                 </h2>
             </div>
 
+
       {/* Search Section */}
       <div className="bg-[#ecedef] rounded-lg shadow-sm py-10 px-4 mb-5 max-w-[550px] mx-auto">
         <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-2 md:gap-1">
@@ -60,6 +63,9 @@ export default function SellAPlateHero() {
 
           <button
             type="submit"
+                 onClick={()=>{
+      navigate(`/userdashboard/list-plate?${searchTerm}`)
+    }}
             className="md:ml-5 bg-yellow-300 text-black font-bold px-6 py-3 rounded-r-md transition-colors duration-200 flex items-center justify-center"
           >
             Sell

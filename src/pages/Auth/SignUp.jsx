@@ -39,10 +39,10 @@ export default function SignUp() {
             Swal.fire({
                 icon: "success",
                 title: "Account Created!",
-                text: "Your account has been successfully created.",
+                text: "Check Your Mail.",
                 confirmButtonText: "OK",
             }).then(() => {
-                navigate("/login"); // Redirect after user clicks OK
+                navigate("/user-verification"); // Redirect after user clicks OK
             });
         } catch (err) {
             console.error("Failed to create user:", err);

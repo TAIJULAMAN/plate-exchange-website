@@ -49,7 +49,7 @@ export default function UserSidebar() {
 
       {/* Sidebar */}
       <div
-         className={`w-70 bg-gray-50 p-4 mt-[150px] ${isMobile
+         className={`w-70 bg-gray-50 p-4 mt-[100px] ${isMobile
       ? `fixed top-0 w-80 pl-10 left-0 h-full z-40 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
       } transition-transform duration-300 ease-in-out`
       : ""
@@ -123,8 +123,10 @@ export default function UserSidebar() {
           isActive={isSectionActive(location.pathname, [
             "/userdashboard/my-adverts",
             "/userdashboard/my-subscriptions",
+            "/userdashboard/my-buyed-plates",
+            "/userdashboard/my-selled-plates",
             "/userdashboard/saved-adverts",
-            "/userdashboard/message-centre"
+            "/userdashboard/message-center"
           ])}
         >
           <SidebarButton
@@ -139,6 +141,18 @@ export default function UserSidebar() {
             text="My Subscriptions"
             onClick={isMobile ? toggleSidebar : undefined}
           />
+           <SidebarButton
+            to="/userdashboard/my-buyed-plates"
+            icon={<BsBoxSeam size={18} />}
+            text="My Buyed Plates"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
+           <SidebarButton
+            to="/userdashboard/my-selled-plates"
+            icon={<BsBoxSeam size={18} />}
+            text="My Selled Plates"
+            onClick={isMobile ? toggleSidebar : undefined}
+          />
           <SidebarButton
             to="/userdashboard/saved-adverts"
             icon={<Pin size={18} />}
@@ -146,9 +160,9 @@ export default function UserSidebar() {
             onClick={isMobile ? toggleSidebar : undefined}
           />
           <SidebarButton
-            to="/userdashboard/message-centre"
+            to="/userdashboard/message-center"
             icon={<Mail size={18} />}
-            text="Message Centre"
+            text="Message Center"
             onClick={isMobile ? toggleSidebar : undefined}
           />
         </Section>

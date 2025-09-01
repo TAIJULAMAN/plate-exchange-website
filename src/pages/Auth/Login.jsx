@@ -11,7 +11,7 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [logIn, { isLoading }] = useLogInMutation();
+  const [logIn, { isLoading,error }] = useLogInMutation();
 
   //  const user = useSelector();
   // const dispatch = useDispatch();
@@ -163,6 +163,11 @@ export default function Login() {
               Forgot password?
             </Link>
           </div>
+          {error && (
+            <p className="text-red-500 text-sm mt-2">
+              {error?.data?.message || "Login failed!"}
+            </p>
+          )}
         </form>
       </div>
     </section>
