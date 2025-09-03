@@ -86,3 +86,29 @@
     width: 20px;
   }
 }
+
+
+
+
+
+
+input[type="range"] {
+  @apply w-full h-3 bg-yellow-400 rounded-lg appearance-none cursor-pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  @apply appearance-none size-6 bg-green-600 rounded-full shadow-md transition;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  @apply bg-green-700 scale-110;
+}
+
+input[type="range"]::-moz-range-thumb {
+  @apply w-5 h-5 bg-green-500 rounded-full shadow-md cursor-pointer transition;
+}
+input[type="range"]::-moz-range-thumb:hover {
+  @apply bg-green-600 scale-110;
+}
+
+

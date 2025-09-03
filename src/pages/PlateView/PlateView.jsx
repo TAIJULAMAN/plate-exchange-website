@@ -225,20 +225,25 @@ export default function PlateView() {
             </button>
           </div>
 
-          {/* Brightness */}
-          <div className="space-y-2">
-            <label className="text-xl text-gray-700 font-medium">
-              Brightness for plate
-            </label>
-            <input
-              type="range"
-              min="50"
-              max="150"
-              value={brightness}
-              onChange={(e) => setBrightness(e.target.value)}
-              className="w-full h-2 bg-gray-300 rounded-lg cursor-pointer"
-            />
-          </div>
+{/* Brightness */}
+<div className="space-y-2">
+  <label className="text-xl text-gray-700 font-medium">
+    Brightness for plate
+  </label>
+  <input
+    type="range"
+    min="50"
+    max="150"
+    value={brightness}
+    onChange={(e) => setBrightness(e.target.value)}
+    className="
+      w-full h-2 
+      bg-gray-200 rounded-lg appearance-none cursor-pointer 
+      accent-green-500
+    "
+  />
+</div>
+
 
           {/* Actions */}
           <div className="space-y-3">
@@ -260,7 +265,7 @@ export default function PlateView() {
           <div className="text-center mt-6">
             <label
               htmlFor="carUpload"
-              className="inline-flex flex-col items-center justify-center w-full p-4 border-2 border-dashed border-gray-400 rounded-lg cursor-pointer hover:bg-gray-100"
+              className="inline-flex flex-col items-center justify-center w-full p-4 border-2 border-dashed border-gray-400 hover:border-green-400 rounded-lg cursor-pointer hover:bg-green-50"
             >
               <HiOutlineUpload className="text-4xl text-gray-600 mb-2" />
               <span className="text-gray-700 font-medium">
