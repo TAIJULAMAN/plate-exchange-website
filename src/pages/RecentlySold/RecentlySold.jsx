@@ -63,29 +63,29 @@ export default function RecentlySold() {
 
       {/* Recently Sold Plates Section */}
    <div className="min-h-[20rem]">
-       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 ">
+       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         {data?.data?.all_sold_plates?.map((item, index) => (
           <div
             key={item._id || index}
              onClick={() => handlePlateClick(item._id)}
-            className="bg-white border border-gray-200 rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+            className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4 text-center shadow-sm hover:shadow-md transition-shadow cursor-pointer w-full"
           >
             {/* License Plate */}
-            <div className="bg-[#fad549] w-full px-3 py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] mb-3 inline-block">
-              <span className="text-black font-bold text-4xl tracking-wider font-mycustom">
+            <div className="bg-[#fad549] px-3 sm:px-4 py-1 sm:py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] mb-3 mx-auto max-w-[180px]">
+              <span className="text-black font-bold text-lg sm:text-xl lg:text-2xl tracking-wider font-mycustom whitespace-nowrap overflow-hidden text-ellipsis block">
                 {item.registrationId}
               </span>
             </div>
 
             {/* Price Information */}
-            <div className="text-xl">
+            <div className="text-sm sm:text-base lg:text-lg">
               {item.status?.toLowerCase() === "sold" && (
                 <>
                   <span>Sold</span>
                   {item.askingPrice && (
                     <>
                       <span className="mx-1">for</span>
-                      <span>{item.askingPrice}</span>
+                      <span className="whitespace-nowrap">{item.askingPrice}</span>
                     </>
                   )}
                 </>

@@ -102,7 +102,7 @@ export default function PricingPlans() {
                   <span className="text-5xl font-semibold text-[#00823A]">
                     £ {subscription.price} /
                   </span>
-                  <span className="text-[#00823A] ml-2 text-2xl font-bold">4 Months</span>
+                  <span className="text-[#00823A] ml-2 text-2xl font-bold">Months</span>
                 </div>
                 <div className="text-center pb-10">
                   <p className="text-[#00823A] font-medium">
