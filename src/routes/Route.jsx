@@ -55,9 +55,7 @@ const router = createBrowserRouter([
       {
         path: "/sell-a-plate",
         element: (
-          <PrivateRoute>
             <SellAPlate />
-          </PrivateRoute>
         ),
       },
       {

@@ -71,8 +71,8 @@ export default function RecentlySold() {
             className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4 text-center shadow-sm hover:shadow-md transition-shadow cursor-pointer w-full"
           >
             {/* License Plate */}
-            <div className="bg-[#fad549] px-3 sm:px-4 py-1 sm:py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] mb-3 mx-auto max-w-[180px]">
-              <span className="text-black font-bold text-lg sm:text-xl lg:text-2xl tracking-wider font-mycustom whitespace-nowrap overflow-hidden text-ellipsis block">
+            <div className="bg-[#fad549] px-3 sm:px-4 py-1 sm:py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] mb-3 mx-auto max-w-fit">
+              <span className="text-black font-extrabold text-lg sm:text-xl lg:text-4xl tracking-wider font-mycustom whitespace-nowrap overflow-hidden text-ellipsis block">
                 {item.registrationId}
               </span>
             </div>
