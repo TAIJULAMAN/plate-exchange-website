@@ -2,9 +2,9 @@ import React from 'react'
 export default function Footer() {
     const footerLinks = {
         ourService: [
-            { name: "Sell your number plate", href: "#" },
-            { name: "Buy a number plate", href: "#" },
-            { name: "Get a number plate valuation", href: "#" }
+            { name: "Sell your number plate", href: "/sell-a-plate" },
+            { name: "Buy a number plate", href: "/buy-a-plate" },
+            { name: "Get a number plate valuation", href: "/get-plate-valued" }
         ],
         company: [
             { name: "About", href: "/about-us" },
@@ -16,12 +16,13 @@ export default function Footer() {
             { name: "Twitter", href: "#" }
         ],
         resources: [
-            { name: "Tutorials", href: "#" },
-            { name: "Blog", href: "#" },
-            { name: "Community", href: "#" },
-            { name: "Privacy Policy", href: "#" }
+            { name: "Tutorials", href: "/recently-sold" },
+            { name: "Blog", href: "/guide-and-blog" },
+            { name: "FAQ", href: "/faq" },
+            { name: "Privacy Policy", href: "/privacy-policy" }
         ]
     }
+    
 
     return (
         <footer className="bg-[#3C3D37] text-white">
@@ -46,12 +47,15 @@ export default function Footer() {
                 <div className="w-full h-px bg-gray-600 mb-8"></div>
 
                 {/* Main Footer Content */}
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
+                <div className="grid grid-cols-1 lg:grid-cols-8 gap-8 mb-8">
                     {/* Description */}
                     <div className="lg:col-span-2">
                         <p className="text-gray-300 leading-relaxed">
                            We connect sellers with buyers on a secure, premium platform.
                         </p>
+                    </div>
+
+                     <div className="lg:col-span-2">
                     </div>
 
                     {/* Our Service */}
@@ -88,7 +92,7 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Social Media & Resources Combined */}
+                    {/* Social Media*/}
                     <div className="space-y-6">
                         {/* Social Media */}
                         <div>
@@ -107,7 +111,10 @@ export default function Footer() {
                             </ul>
                         </div>
 
-                        {/* Resources */}
+                      
+                    </div>
+
+                      {/* Resources */}
                         <div>
                             <h3 className="font-semibold text-white mb-4">Resources</h3>
                             <ul className="space-y-2">
@@ -123,7 +130,6 @@ export default function Footer() {
                                 ))}
                             </ul>
                         </div>
-                    </div>
                 </div>
 
                 {/* Bottom Divider */}

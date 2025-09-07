@@ -31,8 +31,7 @@ export default function RecentlySold() {
     },
   ];
 
-
-      const handlePlateClick = (plateId) => {
+  const handlePlateClick = (plateId) => {
     navigate(`/plate-details/${plateId}`);
   };
 
@@ -43,7 +42,12 @@ export default function RecentlySold() {
   };
 
   if (isLoading) return <p className="text-center py-10">Loading...</p>;
-  if (isError) return <p className="text-center py-10 text-red-500">Error fetching sold plates.</p>;
+  if (isError)
+    return (
+      <p className="text-center py-10 text-red-500">
+        Error fetching sold plates.
+      </p>
+    );
 
   return (
     <div className="container mx-auto px-5 md:px-0 py-10 md:py-16 ">
@@ -55,46 +59,54 @@ export default function RecentlySold() {
         <div className="container mx-auto">
           <div className="grid md:grid-cols-3 gap-10 max-w-9xl mx-auto mt-10">
             {features.map((feature, index) => (
-              <LikeIconAndText key={index} imgSrc={feature.imgSrc} text={feature.text} />
+              <LikeIconAndText
+                key={index}
+                imgSrc={feature.imgSrc}
+                text={feature.text}
+              />
             ))}
           </div>
         </div>
       </div>
 
       {/* Recently Sold Plates Section */}
-   <div className="min-h-[20rem]">
-       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-        {data?.data?.all_sold_plates?.map((item, index) => (
-          <div
-            key={item._id || index}
-             onClick={() => handlePlateClick(item._id)}
-            className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4 text-center shadow-sm hover:shadow-md transition-shadow cursor-pointer w-full"
-          >
-            {/* License Plate */}
-            <div className="bg-[#fad549] px-3 sm:px-4 py-1 sm:py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] mb-3 mx-auto max-w-fit">
-              <span className="text-black font-extrabold text-lg sm:text-xl lg:text-4xl tracking-wider font-mycustom whitespace-nowrap overflow-hidden text-ellipsis block">
-                {item.registrationId}
-              </span>
-            </div>
+      <div className="min-h-[20rem]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+          {data?.data?.all_sold_plates?.map((item, index) => (
+            <div
+              key={item._id || index}
+              onClick={() => handlePlateClick(item._id)}
+              className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4 text-center shadow-sm hover:shadow-md transition-shadow cursor-pointer w-full"
+            >
+              {/* License Plate */}
+              <div className="bg-[#fad549] px-3 sm:px-4 py-1 sm:py-2 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] mb-3 mx-auto w-[120px] sm:w-[140px] md:w-[160px] lg:w-[180px] xl:w-[200px] flex items-center justify-center">
+                <span className="text-black font-extrabold text-lg sm:text-xl lg:text-4xl tracking-wider font-mycustom whitespace-nowrap overflow-hidden text-ellipsis block text-center">
+                  {item.registrationId && item.registrationId.length > 8
+                    ? `${item.registrationId.substring(0, 9)}..`
+                    : item.registrationId}
+                </span>
+              </div>
 
-            {/* Price Information */}
-            <div className="text-sm sm:text-base lg:text-lg">
-              {item.status?.toLowerCase() === "sold" && (
-                <>
-                  <span>Sold</span>
-                  {item.askingPrice && (
-                    <>
-                      <span className="mx-1">for</span>
-                      <span className="whitespace-nowrap">{item.askingPrice}</span>
-                    </>
-                  )}
-                </>
-              )}
+              {/* Price Information */}
+              <div className="text-sm sm:text-base lg:text-lg">
+                {item.status?.toLowerCase() === "sold" && (
+                  <>
+                    <span>Sold</span>
+                    {item.askingPrice && (
+                      <>
+                        <span className="mx-1">for</span>
+                        <span className="whitespace-nowrap">
+                          £{item.askingPrice}
+                        </span>
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-   </div>
 
       {/* Pagination */}
       <div className="flex justify-center items-center mt-10 gap-2">
@@ -103,7 +115,9 @@ export default function RecentlySold() {
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
           className={`px-4 py-2 rounded ${
-            currentPage === 1 ? "bg-gray-300 text-gray-600 cursor-not-allowed" : "bg-[#00823A] text-white"
+            currentPage === 1
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-[#00823A] text-white"
           }`}
         >
           Prev
@@ -132,7 +146,9 @@ export default function RecentlySold() {
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPage}
           className={`px-4 py-2 rounded ${
-            currentPage === totalPage ? "bg-gray-300 text-gray-600 cursor-not-allowed" : "bg-[#00823A] text-white"
+            currentPage === totalPage
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-[#00823A] text-white"
           }`}
         >
           Next
@@ -144,7 +160,9 @@ export default function RecentlySold() {
         onClick={() => navigate("/load-all-plates")}
         className="bg-[#00823A] max-w-xl mx-auto mt-6 cursor-pointer px-8 py-4 rounded shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2)] text-center font-sans"
       >
-        <span className="text-white font-bold text-2xl tracking-wider">Load all</span>
+        <span className="text-white font-bold text-2xl tracking-wider">
+          Load all
+        </span>
       </div>
     </div>
   );
