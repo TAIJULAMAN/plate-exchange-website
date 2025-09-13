@@ -1,11 +1,19 @@
-export const imgUrl = "https://heritage-despite-relaxation-became.trycloudflare.com/";
+export const imgUrl = "https://costume-converter-providence-against.trycloudflare.com/";
 export const url = `${imgUrl}api/v1/`;
+
+// 🔥 WebSocket base URL (auto picks wss:// if https page, ws:// otherwise)
+const wsProtocol = window.location.protocol === "https:" ? "wss" : "ws";
+export const wsUrl = `${wsProtocol}://${new URL(imgUrl).host}`;
 
 // Function to get the base API URL
 export const getBaseUrl = () => url;
 
 // Function to get the image base URL
 export const getImageBaseUrl = () => imgUrl;
+
+// Function to get the WebSocket base URL
+export const getWsBaseUrl = () => wsUrl;
+
 // asdf 
 
 export const getImageUrl = (imagePath) => {

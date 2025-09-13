@@ -45,7 +45,6 @@ export default function ContactUs() {
     const res = await createContact(formData);
 
     if (res?.data?.success) {
-      Swal.fire("Success", "Your question has been submitted.", "success");
       setFormData({
         name: "",
         email: "",

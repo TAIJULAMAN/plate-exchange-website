@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import {wsUrl} from "../config/envConfig";
 
 export default function useChatSocket(channelName, senderId) {
   const socketRef = useRef(null);
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const wsProtocol = window.location.protocol === "https:" ? "wss" : "ws";
-    socketRef.current = new WebSocket(`${wsProtocol}://heritage-despite-relaxation-became.trycloudflare.com`);
+    socketRef.current = new WebSocket(wsUrl);
 
     socketRef.current.onopen = () => {
       console.log("✅ Connected to WebSocket server");

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { jwtDecode } from "jwt-decode";
 import { useLogInMutation } from "../../Redux/api/authApi";
 import { setUser } from "../../Redux/Slice/authSlice";
 import { useDispatch } from "react-redux";
@@ -33,6 +34,27 @@ export default function Login() {
       // console.log(response);
 
       if (response?.success && response?.data?.accessToken) {
+        // Decode JWT token to check user role first
+        try {
+          const decodedToken = jwtDecode(response?.data?.accessToken);
+          
+          // Check if user role is admin - prevent login
+          if (decodedToken.role === "admin") {
+            Swal.fire({
+              icon: "error",
+              title: "Access Denied",
+              text: "Admin accounts are not allowed to login to this application. Please use a regular user account.",
+              confirmButtonText: "Close",
+              confirmButtonColor: "#dc2626"
+            });
+            return; // Exit early, don't proceed with login
+          }
+        } catch (decodeError) {
+          console.error("Error decoding token:", decodeError);
+          // If we can't decode the token, we'll proceed with normal login
+        }
+
+        // Only proceed with login if user is not admin
         localStorage.setItem("token", response?.data?.accessToken);
         dispatch(
           setUser({
@@ -46,6 +68,7 @@ export default function Login() {
           title: "Login successful!",
           text: "You are now logged in.",
         });
+        
         navigate("/");
       } else {
         Swal.fire({
@@ -170,6 +193,7 @@ export default function Login() {
           )}
         </form>
       </div>
+
     </section>
   );
 }

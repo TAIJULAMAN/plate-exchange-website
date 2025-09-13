@@ -20,7 +20,7 @@ export default function SellsHowItWorks() {
     ];
     return (
         <section className="bg-[#f6f6f6] py-16 font-manrope">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="container mx-auto px-4 sm:px-0 lg:px-8">
                 {/* Section Header */}
                 <div className="text-center mb-10">
                     <h2 className="text-xl md:text-7xl font-[500] text-[#1B1B1B] mb-5">

@@ -32,7 +32,7 @@ export default function UserVerification() {
   }, [isSuccess, isError, error, navigate]);
 
   const handleChange = (value, index) => {
-    if (!isNaN(value)) {
+    if (!isNaN(value) && value.length <= 1) {
       const newCode = [...code];
       newCode[index] = value;
       setCode(newCode);
@@ -41,6 +41,45 @@ export default function UserVerification() {
       if (value && index < 5) {
         document.getElementById(`code-${index + 1}`).focus();
       }
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === 'Backspace') {
+      e.preventDefault();
+      const newCode = [...code];
+      
+      if (code[index]) {
+        // Clear current field if it has value
+        newCode[index] = '';
+        setCode(newCode);
+      } else if (index > 0) {
+        // Move to previous field and clear it
+        newCode[index - 1] = '';
+        setCode(newCode);
+        document.getElementById(`code-${index - 1}`).focus();
+      }
+    } else if (e.key === 'ArrowLeft' && index > 0) {
+      document.getElementById(`code-${index - 1}`).focus();
+    } else if (e.key === 'ArrowRight' && index < 5) {
+      document.getElementById(`code-${index + 1}`).focus();
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData('text').replace(/\D/g, ''); // Remove non-digits
+    
+    if (pastedData.length <= 6) {
+      const newCode = new Array(6).fill('');
+      for (let i = 0; i < pastedData.length; i++) {
+        newCode[i] = pastedData[i];
+      }
+      setCode(newCode);
+      
+      // Focus the next empty field or the last field
+      const nextIndex = Math.min(pastedData.length, 5);
+      document.getElementById(`code-${nextIndex}`).focus();
     }
   };
 
@@ -83,6 +122,8 @@ export default function UserVerification() {
               maxLength="1"
               value={digit}
               onChange={(e) => handleChange(e.target.value, index)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              onPaste={handlePaste}
               className="w-12 h-12 text-2xl text-center border border-[#00823b] rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
           ))}
