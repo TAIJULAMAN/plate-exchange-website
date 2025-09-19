@@ -32,28 +32,32 @@ export default function BlogDetails() {
           {blog.blogTitle}
         </h1>
 
-        {/* Publisher info */}
-        <div className="flex items-center gap-3 text-gray-600 my-3">
-          {/* Publisher Avatar */}
-          <img
-            src={getImageUrl(blog.adminId.photo)}
-            alt={`${blog.adminId.fastname} ${blog.adminId.lastname}`}
-            className="w-10 h-10 rounded-full object-cover"
-          />
-          {/* Publisher Name & Date */}
-          <div className="text-sm ">
-            <p className="font-medium text-gray-800">
-              {blog.adminId.fastname} {blog.adminId.lastname}
-            </p>
-            <p className="text-gray-500">
-              {new Date(blog.createdAt).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </p>
+        {/* Publisher info (guard against null adminId) */}
+        {(blog?.adminId && (blog.adminId.fastname || blog.adminId.lastname || blog.adminId.photo)) && (
+          <div className="flex items-center gap-3 text-gray-600 my-3">
+            {blog.adminId?.photo && (
+              <img
+                src={getImageUrl(blog.adminId.photo)}
+                alt={`${blog.adminId?.fastname || ''} ${blog.adminId?.lastname || ''}`.trim() || 'Publisher'}
+                className="w-10 h-10 rounded-full object-cover"
+              />
+            )}
+            <div className="text-sm ">
+              {(blog.adminId?.fastname || blog.adminId?.lastname) && (
+                <p className="font-medium text-gray-800">
+                  {blog.adminId?.fastname || ''} {blog.adminId?.lastname || ''}
+                </p>
+              )}
+              <p className="text-gray-500">
+                {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Main Content Area */}
@@ -97,7 +101,7 @@ export default function BlogDetails() {
                 "bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600",
             },
             { icon: Linkedin, color: "bg-blue-700 hover:bg-blue-800" },
-          ].map(({ icon: Icon, color }, i) => (
+          ].map(({ icon:  color }, i) => (
             <button
               key={i}
               onClick={() => {
@@ -130,10 +134,10 @@ export default function BlogDetails() {
                 key={article._id}
                 article={{
                   id: article._id,
-                  image: `/${article.photo}`,
+                  image: getImageUrl(article.photo),
                   title: article.blogTitle,
                   description: article.content,
-                  link: `blog/${article._id}`,
+                  link: `/blog/details/${article._id}`,
                 }}
               />
             ))}

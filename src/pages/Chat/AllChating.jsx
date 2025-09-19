@@ -1,5 +1,6 @@
 // src/pages/Chat/ChatLayout.jsx
 import React, { useState, useRef, useEffect, useMemo } from "react";
+import { useSelector } from "react-redux";
 import { FiMenu, FiMoreVertical } from "react-icons/fi";
 import { RiSendPlane2Fill } from "react-icons/ri";
 import { IoImagesOutline, IoCheckmarkDone } from "react-icons/io5";
@@ -38,8 +39,7 @@ export default function ChatLayout() {
   console.log(currentChannelName);
 
   // myId
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const token = useSelector((state) => state.auth.token);
   const decoded = token ? jwtDecode(token) : null;
 
   const myId = decoded?.id;
