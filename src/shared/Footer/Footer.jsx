@@ -1,22 +1,23 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 export default function Footer() {
     const footerLinks = {
         ourService: [
             { name: "Sell your number plate", href: "/sell-a-plate" },
             { name: "Buy a number plate", href: "/buy-a-plate" },
-            { name: "Get a number plate valuation", href: "/get-plate-valued" }
+            { name: "Get a number plate valuation", href: "/userdashboard/get-plate-valued" }
         ],
         company: [
             { name: "About", href: "/about-us" },
             { name: "Contact Us", href: "/contact-us" }
         ],
         socialMedia: [
-            { name: "Facebook", href: "#" },
-            { name: "Instagram", href: "#" },
-            { name: "Twitter", href: "#" }
+            { name: "Facebook", href: "https://facebook.com", external: true },
+            { name: "Instagram", href: "https://instagram.com", external: true },
+            { name: "Twitter", href: "https://twitter.com", external: true }
         ],
         resources: [
-            { name: "Tutorials", href: "/recently-sold" },
+            { name: "Recently Sold", href: "/recently-sold" },
             { name: "Blog", href: "/guide-and-blog" },
             { name: "FAQ", href: "/faq" },
             { name: "Privacy Policy", href: "/privacy-policy" }
@@ -34,12 +35,21 @@ export default function Footer() {
                     </h2>
 
                     <div className="flex flex-row gap-2">
-                        <button className="bg-yellow-500 text-gray-900 font-semibold px-6 py-2 rounded-full">
+                        <Link
+                          to="/sell-a-plate"
+                          className="bg-yellow-500 hover:bg-yellow-400 active:bg-yellow-500 text-gray-900 font-semibold px-6 py-2 rounded-full transition-colors duration-200 cursor-pointer shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+                          aria-label="Sell A Plate"
+                        >
                             Sell A Plate
-                        </button>
-                        <button className="border-2 border-white bg-white text-gray-900 font-semibold px-6 py-2 rounded-full">
+                        </Link>
+                        <Link
+                          to="/buy-a-plate"
+                          className="border-2 border-white bg-white hover:bg-gray-100 active:bg-white text-gray-900 font-semibold px-6 py-2 rounded-full transition-colors duration-200 cursor-pointer shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+                          aria-label="Buy A Plate"
+                        >
                             Buy A Plate
-                        </button>
+                        </Link>
+                       
                     </div>
                 </div>
 
@@ -64,12 +74,12 @@ export default function Footer() {
                         <ul className="space-y-2">
                             {footerLinks.ourService.map((link, index) => (
                                 <li key={index}>
-                                    <a
-                                        href={link.href}
-                                        className="text-gray-300 hover:text-white transition-colors duration-200"
+                                    <Link
+                                        to={link.href}
+                                        className="text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
                                     >
                                         {link.name}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -81,12 +91,12 @@ export default function Footer() {
                         <ul className="space-y-2">
                             {footerLinks.company.map((link, index) => (
                                 <li key={index}>
-                                    <a
-                                        href={link.href}
-                                        className="text-gray-300 hover:text-white transition-colors duration-200"
+                                    <Link
+                                        to={link.href}
+                                        className="text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
                                     >
                                         {link.name}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -100,12 +110,23 @@ export default function Footer() {
                             <ul className="space-y-2">
                                 {footerLinks.socialMedia.map((link, index) => (
                                     <li key={index}>
-                                        <a
+                                        {link.external ? (
+                                          <a
                                             href={link.href}
-                                            className="text-gray-300 hover:text-white transition-colors duration-200"
-                                        >
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
+                                          >
                                             {link.name}
-                                        </a>
+                                          </a>
+                                        ) : (
+                                          <Link
+                                            to={link.href}
+                                            className="text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
+                                          >
+                                            {link.name}
+                                          </Link>
+                                        )}
                                     </li>
                                 ))}
                             </ul>
@@ -120,12 +141,12 @@ export default function Footer() {
                             <ul className="space-y-2">
                                 {footerLinks.resources.map((link, index) => (
                                     <li key={index}>
-                                        <a
-                                            href={link.href}
-                                            className="text-gray-300 hover:text-white transition-colors duration-200"
+                                        <Link
+                                            to={link.href}
+                                            className="text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
                                         >
                                             {link.name}
-                                        </a>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
