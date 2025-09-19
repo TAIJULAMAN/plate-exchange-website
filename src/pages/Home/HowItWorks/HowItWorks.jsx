@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import HowItWorksCard from '../../../shared/HowItWorks/HowItWorksCard';
 
 export default function HowItWorks() {
+  const navigate = useNavigate();
   const steps = [
     {
       title: "Number plate search",
@@ -35,6 +37,31 @@ export default function HowItWorks() {
     }
   ];
 
+  const handleClick = (buttonText) => {
+    // Map each button to its route per requirement
+    switch (buttonText) {
+      case 'Start your search':
+      case 'Enquire now':
+        // Navigate to home; if a search section anchor exists, we can use '/#search'
+        navigate('/');
+        break;
+      case 'Buy a plate':
+        navigate('/buy-a-plate');
+        break;
+      case 'List your plate':
+        navigate('/sell-a-plate');
+        break;
+      case 'Learn more':
+        navigate('/faq');
+        break;
+      case 'Get started':
+        navigate('/load-all-plates');
+        break;
+      default:
+        navigate('/');
+    }
+  };
+
   return (
     <main className="container mx-auto px-5 md:px-0 py-5 md:py-16">
       {/* Section Header */}
@@ -52,6 +79,7 @@ export default function HowItWorks() {
             title={step.title}
             description={step.description}
             buttonText={step.buttonText}
+            onClick={() => handleClick(step.buttonText)}
           />
         ))}
       </div>
