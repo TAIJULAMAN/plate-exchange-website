@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {jwtDecode} from "jwt-decode";
 import { useChannelChatDetailsQuery } from "../../../Redux/api/Chat/chatHistoryApi";
 import useChatSocket from "../../../hooks/useChatSocket";
 
 export default function MessageDetails() {
   const { id: channelName } = useParams(); // channelName from route
-  const token = localStorage.getItem("token");
+  const token = useSelector((state) => state.auth.token);
   const decoded = token ? jwtDecode(token) : null;
   const myId = decoded?.id; // get senderId from JWT
 
