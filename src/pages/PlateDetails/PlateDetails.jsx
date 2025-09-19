@@ -10,6 +10,7 @@ import { getImageUrl } from "../../config/envConfig";
 import {
   useAddToSavedPlatesMutation,
   useGetMySavedPlatesQuery,
+  useRemoveFromSavedPlatesMutation,
 } from "../../Redux/api/PlatesApis/mySavedAdversApi";
 import { useCreateBuyerSellerCheckoutSessionMutation } from "../../Redux/api/PaymentApis/buyAPlate";
 import { useIssubscribedMutation } from "../../Redux/api/Issubscribed/IssubscribedApi";
@@ -22,7 +23,8 @@ export default function PlateDetails() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data, error, isLoading } = useGetSinglePlateQuery(id);
-  const [addToSavedPlates] = useAddToSavedPlatesMutation();
+  const [addToSavedPlates, { isLoading: addingFavorite }] = useAddToSavedPlatesMutation();
+  const [removeFromSavedPlates, { isLoading: removingFavorite }] = useRemoveFromSavedPlatesMutation();
   const { data: similarplatesData } = useGetSimilarPlatesQuery(id);
   const [createCheckout, { isLoading: checkoutLoading }] =
     useCreateBuyerSellerCheckoutSessionMutation();
@@ -38,18 +40,28 @@ export default function PlateDetails() {
       </p>
     );
 
-  const handleSavePlate = (plateId) => () => {
-    console.log(plateId);
-    // Implement save functionality here
-    addToSavedPlates(plateId);
+  const toggleFavorite = async (advertId) => {
+    console.log("Favorite clicked, ID:", advertId);
+    try {
+      if (isSaved && savedEntryId) {
+        // API expects saved advert _id, not the plate id
+        await removeFromSavedPlates(savedEntryId).unwrap();
+      } else {
+        await addToSavedPlates(advertId).unwrap();
+      }
+    } catch (err) {
+      console.error("Failed to toggle favorite:", err);
+    }
   };
 
   const plate = data?.data;
 
-  // চেক করা হচ্ছে savedPlates এ এই প্লেট আছে কি না
-  const isSaved = savedPlates?.data?.all_save_plates?.some(
+  // Find the saved entry for this plate (needed to remove by saved advert ID)
+  const savedEntry = savedPlates?.data?.all_save_plates?.find(
     (item) => item.platesalesId?._id === plate?._id
   );
+  const savedEntryId = savedEntry?._id;
+  const isSaved = Boolean(savedEntryId);
 
   // Use dynamic similar plates from API
   const similarPlates =
@@ -121,15 +133,20 @@ export default function PlateDetails() {
               className="w-full h-96 object-cover"
             />
             <button
-              onClick={handleSavePlate(plate?._id)}
-              disabled={loadingSaved}
-              className="absolute top-4 right-4 bg-white border border-gray-200 bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 transition-all hover:bg-gray-50 cursor-pointer"
+              onClick={() => toggleFavorite(plate?._id)}
+              disabled={loadingSaved || addingFavorite || removingFavorite}
+              aria-label={isSaved ? "Remove from saved" : "Save plate"}
+              className="absolute top-4 right-4 bg-white border border-gray-200 bg-opacity-80 hover:bg-opacity-100 rounded-full p-2 transition-all hover:bg-gray-50 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              <Heart
-                className={`w-6 h-6 ${
-                  isSaved ? "text-red-500 fill-red-500" : "text-gray-600"
-                }`}
-              />
+              {addingFavorite || removingFavorite ? (
+                <span className="block w-5 h-5 border-2 border-gray-300 border-t-red-500 rounded-full animate-spin" />
+              ) : (
+                <Heart
+                  className={`w-6 h-6 ${
+                    isSaved ? "text-red-500 fill-red-500" : "text-gray-600"
+                  }`}
+                />
+              )}
             </button>
           </div>
         </div>

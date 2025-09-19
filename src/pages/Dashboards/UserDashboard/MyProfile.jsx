@@ -49,18 +49,23 @@ export default function MyProfile() {
       formDataToSend.append('fastname', formData.firstName);
       formDataToSend.append('lastname', formData.lastName);
       formDataToSend.append('male', formData.gender);
-      formDataToSend.append('phoneNumber', formData.phoneNumber);
+      // Phone validation: send empty string if none; require min length 7 when provided
+      const phone = (formData.phoneNumber || '').trim();
+      if (phone.length === 0) {
+        formDataToSend.append('phoneNumber', '');
+      } else if (phone.length < 7) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Invalid Phone Number',
+          text: 'Phone number must be at least 7 digits.',
+        });
+        return;
+      } else {
+        formDataToSend.append('phoneNumber', phone);
+      }
       formDataToSend.append('address', formData.address);
 
       if (photo) formDataToSend.append('file', photo);
-      if (!formData.phoneNumber) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Phone Number Required',
-          text: 'Please enter your phone number.',
-        });
-        return;
-      }
 
       await updateProfile(formDataToSend).unwrap();
 
@@ -124,7 +129,7 @@ export default function MyProfile() {
           </div>
 
           {/* Gender */}
-          <div className="form-group">
+          <div className="form-group relative">
             <label htmlFor="gender" className="block mb-2 font-bold text-[#1B1B1B] text-lg">
               Gender
             </label>
@@ -133,14 +138,23 @@ export default function MyProfile() {
               name="gender"
               value={formData.gender}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-700 rounded-md text-base bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 pr-10 py-3 border border-gray-700 rounded-md text-base bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none"
             >
               <option value="">Select gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Other">Other</option>
-              <option value="Prefer not to say">Prefer not to say</option>
+          
             </select>
+            {/* Custom dropdown caret shifted 10px from the right */}
+            <span
+              className="pointer-events-none absolute inset-y-0 flex items-center text-gray-700"
+              style={{ right: '10px' , top: '70%', transform: 'translateY(-50%)' }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+              </svg>
+            </span>
           </div>
 
           {/* Phone Number */}
@@ -151,7 +165,7 @@ export default function MyProfile() {
             <input
               type="tel"
               id="phoneNumber"
-              required={true}
+              required={false}
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleInputChange}

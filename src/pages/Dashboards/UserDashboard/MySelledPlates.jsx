@@ -28,7 +28,7 @@ export default function MySelledPlates() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-50">
-      <h2 className="text-2xl font-bold mb-6">My Selled Plates</h2>
+      <h2 className="text-2xl font-bold mb-6">My sold plates</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
         {payments.map((item) => (
