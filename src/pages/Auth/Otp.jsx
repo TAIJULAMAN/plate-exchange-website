@@ -80,14 +80,62 @@ function VerificationCode() {
   }, [verifySuccess, verifyError, verifyErr, verifyData, navigate]);
 
   const handleChange = (value, index) => {
-    if (!isNaN(value)) {
-      const newCode = [...code];
-      newCode[index] = value;
-      setCode(newCode);
-      if (value && index < 5) {
-        document.getElementById(`code-${index + 1}`).focus();
-      }
+    // accept only digits, one character per box
+    const digit = value.replace(/\D/g, "").slice(-1);
+    const newCode = [...code];
+    newCode[index] = digit || "";
+    setCode(newCode);
+    if (digit && index < 5) {
+      const next = document.getElementById(`code-${index + 1}`);
+      if (next) next.focus();
     }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      const newCode = [...code];
+      if (newCode[index]) {
+        newCode[index] = "";
+        setCode(newCode);
+      } else if (index > 0) {
+        newCode[index - 1] = "";
+        setCode(newCode);
+        const prev = document.getElementById(`code-${index - 1}`);
+        if (prev) prev.focus();
+      }
+      return;
+    }
+    if (e.key === "ArrowLeft" && index > 0) {
+      e.preventDefault();
+      const prev = document.getElementById(`code-${index - 1}`);
+      if (prev) prev.focus();
+    }
+    if (e.key === "ArrowRight" && index < 5) {
+      e.preventDefault();
+      const next = document.getElementById(`code-${index + 1}`);
+      if (next) next.focus();
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasted = (e.clipboardData || window.clipboardData)
+      .getData("text")
+      .replace(/\D/g, "");
+    if (!pasted) return;
+
+    const active = document.activeElement?.id || "code-0";
+    const startIndex = Number(active?.split("-")[1]) || 0;
+    const newCode = [...code];
+    for (let i = 0; i < 6 - startIndex && i < pasted.length; i++) {
+      newCode[startIndex + i] = pasted[i];
+    }
+    setCode(newCode);
+
+    const nextIndex = Math.min(startIndex + pasted.length, 5);
+    const next = document.getElementById(`code-${nextIndex}`);
+    if (next) next.focus();
   };
 
   const enteredCode = code.join("");
@@ -119,6 +167,12 @@ function VerificationCode() {
       });
       return;
     }
+    // clear input boxes on resend
+    setCode(new Array(6).fill(""));
+    setTimeout(() => {
+      const first = document.getElementById("code-0");
+      if (first) first.focus();
+    }, 0);
     forgotPassword({ email });
   };
 
@@ -137,7 +191,7 @@ function VerificationCode() {
           </p>
         </div>
         <form className="space-y-5">
-          <div className="flex justify-center gap-2">
+          <div className="flex justify-center gap-2" onPaste={handlePaste}>
             {code.map((digit, index) => (
               <input
                 key={index}
@@ -146,6 +200,7 @@ function VerificationCode() {
                 maxLength="1"
                 value={digit}
                 onChange={(e) => handleChange(e.target.value, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
                 className="shadow-xs w-12 h-12 text-2xl text-center border border-[#00823b] text-[#00823b] rounded-lg focus:outline-none"
               />
             ))}
