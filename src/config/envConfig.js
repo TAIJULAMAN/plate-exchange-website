@@ -1,4 +1,4 @@
-export const imgUrl = "https://costume-converter-providence-against.trycloudflare.com/";
+export const imgUrl = "https://honest-originally-beverly-yrs.trycloudflare.com/";
 export const url = `${imgUrl}api/v1/`;
 
 // 🔥 WebSocket base URL (auto picks wss:// if https page, ws:// otherwise)
