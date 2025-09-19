@@ -1,11 +1,12 @@
-import React from "react";
-import { MessageCircle, Heart } from "lucide-react";
+import React, { useState } from "react";
+import { MessageCircle, Heart, Trash2 } from "lucide-react";
 import { useGetMySavedPlatesQuery, useRemoveFromSavedPlatesMutation } from "../../../Redux/api/PlatesApis/mySavedAdversApi";
 import { useNavigate } from "react-router-dom";
 
 export default function SavedAdverts() {
   const { data, isLoading, error } = useGetMySavedPlatesQuery();
-  const [removeFromSavedPlates] =     useRemoveFromSavedPlatesMutation();
+  const [removeFromSavedPlates, { isLoading: removing }] = useRemoveFromSavedPlatesMutation();
+  const [removingId, setRemovingId] = useState(null);
   const navigate = useNavigate();
 
   if (isLoading) return <p className="text-center">Loading...</p>;
@@ -19,9 +20,17 @@ export default function SavedAdverts() {
     navigate(`/plate-details/${advertId}`);
   };
 
-  const toggleFavorite = (advertId) => {
+  const toggleFavorite = async (advertId) => {
     console.log("Favorite clicked, ID:", advertId);
-    removeFromSavedPlates(advertId);
+    try {
+      setRemovingId(advertId);
+      await removeFromSavedPlates(advertId).unwrap();
+    } catch {
+      // optionally, show a toast
+      // console.error(e);
+    } finally {
+      setRemovingId(null);
+    }
   };
 
   return (
@@ -87,13 +96,24 @@ export default function SavedAdverts() {
                   </button>
                 </div>
 
-                {/* Favorite */}
+                {/* Remove Saved */}
                 <div className="flex justify-center w-full sm:w-auto">
                   <button
                     onClick={() => toggleFavorite(advert._id)}
-                    className="p-2 hover:bg-red-100 border border-gray-100 rounded-full transition-colors cursor-pointer "
+                    disabled={removing && removingId === advert._id}
+                    className="px-3 py-2 hover:bg-red-100 border border-gray-100 rounded-full transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-2"
                   >
-                    <Heart className="w-5 h-5 text-red-400 " />
+                    {removing && removingId === advert._id ? (
+                      <>
+                        <span className="block w-4 h-4 border-2 border-gray-300 border-t-red-500 rounded-full animate-spin" />
+                        <span className="text-sm text-gray-700">Removing...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Trash2 className="w-5 h-5 text-red-500" />
+                        <span className="text-sm text-red-600">Remove</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
