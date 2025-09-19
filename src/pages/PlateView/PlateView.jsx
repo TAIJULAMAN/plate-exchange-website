@@ -124,7 +124,7 @@ export default function PlateView() {
         <div className="lg:col-span-2">
           <div
             ref={previewRef}
-            className="relative bg-white overflow-hidden shadow-sm mb-6
+            className="relative bg-white overflow-hidden shadow-sm mb-2
                w-full max-w-[980px] mx-auto rounded-2xl
                aspect-[4/3] lg:aspect-[980/520]"
           >
@@ -169,6 +169,8 @@ export default function PlateView() {
               </div>
             </Rnd>
           </div>
+
+          <h1 className="text-center text-md mb-auto">Drag the Plate to place it in the right position</h1>
         </div>
 
         {/* Controls */}
