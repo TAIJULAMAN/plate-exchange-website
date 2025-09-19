@@ -54,7 +54,6 @@ export default function Login() {
         // Decode JWT token to check user role first
         try {
           const decodedToken = jwtDecode(response?.data?.accessToken);
-
           // Check if user role is admin - prevent login
           if (decodedToken.role === "admin") {
             Swal.fire({
@@ -62,7 +61,8 @@ export default function Login() {
               title: "Access Denied",
               text: "Admin accounts are not allowed to login to this application. Please use a regular user account.",
               confirmButtonText: "Close",
-              confirmButtonColor: "#dc2626",
+
+              confirmButtonColor: "#dc2626"
             });
             return; // Exit early, don't proceed with login
           }
@@ -99,7 +99,6 @@ export default function Login() {
           title: "Login successful!",
           text: "You are now logged in.",
         });
-
         navigate("/");
       } else {
         Swal.fire({
