@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../Redux/Slice/authSlice";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { useGetMyProfileQuery } from "../../Redux/api/authApi";
 import Loader from "../Loaders/Loader";
@@ -10,10 +12,13 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
   const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
+  const moreRef = useRef(null);
+  const avatarRef = useRef(null);
   const navigate = useNavigate();
-const token = localStorage.getItem("token");
-const [isLoggedIn, setIsLoggedIn] = useState(!!token);
-const { data, isLoading, refetch } = useGetMyProfileQuery(token, { skip: !token });
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!token);
+  const { data, isLoading, refetch } = useGetMyProfileQuery(token, { skip: !token });
 
 
 
@@ -32,16 +37,34 @@ useEffect(() => {
   }
 }, [isLoggedIn, token, refetch]);
 
-  // Keep auth state in sync with storage
+    // Keep auth state in sync with Redux token
   useEffect(() => {
-    const checkAuthStatus = () => {
-      const token = localStorage.getItem("token");
-      setIsLoggedIn(!!token);
-    };
+    setIsLoggedIn(!!token);
+  }, [token]);
 
-    window.addEventListener("storage", checkAuthStatus);
-    return () => window.removeEventListener("storage", checkAuthStatus);
-  }, []);
+  // Close dropdowns on click outside or Escape
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (isMoreDropdownOpen && moreRef.current && !moreRef.current.contains(e.target)) {
+        setIsMoreDropdownOpen(false);
+      }
+      if (isAvatarDropdownOpen && avatarRef.current && !avatarRef.current.contains(e.target)) {
+        setIsAvatarDropdownOpen(false);
+      }
+    };
+    const handleKeydown = (e) => {
+      if (e.key === "Escape") {
+        setIsMoreDropdownOpen(false);
+        setIsAvatarDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeydown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeydown);
+    };
+  }, [isMoreDropdownOpen, isAvatarDropdownOpen]);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleMoreDropdown = () => setIsMoreDropdownOpen(!isMoreDropdownOpen);
@@ -49,7 +72,7 @@ useEffect(() => {
     setIsAvatarDropdownOpen(!isAvatarDropdownOpen);
 
   const handleLogOut = () => {
-    localStorage.removeItem("token");
+    dispatch(logout());
     setIsLoggedIn(false);
     navigate("/login");
   };
@@ -118,7 +141,7 @@ useEffect(() => {
             ))}
 
             {/* More dropdown */}
-            <div className="relative">
+            <div className="relative" ref={moreRef}>
               <button
                 onClick={toggleMoreDropdown}
                 className="text-white hover:text-yellow-400 px-3 py-2 text-sm font-medium flex items-center"
@@ -151,7 +174,7 @@ useEffect(() => {
           {/* Auth buttons */}
           <div className="hidden md:flex items-center space-x-4">
             {isLoggedIn ? (
-              <div className="relative">
+              <div className="relative" ref={avatarRef}>
                 <div className="flex gap-2">
                   <button
                     onClick={toggleAvatarDropdown}

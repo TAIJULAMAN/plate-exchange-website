@@ -70,10 +70,13 @@ export default function AccountSecurity() {
         confirm_password: ''
       });
     } catch (error) {
+      const apiMsg = error?.data?.errorSources?.[0]?.message
+        || error?.data?.message
+        || 'An error occurred. Please try again.';
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: error?.data?.message || 'An error occurred. Please try again.'
+        text: apiMsg
       });
     }
   };
@@ -132,7 +135,7 @@ export default function AccountSecurity() {
           {/* Confirm Password */}
           <div className="form-group relative">
             <label htmlFor="confirm_password" className="block mb-2 font-bold text-[#1B1B1B] text-lg">
-              New Password Again
+              Confirm Password
             </label>
             <input
               type={showPassword.confirm ? 'text' : 'password'}
