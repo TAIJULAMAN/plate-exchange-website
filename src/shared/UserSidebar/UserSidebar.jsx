@@ -144,13 +144,13 @@ export default function UserSidebar() {
            <SidebarButton
             to="/userdashboard/my-buyed-plates"
             icon={<BsBoxSeam size={18} />}
-            text="My Buyed Plates"
+            text="My purchased plate"
             onClick={isMobile ? toggleSidebar : undefined}
           />
            <SidebarButton
             to="/userdashboard/my-selled-plates"
             icon={<BsBoxSeam size={18} />}
-            text="My Selled Plates"
+            text="My sold plate"
             onClick={isMobile ? toggleSidebar : undefined}
           />
           <SidebarButton
